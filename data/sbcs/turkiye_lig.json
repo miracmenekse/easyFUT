@@ -1,0 +1,11 @@
+{
+  "name": "Süper Lig Meydan Okuması",
+  "size": 11,
+  "min_rating": 82,
+  "reward_value": 8000,
+  "requirements": [
+    {"field": "league", "in": ["Süper Lig"], "min": 3},
+    {"field": "nation", "in": ["Türkiye"], "min": 2},
+    {"field": "rating", "gte": 85, "max": 1}
+  ]
+}

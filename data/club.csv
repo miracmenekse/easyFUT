@@ -1,0 +1,31 @@
+name,rating,position,nation,league,club,rarity,tradeable,duplicate,price
+Bukayo Saka,87,RW,England,Premier League,Arsenal,rare,hayır,hayır,0
+Declan Rice,87,CDM,England,Premier League,Arsenal,rare,evet,hayır,14000
+Ollie Watkins,84,ST,England,Premier League,Aston Villa,rare,hayır,evet,0
+Jarrod Bowen,84,RW,England,Premier League,West Ham,rare,hayır,hayır,0
+Alejandro Grimaldo,85,LB,Spain,Bundesliga,Leverkusen,rare,evet,hayır,3500
+Mikel Merino,84,CM,Spain,Premier League,Arsenal,rare,hayır,evet,0
+Nico Williams,85,LW,Spain,LaLiga,Athletic Club,rare,evet,hayır,6000
+Álex Remiro,83,GK,Spain,LaLiga,Real Sociedad,rare,hayır,hayır,0
+Leroy Sané,84,RW,Germany,Bundesliga,Bayern,rare,hayır,evet,0
+Jonathan Tah,85,CB,Germany,Bundesliga,Leverkusen,rare,evet,hayır,2500
+Nicolò Barella,86,CM,Italy,Serie A,Inter,rare,hayır,hayır,0
+Federico Dimarco,85,LWB,Italy,Serie A,Inter,rare,evet,hayır,3000
+Mike Maignan,87,GK,France,Serie A,Milan,rare,hayır,hayır,0
+Théo Hernández,85,LB,France,Serie A,Milan,rare,hayır,evet,0
+Ousmane Dembélé,86,RW,France,Ligue 1,PSG,rare,evet,hayır,9000
+Achraf Hakimi,85,RB,Morocco,Ligue 1,PSG,rare,hayır,hayır,0
+Hakan Çalhanoğlu,85,CDM,Türkiye,Serie A,Inter,rare,hayır,evet,0
+Arda Güler,82,CAM,Türkiye,LaLiga,Real Madrid,rare,evet,hayır,1500
+Kerem Aktürkoğlu,80,LW,Türkiye,Liga Portugal,Benfica,rare,hayır,hayır,0
+Uğurcan Çakır,81,GK,Türkiye,Süper Lig,Trabzonspor,rare,hayır,evet,0
+Ferdi Kadıoğlu,80,LB,Türkiye,Premier League,Brighton,rare,hayır,hayır,0
+Orkun Kökçü,80,CM,Türkiye,Liga Portugal,Benfica,rare,evet,hayır,900
+Mauro Icardi,83,ST,Argentina,Süper Lig,Galatasaray,rare,hayır,hayır,0
+Edin Džeko,81,ST,Bosnia,Süper Lig,Fenerbahçe,common,hayır,evet,0
+Ciro Immobile,82,ST,Italy,Süper Lig,Beşiktaş,rare,hayır,hayır,0
+Lucas Torreira,82,CDM,Uruguay,Süper Lig,Galatasaray,rare,hayır,evet,0
+Dušan Tadić,81,CAM,Serbia,Süper Lig,Fenerbahçe,common,hayır,hayır,0
+Cenk Tosun,76,ST,Türkiye,Süper Lig,Fenerbahçe,common,hayır,evet,0
+Ben White,82,RB,England,Premier League,Arsenal,common,hayır,hayır,0
+Kieran Trippier,83,RB,England,Premier League,Newcastle,rare,hayır,hayır,0

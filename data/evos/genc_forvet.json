@@ -1,0 +1,7 @@
+{
+  "name": "Genç Forvet Evo",
+  "requirements": [
+    {"field": "rating", "lte": 83},
+    {"field": "position", "in": ["ST", "CAM", "LW", "RW"]}
+  ]
+}

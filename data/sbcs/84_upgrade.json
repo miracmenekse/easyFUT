@@ -1,0 +1,16 @@
+{
+  "name": "84+ Yükseltme",
+  "size": 11,
+  "min_rating": 84,
+  "reward_value": 12000,
+  "repeat": 1,
+  "requirements": [
+    {
+      "field": "rarity",
+      "in": [
+        "rare"
+      ],
+      "min": 1
+    }
+  ]
+}

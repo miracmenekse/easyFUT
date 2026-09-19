@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FUT Asistanı</title>
+<style>
+:root{
+  --bg:#0b0f1a; --bg2:#111829; --panel:#161f33; --panel2:#1c2740; --line:#26324d;
+  --text:#eef2fa; --muted:#8d99b3; --accent:#20e3b2; --accent2:#11b89a; --warn:#ffb547; --bad:#ff5d73;
+  --gold1:#f7e19b; --gold2:#c9a54a; --rare1:#ffe27a; --rare2:#d49b12; --silv1:#e6ebf2; --silv2:#9aa6b8;
+  --brz1:#e8b48a; --brz2:#9c6436;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font:14px/1.45 "Segoe UI",system-ui,sans-serif;color:var(--text);
+  background:radial-gradient(1200px 600px at 80% -10%,#1a2d52 0,transparent 60%),radial-gradient(900px 500px at -10% 110%,#0f3b3a 0,transparent 55%),var(--bg);
+  display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside{background:rgba(9,13,24,.85);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:4px}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px;font-weight:800;letter-spacing:.5px;font-size:17px}
+.brand i{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#3a7bff);display:grid;place-items:center;font-style:normal;color:#04121a;font-weight:900}
+aside button{all:unset;cursor:pointer;padding:10px 12px;border-radius:8px;color:var(--muted);font-weight:600;display:flex;gap:10px;align-items:center}
+aside button:hover{background:var(--panel);color:var(--text)}
+aside button.on{background:linear-gradient(90deg,rgba(32,227,178,.18),transparent);color:var(--text);box-shadow:inset 3px 0 0 var(--accent)}
+aside .foot{margin-top:auto;font-size:12px;color:var(--muted);padding:10px}
+main{padding:22px 28px 60px;max-width:1400px;width:100%}
+h1{font-size:24px;margin:0 0 4px;font-weight:800}
+.sub{color:var(--muted);margin:0 0 20px}
+.page{display:none}.page.on{display:block}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:18px}
+.tile{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.tile b{display:block;font-size:26px;font-weight:800}
+.tile span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+.panel{background:rgba(22,31,51,.9);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+.panel h2{font-size:15px;margin:0 0 12px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input,select,textarea{font:inherit;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px}
+textarea{width:100%;min-height:420px;font:13px ui-monospace,monospace}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.btn{all:unset;cursor:pointer;background:linear-gradient(180deg,var(--accent),var(--accent2));color:#04211b;font-weight:800;padding:9px 16px;border-radius:8px;text-align:center}
+.btn.ghost{background:var(--panel2);color:var(--text);font-weight:600;border:1px solid var(--line)}
+.btn.bad{background:transparent;color:var(--bad);border:1px solid rgba(255,93,115,.4);font-weight:600}
+.btn:disabled{opacity:.5}
+.chip{display:inline-block;padding:3px 9px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);font-size:12px;color:var(--muted);margin:2px 4px 2px 0}
+.chip.ok{color:var(--accent);border-color:rgba(32,227,178,.35)}
+.chip.w{color:var(--warn);border-color:rgba(255,181,71,.35)}
+.muted{color:var(--muted)}
+.toast{position:fixed;right:20px;bottom:20px;background:var(--panel2);border:1px solid var(--line);padding:12px 16px;border-radius:10px;display:none;z-index:9}
+/* SBC kartları */
+.sbcs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.sbc{background:linear-gradient(160deg,#1f2d4d,#141c30);border:1px solid var(--line);border-radius:12px;padding:14px;position:relative;overflow:hidden}
+.sbc:before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--accent),#3a7bff)}
+.sbc h3{margin:2px 0 6px;font-size:16px}
+.sbc .meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:8px}
+.step{display:flex;gap:14px;align-items:flex-start;background:rgba(22,31,51,.9);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.step .n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#04211b;font-weight:900;display:grid;place-items:center}
+.step .body{flex:1;min-width:0}
+.step h3{margin:4px 0 6px;font-size:16px}
+/* oyuncu kartı */
+.cards{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.card{--c1:var(--gold1);--c2:var(--gold2);width:108px;height:150px;position:relative;color:#2b2208;
+  background:linear-gradient(160deg,var(--c1),var(--c2));
+  clip-path:polygon(50% 0,100% 7%,100% 88%,50% 100%,0 88%,0 7%);padding:14px 10px 10px;display:flex;flex-direction:column;align-items:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);cursor:default;user-select:none}
+.card.rare{--c1:var(--rare1);--c2:var(--rare2)}
+.card.silver{--c1:var(--silv1);--c2:var(--silv2);color:#1e2530}
+.card.bronze{--c1:var(--brz1);--c2:var(--brz2);color:#2d1605}
+.card.special{--c1:#2a2f6b;--c2:#0d0f2a;color:#f4e7b0}
+.card.market{--c1:#3b4663;--c2:#232b40;color:#dfe6f5;outline:2px dashed var(--warn)}
+.card .r{font-size:26px;font-weight:900;line-height:1;align-self:flex-start;margin-left:4px}
+.card .p{font-size:11px;font-weight:800;align-self:flex-start;margin-left:6px;opacity:.85}
+.card .nm{margin-top:auto;font-weight:800;font-size:12px;text-align:center;line-height:1.15;max-height:28px;overflow:hidden}
+.card .l{font-size:9.5px;opacity:.8;text-align:center;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:92px}
+.card .tag{position:absolute;top:36px;right:8px;font-size:9px;font-weight:900;background:rgba(0,0,0,.25);color:#fff;padding:1px 5px;border-radius:4px}
+.card .x{position:absolute;top:18px;right:10px;font-size:14px;cursor:pointer;opacity:.6}
+.pitch{position:relative;width:100%;max-width:620px;aspect-ratio:68/88;margin-top:12px;border-radius:12px;overflow:hidden;
+  background:repeating-linear-gradient(180deg,#1d6b3f 0 10%,#1a6139 10% 20%);border:2px solid rgba(255,255,255,.25)}
+.pitch:before{content:"";position:absolute;inset:4%;border:2px solid rgba(255,255,255,.3);border-radius:4px}
+.pitch:after{content:"";position:absolute;left:30%;right:30%;bottom:4%;height:14%;border:2px solid rgba(255,255,255,.3);border-bottom:0}
+.slot{position:absolute;transform:translate(-50%,-50%) scale(.64);transform-origin:center;display:flex;flex-direction:column;align-items:center;z-index:1}
+.slot .sp{margin-top:-4px;font-size:13px;font-weight:900;background:#0b0f1a;color:#fff;padding:1px 8px;border-radius:6px;border:1px solid var(--line)}
+.slot .sp.alt{color:#9fd3ff} .slot .sp.farklı{color:var(--bad)} .slot .sp.pazar{color:var(--warn)}
+.slot .ch{font-size:11px;letter-spacing:1px;color:var(--accent);margin-top:2px;text-shadow:0 1px 2px #000}
+.checks{list-style:none;padding:0;margin:10px 0 0;font-size:13px}.checks li{padding:2px 0}.checks .ok{color:var(--accent)}.checks .no{color:var(--bad)}
+.card .lk{position:absolute;top:54px;right:10px;font-size:13px;cursor:pointer;opacity:.6}.card.locked{filter:grayscale(.8) brightness(.8)}.card.locked .lk{opacity:1}
+.stepgrid{display:grid;grid-template-columns:minmax(280px,620px) 1fr;gap:16px;align-items:start}
+.legend{font-size:12px;color:var(--muted);margin-top:8px}
+@media(max-width:1000px){.stepgrid{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:6px;border-bottom:1px solid var(--line);text-align:left}
+th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase}
+td input,td select{width:100%;padding:5px 6px}
+.req{display:grid;grid-template-columns:1.3fr 1fr 1fr 2fr .7fr .7fr auto;gap:6px;margin-bottom:6px}
+.spin{display:inline-block;width:16px;height:16px;border:2px solid var(--muted);border-top-color:var(--accent);border-radius:50%;animation:s 1s linear infinite;vertical-align:middle}
+@keyframes s{to{transform:rotate(360deg)}}
+@media(max-width:800px){body{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.brand,aside .foot{display:none}main{padding:16px}.req{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<aside>
+  <div class="brand"><i>FA</i>FUT Asistanı</div>
+  <button data-p="home" class="on">⌂ Ana Sayfa</button>
+  <button data-p="sbc">◈ SBC</button>
+  <button data-p="club">▦ Kulüp</button>
+  <button data-p="evo">↗ Evolution</button>
+  <button data-p="trade">₵ Transfer Hesabı</button>
+  <button data-p="data">⚙ Veri</button>
+  <div class="foot">EA hesabına bağlanmaz.<br>Tıklamaları Web App'te sen yaparsın.</div>
+</aside>
+<main>
+  <!-- ANA SAYFA: en fazla SBC planı -->
+  <section class="page on" id="home">
+    <h1>SBC Planı</h1>
+    <p class="sub">Kartların SBC'lere en fazla sayıda SBC tamamlanacak şekilde dağıtılır. Bir kart iki SBC'de kullanılmaz.</p>
+    <div class="tiles" id="stats"></div>
+    <div class="panel">
+      <div class="row">
+        <label class="f">SBC için harcayabileceğin coin<input id="budget" type="number" min="0" step="1000" value="0"></label>
+        <button class="btn" id="planBtn" onclick="runPlan()">Planı oluştur</button>
+        <span class="muted">0 = sadece kulübündeki kartlar, hiçbir şey satın alınmaz.</span>
+      </div>
+    </div>
+    <div class="panel" id="focusBox" style="display:none"><div class="row">
+      <label class="f">Şu an oyunda hangi SBC'desin?<select id="focus" onchange="renderPlan()"><option value="">Hepsini göster</option></select></label>
+      <span class="muted">Seçince sadece o SBC'nin kadrosu büyük gösterilir.</span></div></div>
+    <div id="plan"></div>
+  </section>
+
+  <!-- SBC -->
+  <section class="page" id="sbc">
+    <h1>SBC'ler</h1>
+    <p class="sub">Oyundaki SBC'lerin şartlarını buraya gir. "Tekrar" alanı aynı SBC'yi kaç kez yapabileceğini belirtir.</p>
+    <div class="sbcs" id="sbcList"></div>
+    <div class="panel" style="margin-top:16px">
+      <h2 id="sbcFormTitle">Yeni SBC</h2>
+      <div class="row" style="margin-bottom:10px">
+        <label class="f">Ad<input id="s-name" placeholder="84+ Yükseltme"></label>
+        <label class="f">Min. takım reytingi<input id="s-rating" type="number" value="84" style="width:110px"></label>
+        <label class="f">Oyuncu sayısı<input id="s-size" type="number" value="11" style="width:90px"></label>
+        <label class="f">Ödül değeri (coin)<input id="s-reward" type="number" value="0" style="width:130px"></label>
+        <label class="f">Tekrar<input id="s-repeat" type="number" value="1" min="1" style="width:80px"></label>
+        <label class="f">Diziliş<select id="s-form"></select></label>
+        <label class="f">Toplam kimya (min)<input id="s-chem" type="number" value="0" min="0" max="33" style="width:110px"></label>
+        <label class="f">Oyuncu başı kimya (min)<input id="s-pchem" type="number" value="0" min="0" max="3" style="width:110px"></label>
+      </div>
+      <div class="muted" style="margin-bottom:6px">Şartlar: "Oyuncu sayısı" (ör. Lig = Premier League, en az 3), "Aynı" (ör. aynı ligden en fazla 4), "Farklı" (ör. en az 3 farklı ülke)</div>
+      <div id="s-reqs"></div>
+      <div class="row" style="margin-top:8px">
+        <button class="btn ghost" onclick="addReq('s-reqs')">+ Şart ekle</button>
+        <button class="btn" onclick="saveSbc()">SBC'yi kaydet</button>
+        <button class="btn ghost" onclick="resetSbc()">Temizle</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- KULÜP -->
+  <section class="page" id="club">
+    <h1>Kulüp</h1>
+    <p class="sub">Kartlarını buradan ekle ve düzenle. Kopya işaretli kartlar SBC'de önce kullanılır. 🔒 ile kilitlediğin kartlar SBC'de hiç kullanılmaz.</p>
+    <div class="panel">
+      <div class="row">
+        <input id="q" placeholder="Oyuncu, lig, ülke, kulüp ara" style="flex:1;min-width:200px">
+        <select id="fl"><option value="">Tüm ligler</option></select>
+        <select id="fr"><option value="">Tüm kartlar</option><option value="dup">Sadece kopyalar</option><option value="trade">Takaslanabilir</option></select>
+        <button class="btn ghost" id="modeBtn" onclick="toggleEdit()">Tablo ile düzenle</button>
+      </div>
+    </div>
+    <div id="clubView"></div>
+  </section>
+
+  <!-- EVOLUTION -->
+  <section class="page" id="evo">
+    <h1>Evolution</h1>
+    <p class="sub">Her Evolution için şartlara uyan oyuncuların, en yüksek reytingliden başlayarak.</p>
+    <div id="evoList"></div>
+    <div class="panel">
+      <h2>Yeni Evolution</h2>
+      <div class="row" style="margin-bottom:10px"><label class="f">Ad<input id="e-name" placeholder="Genç Forvet Evo"></label></div>
+      <div id="e-reqs"></div>
+      <div class="row" style="margin-top:8px">
+        <button class="btn ghost" onclick="addReq('e-reqs')">+ Şart ekle</button>
+        <button class="btn" onclick="saveEvo()">Kaydet</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSFER -->
+  <section class="page" id="trade">
+    <h1>Transfer Hesabı</h1>
+    <p class="sub">EA %5 vergi keser. Fiyatlar EA'nın fiyat adımlarına yuvarlanır.</p>
+    <div class="panel">
+      <div class="row">
+        <label class="f">Alış fiyatı<input id="t-buy" type="number" value="10000"></label>
+        <label class="f">Satış fiyatı<input id="t-sell" type="number" value="12500"></label>
+        <label class="f">İstediğin kâr<input id="t-profit" type="number" value="1000"></label>
+        <button class="btn" onclick="calc()">Hesapla</button>
+      </div>
+    </div>
+    <div class="tiles" id="calcOut"></div>
+  </section>
+
+  <!-- VERİ -->
+  <section class="page" id="data">
+    <h1>Veri Dosyaları</h1>
+    <p class="sub">Tüm veri dosyalarını doğrudan düzenle. Pazardaki en ucuz fiyatlar fodder_prices.csv dosyasında.</p>
+    <div class="panel">
+      <div class="row" style="margin-bottom:10px">
+        <select id="file"></select>
+        <button class="btn" onclick="saveFile()">Kaydet</button>
+      </div>
+      <textarea id="raw" spellcheck="false"></textarea>
+    </div>
+  </section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = n => Number(n || 0).toLocaleString('tr-TR');
+let S = {club: [], sbcs: [], evos: [], fodder: {}}, editing = false, editFile = null;
+const FIELDS = {league:'Lig', nation:'Ülke', club:'Kulüp', rarity:'Nadirlik', position:'Pozisyon', rating:'Reyting'};
+
+function toast(msg, bad) { const t = $('toast'); t.textContent = msg; t.style.color = bad ? 'var(--bad)' : 'var(--text)'; t.style.display = 'block'; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = 'none', 2600); }
+async function api(path, opt) {
+  const r = await fetch(path, opt), ct = r.headers.get('content-type') || '';
+  const body = ct.includes('json') ? await r.json() : await r.text();
+  if (!r.ok) throw new Error(body.error || body);
+  return body;
+}
+async function load() {
+  try { S = await api('/api/state'); } catch (e) { toast('Veri okunamadı: ' + e.message, true); return; }
+  $('s-form').innerHTML = S.formations.map(f => `<option>${f}</option>`).join('');
+  renderStats(); renderSbcs(); renderClub(); renderEvos(); loadFiles();
+}
+
+/* ---------- kart ---------- */
+function tier(c) {
+  if (c.source === 'pazar') return 'market';
+  if (!['rare', 'common', ''].includes(c.rarity || '')) return 'special';
+  const r = +c.rating;
+  if (r < 65) return 'bronze';
+  if (r < 75) return 'silver';
+  return c.rarity === 'rare' ? 'rare' : '';
+}
+function card(c, del, chem) {
+  const sub = c.source === 'pazar' ? `~${fmt(c.price)} coin` : [c.league, c.nation].filter(Boolean).join(' · ');
+  const name = c.source === 'pazar' ? 'Pazardan al' : c.name;
+  return `<div class="card ${tier(c)} ${c.locked === true ? 'locked' : ''}" title="${esc(c.name)}${c.club ? ' — ' + esc(c.club) : ''}${c.positions ? ' · ' + esc(c.positions) : ''}">
+    ${del != null ? `<span class="lk" title="Kilitle: SBC'de kullanılmasın" onclick="toggleLock(${del})">${c.locked ? '🔒' : '🔓'}</span>` : ''}
+    <div class="r">${c.rating}</div><div class="p">${esc(c.position || '')}</div>
+    ${c.duplicate === true ? '<span class="tag">KOPYA</span>' : ''}
+    ${del != null ? `<span class="x" onclick="delCard(${del})">✕</span>` : ''}
+    <div class="nm">${esc(name)}</div><div class="l">${esc(sub)}</div></div>`;
+}
+function reqText(r) {
+  const f = FIELDS[r.field] || r.field;
+  const lim = r.exact != null ? `tam ${r.exact}` : [r.min != null ? `en az ${r.min}` : '', r.max != null ? `en fazla ${r.max}` : ''].filter(Boolean).join(', ');
+  if (r.type === 'same') return `Aynı ${f.toLowerCase()}: ${lim}`;
+  if (r.type === 'distinct') return `Farklı ${f.toLowerCase()} sayısı: ${lim}`;
+  let v = r.in ? r.in.join(' / ') : r.gte != null ? `≥ ${r.gte}` : r.lte != null ? `≤ ${r.lte}` : '';
+  let n = r.min != null && r.max != null ? `${r.min}-${r.max}` : r.min != null ? `en az ${r.min}` : r.max != null ? `en fazla ${r.max}` : '';
+  return `${f}: ${v}${n ? ' · ' + n : ''}`;
+}
+
+/* ---------- ana sayfa ---------- */
+function renderStats() {
+  const c = S.club, jobs = S.sbcs.reduce((a, s) => a + (s.repeat || 1), 0);
+  $('stats').innerHTML = [
+    [c.length, 'Kart'], [c.filter(x => x.duplicate).length, 'Kopya'],
+    [c.filter(x => x.tradeable).length, 'Takaslanabilir'],
+    [c.length ? Math.round(c.reduce((a, x) => a + x.rating, 0) / c.length) : 0, 'Ort. reyting'],
+    [jobs, 'Bekleyen SBC']].map(([b, s]) => `<div class="tile"><b>${b}</b><span>${s}</span></div>`).join('');
+}
+let PLAN = null;
+async function runPlan() {
+  const btn = $('planBtn'); btn.disabled = true;
+  try { localStorage.setItem('budget', $('budget').value); } catch (e) {}
+  $('plan').insertAdjacentHTML('afterbegin', '<div class="panel" id="planWait"><span class="spin"></span> En iyi dağıtım aranıyor (yaklaşık 30 sn)…</div>');
+  try { PLAN = await api('/api/plan?budget=' + (+$('budget').value || 0)); renderPlan(); }
+  catch (e) { $('plan').innerHTML = `<div class="panel" style="color:var(--bad)">${esc(e.message)}</div>`; }
+  finally { $('planWait') && $('planWait').remove(); }
+  btn.disabled = false;
+}
+const key = d => d.sbc._file + '#' + d.sbc._copy;
+function pitch(d) {
+  return `<div class="pitch">${d.slots.map(sl => sl.x == null ? '' : `<div class="slot" style="left:${sl.x}%;top:${sl.y}%">
+    ${card(sl.card)}<div class="sp ${sl.fit}" title="${{tam: 'Kendi pozisyonu', alt: 'Alternatif pozisyonu', farklı: 'Pozisyon dışı: kimya 0', pazar: 'Pazardan al'}[sl.fit] || ''}">${sl.pos}</div>
+    <div class="ch" title="Kimya">${'◆'.repeat(sl.chem)}${'◇'.repeat(3 - sl.chem)}</div></div>`).join('')}</div>`;
+}
+function renderPlan() {
+  const p = PLAN; if (!p) return;
+  const sel = $('focus'), cur = sel.value;
+  sel.innerHTML = '<option value="">Hepsini göster</option>' + p.done.map((d, i) =>
+    `<option value="${esc(key(d))}">${i + 1}. ${esc(d.sbc.name)}${(d.sbc.repeat || 1) > 1 ? ' #' + d.sbc._copy : ''}</option>`).join('');
+  if ([...sel.options].some(o => o.value === cur)) sel.value = cur;
+  $('focusBox').style.display = p.done.length ? '' : 'none';
+  let h = `<div class="tiles">
+    <div class="tile"><b style="color:var(--accent)">${p.done.length} / ${p.total}</b><span>Yapılabilir SBC</span></div>
+    <div class="tile"><b>${fmt(p.spent)}</b><span>Harcanacak coin</span></div>
+    <div class="tile"><b>${fmt(p.done.reduce((a, d) => a + (d.sbc.reward_value || 0), 0))}</b><span>Toplam ödül değeri</span></div></div>
+    <p class="muted">Sonuç: ${esc(p.status)}.</p>`;
+  p.done.forEach((d, i) => {
+    if (sel.value && sel.value !== key(d)) return;
+    const s = d.sbc, buy = d.slots.filter(sl => sl.card.source === 'pazar').length;
+    h += `<div class="step"><div class="n">${i + 1}</div><div class="body">
+      <h3>${esc(s.name)}${(s.repeat || 1) > 1 ? ` <span class="chip">${s._copy}. tekrar</span>` : ''}</h3>
+      <span class="chip ok">Takım ${d.rating}</span><span class="chip ok">Kimya ${d.chem}/33</span><span class="chip">${esc(d.formation)}</span>
+      ${buy ? `<span class="chip w">${buy} kart satın al · ${fmt(d.spend)} coin</span>` : '<span class="chip ok">Sadece kulüp kartları</span>'}
+      ${s.reward_value ? `<span class="chip">Ödül ~${fmt(s.reward_value)}</span>` : ''}
+      <div>${(s.requirements || []).map(r => `<span class="chip">${esc(reqText(r))}</span>`).join('')}</div>
+      <div class="stepgrid">${pitch(d)}<div>
+        <ul class="checks">${d.checks.map(([t, ok]) => `<li class="${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'} ${esc(t)}</li>`).join('')}</ul>
+        <table style="margin-top:12px"><tr><th>Poz.</th><th>Oyuncu</th><th>Rey.</th><th>Kimya</th></tr>
+        ${d.slots.map(sl => `<tr><td><b>${sl.pos}</b></td><td>${esc(sl.card.source === 'pazar' ? 'Pazardan al (' + sl.card.rating + ', ~' + fmt(sl.card.price) + ')' : sl.card.name)}</td>
+          <td>${sl.card.rating}</td><td class="muted">${sl.chem}</td></tr>`).join('')}</table>
+        <p class="legend">Pozisyon etiketi: beyaz kendi pozisyonu, mavi alternatif pozisyonu, kırmızı pozisyon dışı (kimya 0). ◆ = kimya puanı.</p></div></div></div></div>`;
+  });
+  if (p.skipped.length && !sel.value) h += `<div class="panel"><h2>Yapılamayanlar</h2>${p.skipped.map(s =>
+    `<span class="chip w">${esc(s.name)}${(s.repeat || 1) > 1 ? ' #' + s._copy : ''}</span>`).join('')}
+    <p class="muted">Kartlar ya da bütçe yetmiyor. Bütçeyi artırmayı ya da fodder_prices.csv'deki fiyatları güncellemeyi dene.</p></div>`;
+  $('plan').innerHTML = h;
+}
+
+/* ---------- şart düzenleyici (SBC + Evo) ---------- */
+function addReq(box, r = {}) {
+  const type = r.type || 'count', op = r.in ? 'in' : r.gte != null ? 'gte' : r.lte != null ? 'lte' : 'in';
+  const val = r.in ? r.in.join(', ') : r.gte ?? r.lte ?? '';
+  const opt = (v, t, cur) => `<option value="${v}" ${v === cur ? 'selected' : ''}>${t}</option>`;
+  const d = document.createElement('div'); d.className = 'req';
+  d.innerHTML = `<select class="t">${opt('count', 'Oyuncu sayısı', type)}${opt('same', 'Aynı … (en çok/en az)', type)}${opt('distinct', 'Farklı … sayısı', type)}</select>
+    <select class="f">${Object.entries(FIELDS).map(([k, v]) => opt(k, v, r.field)).join('')}</select>
+    <select class="o">${opt('in', 'eşittir', op)}${opt('gte', 'en az (≥)', op)}${opt('lte', 'en fazla (≤)', op)}</select>
+    <input class="v" placeholder="Değer (virgülle birden fazla)" value="${esc(val)}">
+    <input class="mn" type="number" placeholder="min" value="${r.min ?? r.exact ?? ''}">
+    <input class="mx" type="number" placeholder="max" value="${r.max ?? r.exact ?? ''}">
+    <button class="btn bad" onclick="this.parentNode.remove()">✕</button>`;
+  const sync = () => { const c = d.querySelector('.t').value === 'count'; d.querySelector('.o').disabled = !c; d.querySelector('.v').disabled = !c; };
+  d.querySelector('.t').onchange = sync; sync();
+  $(box).appendChild(d);
+}
+function readReqs(box) {
+  return [...$(box).children].map(d => {
+    const g = c => d.querySelector(c).value.trim(), t = g('.t');
+    const r = t === 'count' ? {field: g('.f')} : {type: t, field: g('.f')};
+    if (t === 'count') {
+      if (!g('.v')) return null;
+      if (g('.o') === 'in') r.in = g('.v').split(',').map(x => x.trim()).filter(Boolean); else r[g('.o')] = +g('.v');
+    }
+    if (g('.mn') !== '') r.min = +g('.mn');
+    if (g('.mx') !== '') r.max = +g('.mx');
+    if (t === 'distinct' && r.min != null && r.min === r.max) { r.exact = r.min; delete r.min; delete r.max; }
+    return r.min == null && r.max == null && r.exact == null && t !== 'count' ? null : r;
+  }).filter(Boolean);
+}
+const slug = s => s.toLowerCase().replace(/[çğıöşü]/g, c => 'cgiosu'['çğıöşü'.indexOf(c)]).replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '') || 'kayit';
+
+/* ---------- SBC ---------- */
+function renderSbcs() {
+  $('sbcList').innerHTML = S.sbcs.map(s => `<div class="sbc">
+    <h3>${esc(s.name)}</h3>
+    <span class="chip ok">Takım ≥ ${s.min_rating ?? '-'}</span><span class="chip">${s.size || 11} oyuncu</span><span class="chip">${esc(s.formation || '4-3-3')}</span>${s.min_chem ? `<span class="chip">Kimya ≥ ${s.min_chem}</span>` : ''}${s.min_player_chem ? `<span class="chip">Oyuncu kimyası ≥ ${s.min_player_chem}</span>` : ''}
+    ${(s.repeat || 1) > 1 ? `<span class="chip">×${s.repeat}</span>` : ''}
+    <div>${(s.requirements || []).map(r => `<span class="chip">${esc(reqText(r))}</span>`).join('')}</div>
+    <div class="meta"><span>Ödül ~${fmt(s.reward_value)}</span>
+      <span><a href="#" onclick="editSbc('${esc(s._file)}');return false" style="color:var(--accent)">Düzenle</a> ·
+      <a href="#" onclick="delFile('sbcs/${esc(s._file)}');return false" style="color:var(--bad)">Sil</a></span></div></div>`).join('')
+    || '<p class="muted">Henüz SBC yok. Aşağıdan ekle.</p>';
+}
+function resetSbc() {
+  editFile = null; $('sbcFormTitle').textContent = 'Yeni SBC';
+  ['s-name'].forEach(i => $(i).value = ''); $('s-rating').value = 84; $('s-size').value = 11; $('s-reward').value = 0; $('s-repeat').value = 1; $('s-form').value = '4-3-3'; $('s-chem').value = 0; $('s-pchem').value = 0;
+  $('s-reqs').innerHTML = '';
+}
+function editSbc(f) {
+  const s = S.sbcs.find(x => x._file === f); editFile = f;
+  $('sbcFormTitle').textContent = 'SBC düzenle: ' + s.name;
+  $('s-name').value = s.name; $('s-rating').value = s.min_rating ?? 0; $('s-size').value = s.size || 11;
+  $('s-reward').value = s.reward_value || 0; $('s-repeat').value = s.repeat || 1; $('s-form').value = s.formation || '4-3-3'; $('s-chem').value = s.min_chem || 0; $('s-pchem').value = s.min_player_chem || 0;
+  $('s-reqs').innerHTML = ''; (s.requirements || []).forEach(r => addReq('s-reqs', r));
+  $('sbcFormTitle').scrollIntoView({behavior: 'smooth'});
+}
+async function saveSbc() {
+  const name = $('s-name').value.trim(); if (!name) return toast('SBC adı gerekli', true);
+  const s = {name, size: +$('s-size').value || 11, min_rating: +$('s-rating').value || 0,
+    reward_value: +$('s-reward').value || 0, repeat: Math.max(1, +$('s-repeat').value || 1), formation: $('s-form').value, min_chem: +$('s-chem').value || 0, min_player_chem: +$('s-pchem').value || 0, requirements: readReqs('s-reqs')};
+  const f = editFile || slug(name) + '.json';
+  try { await api('/api/file?name=sbcs/' + encodeURIComponent(f), {method: 'POST', body: JSON.stringify(s, null, 2)}); toast('SBC kaydedildi'); resetSbc(); load(); }
+  catch (e) { toast(e.message, true); }
+}
+async function delFile(name) {
+  if (!confirm(name + ' silinsin mi?')) return;
+  try { await api('/api/file?name=' + encodeURIComponent(name), {method: 'DELETE'}); toast('Silindi'); load(); } catch (e) { toast(e.message, true); }
+}
+
+/* ---------- kulüp ---------- */
+function filtered() {
+  const q = $('q').value.toLowerCase(), l = $('fl').value, f = $('fr').value;
+  return S.club.map((c, i) => [c, i]).filter(([c]) =>
+    (!q || [c.name, c.league, c.nation, c.club, c.position].join(' ').toLowerCase().includes(q)) &&
+    (!l || c.league === l) && (f !== 'dup' || c.duplicate) && (f !== 'trade' || c.tradeable))
+    .sort((a, b) => b[0].rating - a[0].rating);
+}
+function renderClub() {
+  const leagues = [...new Set(S.club.map(c => c.league).filter(Boolean))].sort(), cur = $('fl').value;
+  $('fl').innerHTML = '<option value="">Tüm ligler</option>' + leagues.map(l => `<option ${l === cur ? 'selected' : ''}>${esc(l)}</option>`).join('');
+  const rows = filtered();
+  if (!editing) {
+    $('clubView').innerHTML = `<p class="muted">${rows.length} kart</p><div class="cards">${rows.map(([c, i]) => card(c, i)).join('')}</div>`;
+    return;
+  }
+  const cols = ['name', 'rating', 'position', 'positions', 'nation', 'league', 'club', 'rarity', 'tradeable', 'duplicate', 'locked', 'price'];
+  const head = ['Ad', 'Rey.', 'Poz.', 'Diğer poz. (ST|CF)', 'Ülke', 'Lig', 'Kulüp', 'Nadirlik', 'Takas', 'Kopya', 'Kilit', 'Fiyat'];
+  $('clubView').innerHTML = `<div class="panel" style="overflow:auto"><table><tr>${head.map(h => `<th>${h}</th>`).join('')}<th></th></tr>
+    ${rows.map(([c, i]) => `<tr data-i="${i}">${cols.map(k => ['tradeable', 'duplicate', 'locked'].includes(k)
+      ? `<td><input type="checkbox" data-k="${k}" ${c[k] ? 'checked' : ''}></td>`
+      : `<td><input data-k="${k}" value="${esc(c[k])}" ${k === 'rating' || k === 'price' ? 'type="number"' : ''}></td>`).join('')}
+      <td><button class="btn bad" onclick="delCard(${i})">✕</button></td></tr>`).join('')}</table>
+    <div class="row" style="margin-top:10px"><button class="btn ghost" onclick="addCard()">+ Oyuncu ekle</button>
+    <button class="btn" onclick="saveClub()">Kulübü kaydet</button></div></div>`;
+  $('clubView').querySelectorAll('tr[data-i] input').forEach(inp => inp.onchange = () => {
+    const c = S.club[+inp.closest('tr').dataset.i], k = inp.dataset.k;
+    c[k] = inp.type === 'checkbox' ? inp.checked : inp.type === 'number' ? +inp.value : inp.value;
+  });
+}
+function toggleEdit() { editing = !editing; $('modeBtn').textContent = editing ? 'Kart görünümü' : 'Tablo ile düzenle'; renderClub(); }
+function addCard() {
+  S.club.push({name: '', rating: 75, position: '', positions: '', nation: '', league: '', club: '', rarity: 'rare', tradeable: false, duplicate: false, locked: false, price: 0});
+  $('q').value = ''; $('fl').value = ''; $('fr').value = ''; renderClub();
+  const last = [...$('clubView').querySelectorAll('tr[data-i]')].find(tr => +tr.dataset.i === S.club.length - 1);
+  last && last.querySelector('input').focus();
+}
+async function toggleLock(i) { S.club[i].locked = !S.club[i].locked; await saveClub(); }
+async function delCard(i) {
+  if (!confirm((S.club[i].name || 'Bu oyuncu') + ' kulüpten silinsin mi?')) return;
+  S.club.splice(i, 1); await saveClub();
+}
+async function saveClub() {
+  try { await api('/api/club', {method: 'POST', body: JSON.stringify(S.club.filter(c => String(c.name).trim()))}); toast('Kulüp kaydedildi'); load(); }
+  catch (e) { toast(e.message, true); }
+}
+['q', 'fl', 'fr'].forEach(i => $(i).oninput = renderClub);
+
+/* ---------- evolution ---------- */
+async function renderEvos() {
+  try {
+    const ev = await api('/api/evos');
+    $('evoList').innerHTML = ev.map(({evo, players}) => `<div class="panel">
+      <div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(evo.name)} · ${players.length} uygun</h2>
+      <a href="#" onclick="delFile('evos/${esc(evo._file)}');return false" style="color:var(--bad)">Sil</a></div>
+      <div>${(evo.requirements || []).map(r => `<span class="chip">${esc(reqText(r))}</span>`).join('')}</div>
+      <div class="cards">${players.slice(0, 12).map(c => card(c)).join('') || '<span class="muted">Uygun oyuncu yok</span>'}</div></div>`).join('');
+  } catch (e) { $('evoList').innerHTML = `<div class="panel" style="color:var(--bad)">${esc(e.message)}</div>`; }
+}
+async function saveEvo() {
+  const name = $('e-name').value.trim(); if (!name) return toast('Ad gerekli', true);
+  try { await api('/api/file?name=evos/' + encodeURIComponent(slug(name) + '.json'), {method: 'POST', body: JSON.stringify({name, requirements: readReqs('e-reqs')}, null, 2)});
+    toast('Evolution kaydedildi'); $('e-name').value = ''; $('e-reqs').innerHTML = ''; addReq('e-reqs'); load(); }
+  catch (e) { toast(e.message, true); }
+}
+
+/* ---------- transfer ---------- */
+async function calc() {
+  try {
+    const r = await api(`/api/calc?buy=${+$('t-buy').value || 0}&sell=${+$('t-sell').value || 0}&profit=${+$('t-profit').value || 0}`);
+    const col = r.profit >= 0 ? 'var(--accent)' : 'var(--bad)';
+    $('calcOut').innerHTML = `<div class="tile"><b>${fmt(r.net)}</b><span>Vergi sonrası eline geçen</span></div>
+      <div class="tile"><b style="color:${col}">${fmt(r.profit)}</b><span>Bu satıştan kâr</span></div>
+      <div class="tile"><b>${fmt(r.list_at)}</b><span>İstediğin kâr için en az bu fiyata listele</span></div>
+      <div class="tile"><b>${fmt(r.list_profit)}</b><span>O fiyatla kâr</span></div>`;
+  } catch (e) { toast(e.message, true); }
+}
+
+/* ---------- veri ---------- */
+async function loadFiles() {
+  const files = ['club.csv', 'fodder_prices.csv', ...S.sbcs.map(s => 'sbcs/' + s._file), ...S.evos.map(e => 'evos/' + e._file)];
+  const cur = $('file').value;
+  $('file').innerHTML = files.map(f => `<option ${f === cur ? 'selected' : ''}>${f}</option>`).join('');
+  loadFile();
+}
+async function loadFile() { try { $('raw').value = await api('/api/file?name=' + encodeURIComponent($('file').value)); } catch (e) { $('raw').value = ''; } }
+$('file').onchange = loadFile;
+async function saveFile() {
+  try { await api('/api/file?name=' + encodeURIComponent($('file').value), {method: 'POST', body: $('raw').value}); toast('Kaydedildi'); load(); }
+  catch (e) { toast('Kaydedilmedi: ' + e.message, true); }
+}
+
+/* ---------- gezinme ---------- */
+document.querySelectorAll('aside button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('aside button, .page').forEach(e => e.classList.remove('on'));
+  b.classList.add('on'); $(b.dataset.p).classList.add('on');
+});
+addReq('e-reqs');
+try { const b = localStorage.getItem('budget'); if (b) $('budget').value = b; } catch (e) {}
+load().then(runPlan);
+// veri dosyaları değişince (ör. ekran görüntüsünden yeni SBC eklendi) kendiliğinden yenile
+let VER = null;
+setInterval(async () => {
+  try {
+    const {v} = await api('/api/version');
+    if (VER !== null && v !== VER) {
+      const fs = document.activeElement && ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName) && document.activeElement.id !== 'focus';
+      if (!fs) { await load(); await runPlan(); toast('Yeni veri geldi, plan güncellendi'); }
+      else return;  // kullanıcı yazıyorken bozma; sonraki yoklamada tekrar dener
+    }
+    VER = v;
+  } catch (e) {}
+}, 3000);
+</script>
+</body>
+</html>
