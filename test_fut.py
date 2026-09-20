@@ -36,11 +36,28 @@ print("plan ok", len(p["done"]), "/", p["total"])
 assert all(ok for _, s in p["done"] for _, ok in s["checks"])
 print("bağımsız doğrulama ok")
 
-# birleşik şart: iki alan birden
-sbc = {"name": "birleşik", "size": 11, "min_rating": 80,
+# birleşik şart: iki alan birden (veriden bağımsız, kendi kartlarıyla)
+sahte = [{"id": i, "name": f"O{i}", "rating": 84 if i < 4 else 80, "position": "CM", "positions": "CM",
+          "nation": "N%d" % (i % 3), "league": "L%d" % (i % 2), "club": "K%d" % (i % 4),
+          "rarity": "rare" if i < 3 else "common", "tradeable": False, "duplicate": False,
+          "locked": False, "price": 0, "source": "kulüp"} for i in range(22)]
+sbc = {"name": "birleşik", "size": 11,
        "requirements": [{"all": [{"field": "rating", "gte": 84}, {"field": "rarity", "in": ["rare"]}], "min": 3}]}
-s = plan_max([sbc], club, fodder, 10**9, 10)["done"][0][1]
+s = plan_max([sbc], sahte, {}, 0, 10)["done"][0][1]
 kc = [c for c in s["squad"] if c["source"] == "kulüp"]
 assert sum(c["rating"] >= 84 and c["rarity"] == "rare" for c in kc) >= 3
 assert all(ok for _, ok in s["checks"])
 print("birleşik şart ok")
+
+# SBC'nin hazır verdiği oyuncu kadroda zorunlu ve şartlara sayılır
+sbc = {"name": "hazır oyuncu", "size": 11, "min_chem": 3, "formation": "4-3-3",
+       "fixed": [{"name": "Hazır", "rating": 99, "position": "LW", "positions": "LW",
+                  "nation": "N0", "league": "L0", "club": "K0", "rarity": "", "price": 0}],
+       "requirements": [{"field": "club", "in": ["K0"], "min": 2}]}
+s = plan_max([sbc], sahte, {}, 0, 15)["done"][0][1]
+isim = [c["name"] for c in s["squad"]]
+assert "Hazır" in isim and len(s["squad"]) == 11
+assert sum(c.get("club") == "K0" for c in s["squad"]) >= 2  # hazır oyuncu da sayılıyor
+assert next(sl for sl in s["slots"] if sl["card"]["name"] == "Hazır")["pos"] == "LW"
+assert all(ok for _, ok in s["checks"])
+print("hazır oyuncu ok")

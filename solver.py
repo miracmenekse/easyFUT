@@ -146,7 +146,8 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
     """Tek CP-SAT modeli. Dönen: (sols, optimal_mi). sols[k]: None ya da {"cards": {i: slot}, "market": [(r, slot)]}"""
     m = cp_model.CpModel()
     n = len(cards)
-    big = sum(ccost) + COIN_WEIGHT * sum(p for _, p in market) * 11 * max(1, len(jobs)) + 1
+    # SBC tamamlamak her zaman en ağır basan terim olmalı: maliyet + pozisyon cezasının toplamından büyük
+    big = sum(ccost) + COIN_WEIGHT * sum(p for _, p in market) * 11 * max(1, len(jobs)) + 11 * len(jobs) + 1
 
     use, done, spend_terms, cost_terms, info = {}, [], [], [], []
     for k, sbc in enumerate(jobs):
@@ -160,17 +161,23 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
         need_chem = size == 11 and (sbc.get("min_chem", 0) > 0 or sbc.get("min_player_chem", 0) > 0)
         no_market = sbc.get("min_player_chem", 0) > 0  # pazar kartının kimyası bilinmiyor
 
-        u = [m.NewBoolVar(f"u{k}_{i}") for i in range(n)]
+        # SBC'nin hazır verdiği oyuncular (kadroda zorunlu, kulüpten kart harcamaz)
+        fixed = sbc.get("fixed", [])
+        pool = cards + fixed
+        np_ = len(pool)
+        u = [m.NewBoolVar(f"u{k}_{i}") for i in range(np_)]
+        for i in range(n, np_):
+            m.Add(u[i] == d)
         units = []  # pazar kartları: (reyting, fiyat, bool, slot)
         x = {}
         if need_chem:  # kimya için oyuncu-slot eşleşmesi gerekir
-            x = {(i, s): m.NewBoolVar(f"x{k}_{i}_{s}") for i in range(n) for s in range(size)}
-            for i in range(n):
+            x = {(i, s): m.NewBoolVar(f"x{k}_{i}_{s}") for i in range(np_) for s in range(size)}
+            for i in range(np_):
                 m.Add(u[i] == sum(x[i, s] for s in range(size)))
             for s in range(size):
                 ms = [] if no_market else [(r, p, m.NewBoolVar(f"m{k}_{r}_{s}"), s) for r, p in market]
                 units += ms
-                m.Add(sum(x[i, s] for i in range(n)) + sum(b for _, _, b, _ in ms) == d)
+                m.Add(sum(x[i, s] for i in range(np_)) + sum(b for _, _, b, _ in ms) == d)
         else:  # sadece hangi kartlar: çok daha küçük model
             for r, p in market:
                 cp = [m.NewBoolVar(f"m{k}_{r}_{j}") for j in range(size)]
@@ -181,7 +188,7 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
         for i in range(n):
             use[k, i] = u[i]
         names = {}
-        for i, c in enumerate(cards):
+        for i, c in enumerate(pool):
             names.setdefault(c["name"], []).append(u[i])
         for vs in names.values():
             if len(vs) > 1:
@@ -193,7 +200,7 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
         T = sbc.get("min_rating", 0)
         if T:
             by_r = {}
-            for i, c in enumerate(cards):
+            for i, c in enumerate(pool):
                 by_r.setdefault(c["rating"], []).append(u[i])
             for r, _, b, _ in units:
                 by_r.setdefault(r, []).append(b)
@@ -214,7 +221,7 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
         for req in sbc.get("requirements", []):
             t = req.get("type", "count")
             if t == "count":
-                expr = sum(u[i] for i, c in enumerate(cards) if matches(c, req)) + \
+                expr = sum(u[i] for i, c in enumerate(pool) if matches(c, req)) + \
                     sum(b for r, _, b, _ in units if matches({"rating": r}, req))
                 if "min" in req:
                     m.Add(expr >= req["min"]).OnlyEnforceIf(d)
@@ -222,7 +229,7 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
                     m.Add(expr <= req["max"])
             else:
                 groups = {}
-                for i, c in enumerate(cards):
+                for i, c in enumerate(pool):
                     groups.setdefault(c.get(req["field"], ""), []).append(u[i])
                 if t == "same":
                     if "max" in req:
@@ -253,7 +260,7 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
         # kimya: sadece pozisyonundaki oyuncular kimya alır ve verir
         if need_chem:
             inpos = []
-            for i, c in enumerate(cards):
+            for i, c in enumerate(pool):
                 ok = [s for s in range(size) if slots[s] in positions_of(c)]
                 ip = m.NewBoolVar("")
                 m.Add(ip == sum(x[i, s] for s in ok)) if ok else m.Add(ip == 0)
@@ -261,7 +268,7 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
             level = {}
             for g, steps in CHEM_STEPS.items():
                 members = {}
-                for i, c in enumerate(cards):
+                for i, c in enumerate(pool):
                     if c.get("rarity") not in SPECIAL_CHEM:
                         members.setdefault(c.get(g), []).append(i)
                 for v, idx in members.items():
@@ -276,7 +283,7 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
                         bs.append(b)
                     level[g, v] = sum(bs) if bs else 0
             pc = []
-            for i, c in enumerate(cards):
+            for i, c in enumerate(pool):
                 p = m.NewIntVar(0, 3, "")
                 m.Add(p <= 3 * inpos[i])
                 if c.get("rarity") not in SPECIAL_CHEM:
@@ -290,7 +297,7 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
 
         spend_terms += [p * b for _, p, b, _ in units]
         cost_terms += [ccost[i] * u[i] for i in range(n)]
-        info.append((slots, x, units, u, size))
+        info.append((slots, x, units, u, size, np_))
 
     for i in range(n):  # bir kart en fazla bir SBC'de
         m.Add(sum(use[k, i] for k in range(len(jobs))) <= 1)
@@ -300,7 +307,7 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
     m.Maximize(big * sum(done) - sum(cost_terms) - COIN_WEIGHT * spent)
 
     for k, sol in enumerate(hint or []):  # önceki (sıralı) çözümden başla
-        slots, x, units, u, size = info[k]
+        slots, x, units, u, size, np_ = info[k]
         m.AddHint(done[k], sol is not None)
         sc, mk = (sol or {}).get("cards", {}), list((sol or {}).get("market", []))
         for i in range(n):
@@ -321,13 +328,14 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
         return [None] * len(jobs), False
     sols = []
     for k in range(len(jobs)):
-        slots, x, units, u, size = info[k]
+        slots, x, units, u, size, np_ = info[k]
         if not solver.Value(done[k]):
             sols.append(None)
             continue
-        sc = {i: next((s_ for s_ in range(size) if solver.Value(x[i, s_])), None) if x else None
-              for i in range(n) if solver.Value(u[i])}
-        sols.append({"cards": sc, "market": [(r, s_) for r, _, b, s_ in units if solver.Value(b)]})
+        slot_of = lambda i: next((s_ for s_ in range(size) if solver.Value(x[i, s_])), None) if x else None
+        sc = {i: slot_of(i) for i in range(n) if solver.Value(u[i])}
+        sols.append({"cards": sc, "fixed": [slot_of(i) for i in range(n, np_)],
+                     "market": [(r, s_) for r, _, b, s_ in units if solver.Value(b)]})
     return sols, status == cp_model.OPTIMAL
 
 
@@ -337,10 +345,12 @@ def _chosen(k, sbc, sol, cards, prices):
     slots = FORMATIONS.get(sbc.get("formation"), FORMATIONS[DEFAULT_FORMATION]) if size == 11 else ["?"] * size
     bought = [{"id": f"m{k}-{j}", "name": f"[SATIN AL] {r} genel kart", "rating": r, "price": prices[r],
                "source": "pazar", "tradeable": True, "_slot": s} for j, (r, s) in enumerate(sol["market"])]
-    if any(s is not None for s in sol["cards"].values()) or any(c["_slot"] is not None for c in bought):
-        by_slot = {s: cards[i] for i, s in sol["cards"].items()} | {c["_slot"]: c for c in bought}
+    fixed = [f | {"source": "hazır", "id": f"f{k}-{j}", "_slot": s}
+             for j, (f, s) in enumerate(zip(sbc.get("fixed", []), sol.get("fixed", [])))]
+    if any(s is not None for s in sol["cards"].values()) or any(c["_slot"] is not None for c in bought + fixed):
+        by_slot = {s: cards[i] for i, s in sol["cards"].items()} | {c["_slot"]: c for c in bought + fixed}
         return [(slots[s], by_slot[s]) for s in range(size)]
-    return place([cards[i] for i in sol["cards"]] + bought, slots)
+    return place([cards[i] for i in sol["cards"]] + bought + fixed, slots)
 
 
 def _score(sols, ccost, prices):

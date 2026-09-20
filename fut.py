@@ -41,8 +41,12 @@ def load_json_dir(name):
 # ---------- ortak kurallar ----------
 
 def card_cost(card, fodder):
-    """Kartı kullanmanın bedeli: kulüp kartı için fırsat maliyeti (kopyalar yarı fiyat)."""
-    base = max(card["price"], fodder.get(card["rating"], 0))
+    """Kartı kullanmanın bedeli: kulüp kartı için fırsat maliyeti (kopyalar yarı fiyat).
+    Fiyat tablosunda olmayan yüksek reyting tablodaki en yüksek fiyattan sayılır,
+    yoksa 90'lık kart bedava görünür ve SBC'de harcanır."""
+    r = card["rating"]
+    tablo = fodder.get(r, max(fodder.values()) if fodder and r > max(fodder) else 0)
+    base = max(card["price"], tablo)
     return base * 0.5 if card.get("duplicate") else base
 
 

@@ -1,31 +1,51 @@
 name,rating,position,positions,nation,league,club,rarity,tradeable,duplicate,locked,price
-Bukayo Saka,87,RW,,England,Premier League,Arsenal,rare,hayır,hayır,hayır,0
-Declan Rice,87,CDM,,England,Premier League,Arsenal,rare,evet,hayır,hayır,14000
-Ollie Watkins,84,ST,,England,Premier League,Aston Villa,rare,hayır,evet,hayır,0
-Jarrod Bowen,84,RW,,England,Premier League,West Ham,rare,hayır,hayır,hayır,0
-Alejandro Grimaldo,85,LB,,Spain,Bundesliga,Leverkusen,rare,evet,hayır,hayır,3500
-Mikel Merino,84,CM,,Spain,Premier League,Arsenal,rare,hayır,evet,hayır,0
-Nico Williams,85,LW,,Spain,LaLiga,Athletic Club,rare,evet,hayır,hayır,6000
-Álex Remiro,83,GK,,Spain,LaLiga,Real Sociedad,rare,hayır,hayır,hayır,0
-Leroy Sané,84,RW,,Germany,Bundesliga,Bayern,rare,hayır,evet,hayır,0
-Jonathan Tah,85,CB,,Germany,Bundesliga,Leverkusen,rare,evet,hayır,hayır,2500
-Nicolò Barella,86,CM,,Italy,Serie A,Inter,rare,hayır,hayır,hayır,0
-Federico Dimarco,85,LWB,,Italy,Serie A,Inter,rare,evet,hayır,hayır,3000
-Mike Maignan,87,GK,,France,Serie A,Milan,rare,hayır,hayır,hayır,0
-Théo Hernández,85,LB,,France,Serie A,Milan,rare,hayır,evet,hayır,0
-Ousmane Dembélé,86,RW,,France,Ligue 1,PSG,rare,evet,hayır,hayır,9000
-Achraf Hakimi,85,RB,,Morocco,Ligue 1,PSG,rare,hayır,hayır,hayır,0
-Hakan Çalhanoğlu,85,CDM,,Türkiye,Serie A,Inter,rare,hayır,evet,hayır,0
-Arda Güler,82,CAM,,Türkiye,LaLiga,Real Madrid,rare,evet,hayır,hayır,1500
-Kerem Aktürkoğlu,80,LW,,Türkiye,Liga Portugal,Benfica,rare,hayır,hayır,hayır,0
-Uğurcan Çakır,81,GK,,Türkiye,Süper Lig,Trabzonspor,rare,hayır,evet,hayır,0
-Ferdi Kadıoğlu,80,LB,,Türkiye,Premier League,Brighton,rare,hayır,hayır,hayır,0
-Orkun Kökçü,80,CM,,Türkiye,Liga Portugal,Benfica,rare,evet,hayır,hayır,900
-Mauro Icardi,83,ST,,Argentina,Süper Lig,Galatasaray,rare,hayır,hayır,hayır,0
-Edin Džeko,81,ST,,Bosnia,Süper Lig,Fenerbahçe,common,hayır,evet,hayır,0
-Ciro Immobile,82,ST,,Italy,Süper Lig,Beşiktaş,rare,hayır,hayır,hayır,0
-Lucas Torreira,82,CDM,,Uruguay,Süper Lig,Galatasaray,rare,hayır,evet,hayır,0
-Dušan Tadić,81,CAM,,Serbia,Süper Lig,Fenerbahçe,common,hayır,hayır,hayır,0
-Cenk Tosun,76,ST,,Türkiye,Süper Lig,Fenerbahçe,common,hayır,evet,hayır,0
-Ben White,82,RB,,England,Premier League,Arsenal,common,hayır,hayır,hayır,0
-Kieran Trippier,83,RB,,England,Premier League,Newcastle,rare,hayır,hayır,hayır,0
+Olise,90,RM,RM,France,Bundesliga,Bayern München,,hayır,hayır,hayır,0
+Gabriel,89,CB,CB,Brazil,Premier League,Arsenal,,hayır,hayır,hayır,0
+Mapi León,88,CB,CB,Spain,Barclays WSL,Bilinmiyor 1,,hayır,hayır,hayır,0
+Lavelle,87,CAM,CAM,United States,NWSL,Gotham FC,,hayır,hayır,hayır,0
+Heath,86,RW,RW,United States,?,Bilinmiyor 2,,hayır,hayır,hayır,0
+Al Jaber,86,ST,ST,Saudi Arabia,Roshn Saudi League,Bilinmiyor 3,,hayır,hayır,hayır,0
+Fernández,86,CM,CM,Argentina,Premier League,Manchester City,,hayır,hayır,hayır,0
+Dimarco,86,LB,LB,Italy,Serie A,Inter,,hayır,hayır,hayır,0
+E. Martínez,85,GK,GK,Argentina,Premier League,Chelsea,,hayır,hayır,hayır,0
+Freigang,84,CAM,CAM,Germany,Google Pixel Frauen-Bundesliga,Eintracht Frankfurt,,evet,hayır,hayır,0
+Lewandowski,84,ST,ST,Poland,Major League Soccer,Chicago Fire,,evet,hayır,hayır,0
+Rémy,84,ST,ST,France,Premier League,Bilinmiyor 4,,hayır,hayır,hayır,0
+Rogers,84,CAM,CAM,England,Premier League,Chelsea,,hayır,hayır,hayır,0
+Mancini,84,CB,CB,Italy,Serie A,Roma,,hayır,hayır,hayır,0
+Nico Paz,84,CAM,CAM,Argentina,Serie A,Como,,hayır,hayır,hayır,0
+Saibari,83,CAM,CAM,Morocco,Bundesliga,Bayern München,,evet,hayır,hayır,0
+Rose,83,CB,CB,Canada,Barclays WSL,Manchester City,,evet,hayır,hayır,0
+Dumfries,83,RB,RB,Netherlands,LaLiga,Real Madrid,,hayır,hayır,hayır,0
+João Pedro,83,ST,ST,Brazil,Premier League,Chelsea,,hayır,hayır,hayır,0
+Alba Redondo,83,ST,ST,Spain,Serie A Femminile,Juventus,,hayır,hayır,hayır,0
+Pavlović,83,CDM,CDM,Germany,Bundesliga,Bayern München,,hayır,hayır,hayır,0
+Rüdiger,83,CB,CB,Germany,LaLiga,Real Madrid,,hayır,hayır,hayır,0
+Becho,83,RW,RW,France,Arkema Premier Ligue,Bilinmiyor 5,,hayır,hayır,hayır,0
+Fudalla,83,ST,ST,Germany,Google Pixel Frauen-Bundesliga,Bayer Leverkusen,,hayır,hayır,hayır,0
+Tapsoba,82,CB,CB,Burkina Faso,Bundesliga,Bayer Leverkusen,,evet,hayır,hayır,0
+Ndiaye,82,LM,LM,Senegal,Premier League,Manchester City,,hayır,hayır,hayır,0
+Lukaku,82,ST,ST,Belgium,Süper Lig,Fenerbahçe,,hayır,hayır,hayır,0
+Lindelöf,82,CB,CB,Sweden,Premier League,Aston Villa,special,hayır,hayır,hayır,0
+Burkardt,82,ST,ST,Germany,Bundesliga,Eintracht Frankfurt,,hayır,hayır,hayır,0
+Mané,82,LM,LM,Senegal,Roshn Saudi League,Bilinmiyor 6,,hayır,hayır,hayır,0
+Chavas,82,GK,GK,France,Arkema Premier Ligue,Paris FC,,hayır,hayır,hayır,0
+Rosa Márquez,82,CM,CM,Spain,Liga F,Sevilla,,hayır,hayır,hayır,0
+Kiwior,82,CB,CB,Poland,Liga Portugal,Porto,,hayır,hayır,hayır,0
+Berardi,82,RW,RW,Italy,Serie A,Sassuolo,,hayır,hayır,hayır,0
+Spitse,82,CB,CB,Netherlands,Eredivisie,Ajax,,hayır,hayır,hayır,0
+Maanum,82,CAM,CAM,Norway,Barclays WSL,Arsenal,,hayır,hayır,hayır,0
+Maguire,82,CB,CB,England,Premier League,Manchester United,,hayır,hayır,hayır,0
+Carrasco,82,LW,LW,Belgium,Roshn Saudi League,Al Shabab,,hayır,hayır,hayır,0
+Thauvin,82,RW,RW,France,Ligue 1,RC Lens,,hayır,hayır,hayır,0
+Sancet,82,CAM,CAM,Spain,LaLiga,Athletic Club,,hayır,hayır,hayır,0
+Trossard,82,LW,LW,Belgium,Süper Lig,Beşiktaş,,hayır,hayır,hayır,0
+Gordon,82,LW,LW,England,LaLiga,Barcelona,,hayır,hayır,hayır,0
+Henderson,82,GK,GK,England,Premier League,Crystal Palace,,hayır,hayır,hayır,0
+Kostoulas,82,ST,ST,Greece,Premier League,Brighton,special,hayır,hayır,hayır,0
+Éderson,82,CM,CM,Brazil,Serie A,Juventus,,hayır,hayır,hayır,0
+Giménez,82,CB,CB,Uruguay,LaLiga,Bilinmiyor 7,,hayır,hayır,hayır,0
+L. Martínez,82,CB,CB,Argentina,Premier League,Manchester United,,hayır,hayır,hayır,0
+Šeško,82,ST,ST,Slovenia,Premier League,Manchester United,,hayır,hayır,hayır,0
+Bednarek,82,CB,CB,Poland,Liga Portugal,Porto,,hayır,hayır,hayır,0
+Morroni,82,LB,LB,France,NWSL,San Diego Wave,,hayır,hayır,hayır,0
