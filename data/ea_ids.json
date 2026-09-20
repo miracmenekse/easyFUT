@@ -1,0 +1,53 @@
+{
+ "club": {
+  "11": "Manchester United",
+  "111974": "Sassuolo",
+  "115845": "Juventus",
+  "115996": "Bayer Leverkusen",
+  "115997": "Eintracht Frankfurt",
+  "116009": "Arsenal",
+  "116035": "Paris FC",
+  "116310": "Gotham FC",
+  "116312": "San Diego Wave",
+  "116337": "Sevilla",
+  "131359": "Ajax",
+  "131682": "Inter",
+  "1745": "Como",
+  "1808": "Brighton",
+  "1824": "Eintracht Frankfurt",
+  "2": "Aston Villa",
+  "21": "Bayern München",
+  "243": "Real Madrid",
+  "448": "Athletic Club",
+  "64": "RC Lens"
+ },
+ "league": {
+  "13": "Premier League",
+  "16": "Ligue 1",
+  "19": "Bundesliga",
+  "2215": "Google Pixel Frauen-Bundesliga",
+  "2216": "Barclays WSL",
+  "2218": "Arkema Premier Ligue",
+  "2221": "NWSL",
+  "2222": "Liga F",
+  "2229": "Eredivisie",
+  "31": "Serie A",
+  "350": "Roshn Saudi League",
+  "53": "LaLiga"
+ },
+ "nation": {
+  "18": "France",
+  "183": "Saudi Arabia",
+  "21": "Germany",
+  "22": "Greece",
+  "27": "Italy",
+  "34": "Netherlands",
+  "36": "Norway",
+  "44": "Slovenia",
+  "45": "Spain",
+  "46": "Sweden",
+  "52": "Argentina",
+  "54": "Brazil",
+  "95": "United States"
+ }
+}

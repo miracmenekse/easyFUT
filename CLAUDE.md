@@ -73,3 +73,10 @@ Görüntüdeki şartların karşılığı:
 
 ## Pazar fiyatları → `data/fodder_prices.csv`
 Kullanıcı FUTBIN veya FUT.GG'deki "cheapest by rating" ekranının görüntüsünü atarsa `rating,price` satırlarını güncelle.
+
+## İsimden doldurma (doldur.py) — sınırlı güvenilirlik
+`python3 doldur.py ogren` club.csv'deki bilinen kartlardan EA numara→isim eşlemesini öğrenir (`data/ea_ids.json`).
+`python3 doldur.py isimler.txt` satır başına "İsim", "İsim, reyting" ya da "İsim, reyting, Kulüp" okuyup CSV üretir.
+Kaynak: api.easysbc.io (açık arama servisi, EA hesabına bağlanmaz).
+**Dikkat:** Bu serviste FC 27 verisi eksik; bazı kartların reytingi/kulübü FC 26'dan geliyor. Üretilen satırları
+kullanıcının ekran görüntüsüyle karşılaştırmadan club.csv'ye ekleme. Eşleşmeyenleri kullanıcıya sor.
