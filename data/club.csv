@@ -34,7 +34,7 @@ L. Martínez,82,CB,CB,Argentina,Premier League,Manchester United,,hayır,hayır,
 Éderson,82,CM,CM,Brazil,Serie A,Juventus,,hayır,hayır,hayır,0
 Giménez,82,CB,CB,Uruguay,LaLiga,Bilinmiyor 7,,hayır,hayır,hayır,0
 Gordon,82,LW,LW,England,LaLiga,Barcelona,,hayır,hayır,hayır,0
-Trossard,82,LW,LW,Belgium,Süper Lig,Beşiktaş,,hayır,hayır,hayır,0
+Trossard,82,LW,LW,Belgium,Süper Lig,Beşiktaş,,hayır,hayır,evet,0
 Sancet,82,CAM,CAM,Spain,LaLiga,Athletic Club,,hayır,hayır,hayır,0
 Thauvin,82,RW,RW,France,Ligue 1,RC Lens,,hayır,hayır,hayır,0
 Carrasco,82,LW,LW,Belgium,Roshn Saudi League,Al Shabab,,hayır,hayır,hayır,0
@@ -72,7 +72,7 @@ Niakhaté,81,CB,CB,Senegal,Ligue 1,Lyon,,hayır,hayır,hayır,0
 Galeno,81,LM,LM|LW,Brazil,Roshn Saudi League,Al Ahli,,hayır,hayır,hayır,0
 Hutton,81,CDM,CDM|CM,United States,NWSL,Bilinmiyor 5,,hayır,hayır,hayır,0
 Dewsbury-Hall,81,CM,CAM|CDM|CM,England,Premier League,Everton,,hayır,hayır,hayır,0
-Paradela,80,LM,LM|LW|RM,Argentina,Bilinmiyor L6,Bilinmiyor 6,,hayır,hayır,hayır,0
+Paradela,80,RW,LM|LW|RM|RW,Argentina,Bilinmiyor L6,Bilinmiyor 6,,hayır,hayır,evet,0
 Mastantuono,80,CAM,CAM|RW|ST,Argentina,Serie A,Fiorentina,,hayır,hayır,hayır,0
 Aké,80,CB,CB|CDM|LB|LM|RB,Netherlands,Süper Lig,Fenerbahçe,,hayır,hayır,hayır,0
 Di Guglielmo,80,LB,LB|LM|RB,Italy,NWSL,Bilinmiyor 7,,hayır,hayır,hayır,0
@@ -94,7 +94,7 @@ Konstantelias,79,CAM,CAM|CM|RW,Greece,Bundesliga,Borussia Dortmund,,hayır,hayı
 Lejeune,79,CB,CB,France,LaLiga,Rayo Vallecano,,hayır,hayır,hayır,0
 Svensson,79,CM,CM|LB|LM|LW,Sweden,Bundesliga,Borussia Dortmund,,hayır,hayır,hayır,0
 Dufour,79,LM,LM|LW|RM,France,NWSL,Bilinmiyor 9,,hayır,hayır,hayır,0
-Altena,79,,,Netherlands,Eredivisie,Bilinmiyor 10,,hayır,hayır,hayır,0
+Altena,79,RB,RB,Netherlands,Eredivisie,Bilinmiyor 10,,hayır,hayır,evet,0
 Uzun,79,CAM,CAM|CM|ST,Türkiye,Bundesliga,Eintracht Frankfurt,,hayır,hayır,hayır,0
 Gusto,79,RB,RB|RM,France,Premier League,Chelsea,,hayır,hayır,hayır,0
 Bensebaini,79,LB,CB|LB|LM,Algeria,Bundesliga,Borussia Dortmund,,hayır,hayır,hayır,0
