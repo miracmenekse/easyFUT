@@ -86,3 +86,11 @@ Kullanıcı FUTBIN veya FUT.GG'deki "cheapest by rating" ekranının görüntüs
 Kaynak: api.easysbc.io (açık arama servisi, EA hesabına bağlanmaz).
 **Dikkat:** Bu serviste FC 27 verisi eksik; bazı kartların reytingi/kulübü FC 26'dan geliyor. Üretilen satırları
 kullanıcının ekran görüntüsüyle karşılaştırmadan club.csv'ye ekleme. Eşleşmeyenleri kullanıcıya sor.
+
+## Aktif kadro (SBC'ye girmesin)
+Kullanıcının oyunda kullandığı ilk 11 + yedekler SBC'de harcanmamalı. Bunlar `data/club.csv`'de
+`locked=evet` ile işaretlenir; `solver.py` kilitli kartları havuza hiç almaz.
+- Kullanıcı kadro ekran görüntüsü atarsa: görüntüdeki her kartı reyting+pozisyon+ülke ile club.csv'de
+  bul ve `locked=evet` yap. Önce eski kilitleri temizle (kadro değişmiş olabilir).
+- Emin olamadığın kartı kilitleme, kullanıcıya sor — yanlış kilit iyi bir kartı plandan çıkarır.
+- Kulüp PDF'lerinde aktif kadro ayrı işaretli değildir; kadro görüntüsü ayrıca gerekir.

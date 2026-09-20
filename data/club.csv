@@ -1,29 +1,29 @@
 name,rating,position,positions,nation,league,club,rarity,tradeable,duplicate,locked,price
-Olise,90,RM,RM,France,Bundesliga,Bayern München,,hayır,hayır,hayır,0
-Gabriel,89,CB,CB,Brazil,Premier League,Arsenal,,hayır,hayır,hayır,0
-Mapi León,88,CB,CB,Spain,Barclays WSL,Bilinmiyor 1,,hayır,hayır,hayır,0
-Lavelle,87,CAM,CAM,United States,NWSL,Gotham FC,,hayır,hayır,hayır,0
-Heath,86,RW,RW,United States,?,Bilinmiyor 2,,hayır,hayır,hayır,0
-Al Jaber,86,ST,ST,Saudi Arabia,Roshn Saudi League,Bilinmiyor 3,,hayır,hayır,hayır,0
-Dimarco,86,LB,LB,Italy,Serie A,Inter,,hayır,hayır,hayır,0
+Olise,90,RM,RM,France,Bundesliga,Bayern München,,hayır,hayır,evet,0
+Gabriel,89,CB,CB,Brazil,Premier League,Arsenal,,hayır,hayır,evet,0
+Mapi León,88,CB,CB,Spain,Barclays WSL,Bilinmiyor 1,,hayır,hayır,evet,0
+Lavelle,87,CAM,CAM,United States,NWSL,Gotham FC,,hayır,hayır,evet,0
+Heath,86,RW,RW,United States,?,Bilinmiyor 2,,hayır,hayır,evet,0
+Al Jaber,86,ST,ST,Saudi Arabia,Roshn Saudi League,Bilinmiyor 3,,hayır,hayır,evet,0
+Dimarco,86,LB,LB,Italy,Serie A,Inter,,hayır,hayır,evet,0
 Kelly,86,RM,LM|LW|RM|RW|ST,England,Barclays WSL,Bilinmiyor 1,,hayır,hayır,hayır,0
-Fernández,86,CM,CM,Argentina,Premier League,Manchester City,,hayır,hayır,hayır,0
+Fernández,86,CM,CM,Argentina,Premier League,Manchester City,,hayır,hayır,evet,0
 Lewandowski,84,ST,ST,Poland,Major League Soccer,Chicago Fire,,evet,hayır,hayır,0
 Freigang,84,CAM,CAM,Germany,Google Pixel Frauen-Bundesliga,Eintracht Frankfurt,,evet,hayır,hayır,0
-Rémy,84,ST,ST,France,Premier League,Bilinmiyor 4,,hayır,hayır,hayır,0
+Rémy,84,ST,ST,France,Premier League,Bilinmiyor 4,,hayır,hayır,evet,0
 Oberdorf,84,CDM,CDM|CM,Germany,Google Pixel Frauen-Bundesliga,Bayern München,,hayır,hayır,hayır,0
 Nico Paz,84,CAM,CAM,Argentina,Serie A,Como,,hayır,hayır,hayır,0
 Mancini,84,CB,CB,Italy,Serie A,Roma,,hayır,hayır,hayır,0
-Rogers,84,CAM,CAM,England,Premier League,Chelsea,,hayır,hayır,hayır,0
+Rogers,84,CAM,CAM,England,Premier League,Chelsea,,hayır,hayır,evet,0
 Rose,83,CB,CB,Canada,Barclays WSL,Manchester City,,evet,hayır,hayır,0
-Saibari,83,CAM,CAM,Morocco,Bundesliga,Bayern München,,evet,hayır,hayır,0
+Saibari,83,CAM,CAM,Morocco,Bundesliga,Bayern München,,evet,hayır,evet,0
 Fudalla,83,ST,ST,Germany,Google Pixel Frauen-Bundesliga,Bayer Leverkusen,,hayır,hayır,hayır,0
 Becho,83,RW,RW,France,Arkema Premier Ligue,Bilinmiyor 5,,hayır,hayır,hayır,0
 Rüdiger,83,CB,CB,Germany,LaLiga,Real Madrid,,hayır,hayır,hayır,0
 Pavlović,83,CDM,CDM,Germany,Bundesliga,Bayern München,,hayır,hayır,hayır,0
 Alba Redondo,83,ST,ST,Spain,Serie A Femminile,Juventus,,hayır,hayır,hayır,0
 João Pedro,83,ST,ST,Brazil,Premier League,Chelsea,,hayır,hayır,hayır,0
-Dumfries,83,RB,RB,Netherlands,LaLiga,Real Madrid,,hayır,hayır,hayır,0
+Dumfries,83,RB,RB,Netherlands,LaLiga,Real Madrid,,hayır,hayır,evet,0
 Kostoulas,82,ST,ST,Greece,Premier League,Brighton,special,hayır,hayır,hayır,0
 Lindelöf,82,CB,CB,Sweden,Premier League,Aston Villa,special,hayır,hayır,hayır,0
 Tapsoba,82,CB,CB,Burkina Faso,Bundesliga,Bayer Leverkusen,,evet,hayır,hayır,0
@@ -49,12 +49,12 @@ Burkardt,82,ST,ST,Germany,Bundesliga,Eintracht Frankfurt,,hayır,hayır,hayır,0
 Lukaku,82,ST,ST,Belgium,Süper Lig,Fenerbahçe,,hayır,hayır,hayır,0
 Ndiaye,82,LM,LM,Senegal,Premier League,Manchester City,,hayır,hayır,hayır,0
 Lewis-Potter,81,RW,LB|LM|RM|RW,England,Premier League,Brentford,,hayır,hayır,hayır,0
-Banzuzi,81,CM,CDM|CM,Netherlands,Bundesliga,RB Leipzig,,hayır,hayır,hayır,0
+Banzuzi,81,CM,CDM|CM,Netherlands,Bundesliga,RB Leipzig,,hayır,hayır,evet,0
 Mace,81,RB,LB|LM|RB,United States,NWSL,Bilinmiyor 2,,hayır,hayır,hayır,0
 Kramarić,81,CAM,CAM|CM,Croatia,Bundesliga,Hoffenheim,,hayır,hayır,hayır,0
 Fornals,81,CM,CDM|CM|RM,Spain,LaLiga,Real Betis,,hayır,hayır,hayır,0
 Torreira,81,CDM,CDM|CM,Uruguay,Süper Lig,Galatasaray,,hayır,hayır,hayır,0
-Brown,81,LB,LB|LM,Germany,Bundesliga,Bayern München,,hayır,hayır,hayır,0
+Brown,81,LB,LB|LM,Germany,Bundesliga,Bayern München,,hayır,hayır,evet,0
 Fleming,81,CM,CAM|CDM|CM|RM|RW,Canada,NWSL,Portland Thorns,,hayır,hayır,hayır,0
 Smith,81,ST,CAM|RM|ST,Canada,Barclays WSL,Arsenal,,hayır,hayır,hayır,0
 Guendouzi,81,CDM,CAM|CB|CDM|CM|RM,France,Süper Lig,Bilinmiyor 3,,hayır,hayır,hayır,0
@@ -125,7 +125,7 @@ Thomas-Asante,73,ST,ST,England,Premier League,Bilinmiyor 19,,hayır,hayır,hayı
 Banzuzi,73,CM,CDM|CM,Netherlands,Bundesliga,RB Leipzig,,hayır,hayır,hayır,0
 Ampoorter,72,,,Belgium,Bilinmiyor L20,Bilinmiyor 20,,hayır,hayır,hayır,0
 Alba Ruíz,72,,,Spain,LaLiga,Bilinmiyor 21,,hayır,hayır,hayır,0
-E. Martínez,85,GK,GK,Argentina,Premier League,Chelsea,,hayır,hayır,hayır,0
+E. Martínez,85,GK,GK,Argentina,Premier League,Chelsea,,hayır,hayır,evet,0
 Bounou,82,GK,GK,Morocco,Roshn Saudi League,Al Hilal,,hayır,hayır,hayır,0
 Henderson,82,GK,GK,England,Premier League,Crystal Palace,,hayır,hayır,hayır,0
 Chavas,82,GK,GK,France,Arkema Premier Ligue,Paris FC,,hayır,hayır,hayır,0
