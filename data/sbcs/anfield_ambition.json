@@ -1,0 +1,7 @@
+{"name": "Anfield Ambition", "size": 11, "formation": "4-3-3", "min_chem": 8, "reward_value": 1500,
+ "notes": "Grup ödülü: Small Mixed Players Pack. Oyuncu Kalitesi Min Bronz şartı altın kartlarla zaten sağlanır. 1 gün içinde doluyor.",
+ "fixed": [{"name": "Barcola (SBC hazır)", "rating": 82, "position": "LW", "positions": "LW",
+            "nation": "France", "league": "Premier League", "club": "Liverpool", "rarity": "", "price": 0}],
+ "requirements": [{"type": "same", "field": "league", "min": 4},
+                  {"type": "distinct", "field": "nation", "min": 2},
+                  {"type": "distinct", "field": "club", "max": 3}]}

@@ -1,0 +1,5 @@
+{"name": "5 Leagues & 6 Nations", "size": 11, "formation": "3-5-2", "min_rating": 81, "min_chem": 25, "reward_value": 3000,
+ "notes": "Leagues & Nations grubu 3/3. Ödül: Small Gold Players Pack.",
+ "requirements": [{"type": "distinct", "field": "league", "exact": 5},
+                  {"type": "distinct", "field": "nation", "exact": 6},
+                  {"type": "same", "field": "club", "max": 2}]}

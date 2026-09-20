@@ -280,7 +280,7 @@ let PLAN = null;
 async function runPlan() {
   const btn = $('planBtn'); btn.disabled = true;
   try { localStorage.setItem('budget', $('budget').value); } catch (e) {}
-  $('plan').insertAdjacentHTML('afterbegin', '<div class="panel" id="planWait"><span class="spin"></span> En iyi dağıtım aranıyor (yaklaşık 30 sn)…</div>');
+  $('plan').insertAdjacentHTML('afterbegin', '<div class="panel" id="planWait"><span class="spin"></span> En iyi dağıtım aranıyor (SBC sayısına göre 1-2 dk sürebilir)…</div>');
   try { PLAN = await api('/api/plan?budget=' + (+$('budget').value || 0)); renderPlan(); }
   catch (e) { $('plan').innerHTML = `<div class="panel" style="color:var(--bad)">${esc(e.message)}</div>`; }
   finally { $('planWait') && $('planWait').remove(); }

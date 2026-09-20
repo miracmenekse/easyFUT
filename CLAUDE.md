@@ -49,6 +49,12 @@ Görüntüdeki şartların karşılığı:
 | # of players in the Squad: 11 | `"size": 11` |
 | Team of the Week: Min 1 | `{"field":"rarity","in":["totw"],"min":1}` |
 | Squad Total Chemistry Points: Min 20 | `"min_chem": 20` |
+| Team Rating: Max 64 | `"max_rating": 64` |
+| Player Quality: Min Gold | `{"field":"rating","gte":75,"min":11}` (min = size) |
+| Player Quality: Exactly Silver | `{"field":"rating","gte":65,"lte":74,"min":11}` |
+| Player Quality: Exactly Bronze | `{"field":"rating","lte":64,"min":11}` |
+| Clubs in Squad: Max 3 (farklı kulüp) | `{"type":"distinct","field":"club","max":3}` |
+| SBC'nin hazır verdiği oyuncu | `"fixed": [{"name":..., "rating":..., "position":..., "nation":..., "league":..., "club":...}]` |
 | Chemistry Points Per Player: Min 1 | `"min_player_chem": 1` |
 | Gold TOTW: Min 1 (iki şart birden) | `{"all":[{"field":"rating","gte":75},{"field":"rarity","in":["totw"]}],"min":1}` |
 | Real Madrid + Arsenal toplam Min 3 | `{"field":"club","in":["Real Madrid","Arsenal"],"min":3}` (liste = "veya") |

@@ -53,9 +53,12 @@ def state():
 _plan_lock, _plan_cache = threading.Lock(), {}
 
 
-def plan(budget, time_limit=20):
+def plan(budget, time_limit=0):
     """Aynı anda tek plan hesaplanır (paralel hesaplar işlemciyi bölüp sonucu kötüleştirir);
     veri ve bütçe değişmediyse önceki sonuç döner."""
+    if not time_limit:  # SBC sayısı arttıkça daha uzun ara
+        işler = sum(s.get("repeat", 1) for s in fut.load_json_dir("sbcs"))
+        time_limit = min(150, 20 + 10 * işler)
     with _plan_lock:
         v = version()
         if _plan_cache.get("v") != v:  # veri değişti: bütün eski sonuçlar geçersiz
@@ -127,7 +130,7 @@ class H(BaseHTTPRequestHandler):
             if method == "GET" and u.path == "/api/state":
                 return self.send(state())
             if method == "GET" and u.path == "/api/plan":
-                return self.send(plan(int(q.get("budget") or 0), int(q.get("time") or 20)))
+                return self.send(plan(int(q.get("budget") or 0), int(q.get("time") or 0)))
             if method == "GET" and u.path == "/api/evos":
                 return self.send(evos())
             if method == "GET" and u.path == "/api/calc":

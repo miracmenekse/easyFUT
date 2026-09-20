@@ -1,0 +1,3 @@
+{"name": "Room To Grow (Intro grubu)", "size": 11, "formation": "4-2-2-2", "max_rating": 64, "reward_value": 800,
+ "notes": "Intro to Upgrade SBCs grubu 1/3. Bronz: en az 11 oyuncu. Ödül: Large Silver Players Pack. Grup ödülü: Small Gold Players Pack.",
+ "requirements": [{"field": "rating", "lte": 64, "min": 11}]}

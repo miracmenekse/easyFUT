@@ -197,8 +197,8 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
         # reyting (EA formülünün tamsayı hali): n*S + Σ_r c_r*max(0, n*r - S) >= n²*T - n//2
         # c_r: r reytingli kaç kart seçildi. Reyting başına bir çarpım: kart başına olandan çok daha hızlı
         # (Regista6'nın squad_rating_constraint_3 fikri).
-        T = sbc.get("min_rating", 0)
-        if T:
+        T, T2 = sbc.get("min_rating", 0), sbc.get("max_rating", 0)
+        if T or T2:
             by_r = {}
             for i, c in enumerate(pool):
                 by_r.setdefault(c["rating"], []).append(u[i])
@@ -215,7 +215,10 @@ def _solve(jobs, cards, market, ccost, budget, time_limit, hint=None):
                 e = m.NewIntVar(0, 99 * size * size, "")
                 m.AddMultiplicationEquality(e, [c_r, g])
                 E.append(e)
-            m.Add(size * S + sum(E) >= size * size * T - size // 2).OnlyEnforceIf(d)
+            if T:
+                m.Add(size * S + sum(E) >= size * size * T - size // 2).OnlyEnforceIf(d)
+            if T2:  # "Team Rating: Max X" — üst sınır
+                m.Add(size * S + sum(E) <= size * size * T2 + size * size - size // 2).OnlyEnforceIf(d)
 
         # oyuncu sayısı / aynı / farklı şartları
         for req in sbc.get("requirements", []):
@@ -425,9 +428,12 @@ def check(sbc, slots):
     cards = [c for _, c in slots]
     club = [c for c in cards if c["source"] != "pazar"]
     out = []
-    if sbc.get("min_rating"):
+    if sbc.get("min_rating") or sbc.get("max_rating"):
         r = squad_rating([c["rating"] for c in cards])
-        out.append((f"Takım reytingi en az {sbc['min_rating']} (şu an {r})", r >= sbc["min_rating"]))
+        if sbc.get("min_rating"):
+            out.append((f"Takım reytingi en az {sbc['min_rating']} (şu an {r})", r >= sbc["min_rating"]))
+        if sbc.get("max_rating"):
+            out.append((f"Takım reytingi en fazla {sbc['max_rating']} (şu an {r})", r <= sbc["max_rating"]))
     chem = squad_chem(slots)
     if sbc.get("min_chem"):
         out.append((f"Toplam kimya en az {sbc['min_chem']} (şu an {sum(chem)})", sum(chem) >= sbc["min_chem"]))
