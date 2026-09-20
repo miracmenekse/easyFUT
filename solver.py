@@ -98,6 +98,8 @@ def squad_chem(slots):
 
 
 def matches(card, req):
+    if "all" in req:  # birleşik şart: hepsi birden (ör. reyting >= 75 VE nadirlik totw)
+        return all(matches(card, r) for r in req["all"])
     v = card.get(req["field"], "")
     if "in" in req and v not in req["in"]:
         return False
@@ -425,9 +427,11 @@ def check(sbc, slots):
         t, f = req.get("type", "count"), FIELD_TR.get(req.get("field"), req.get("field"))
         if t == "count":
             n = sum(matches(c, req) for c in cards)
-            what = ", ".join(req["in"]) if "in" in req else f"≥ {req['gte']}" if "gte" in req else f"≤ {req.get('lte')}"
+            one = lambda q: f"{FIELD_TR.get(q.get('field'), q.get('field'))} " + (
+                ", ".join(q["in"]) if "in" in q else f"≥ {q['gte']}" if "gte" in q else f"≤ {q.get('lte')}")
+            f, what = ("", " ve ".join(one(q) for q in req["all"])) if "all" in req else (f, one(req).split(" ", 1)[1])
             ok = n >= req.get("min", 0) and n <= req.get("max", 99)
-            out.append((f"{f} {what}: {n} oyuncu" + (f" (en az {req['min']})" if "min" in req else "")
+            out.append((f"{f} {what}: {n} oyuncu".strip() + (f" (en az {req['min']})" if "min" in req else "")
                         + (f" (en fazla {req['max']})" if "max" in req else ""), ok))
         elif t == "same":
             vals = [c.get(req["field"]) for c in club]

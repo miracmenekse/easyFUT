@@ -42,7 +42,8 @@ def card_json(c):
 
 
 def state():
-    return {"club": [card_json(c) for c in fut.load_club()],
+    return {"v": version(),  # sayfa bu sürümü geri gönderir: eski sayfanın üzerine yazmasını önler
+            "club": [card_json(c) for c in fut.load_club()],
             "fodder": fut.load_fodder_prices(),
             "sbcs": fut.load_json_dir("sbcs"),
             "evos": fut.load_json_dir("evos"),
@@ -132,6 +133,8 @@ class H(BaseHTTPRequestHandler):
             if method == "GET" and u.path == "/api/calc":
                 return self.send(calc(int(q["buy"]), int(q["sell"]), int(q["profit"])))
             if method == "POST" and u.path == "/api/club":
+                if q.get("v") and abs(float(q["v"]) - version()) > 1e-6:
+                    raise ValueError("veri bu sayfa açıldıktan sonra değişti, sayfa yenilendi")
                 save_club(json.loads(body))
                 return self.send({"ok": True})
             if u.path == "/api/file":

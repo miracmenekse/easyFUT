@@ -102,7 +102,7 @@ rating,price
 2. Sonra ortak model bu noktadan başlayıp iyileştirir: önce **en fazla SBC**, sonra en az coin (2 kat ağırlıklı) + en az kart değeri.
 3. Her çözüm `solver.check` ile çözücüden bağımsız yeniden doğrulanır; arayüzde şart listesi ✓/✗ olarak görünür.
 
-Desteklenen şartlar: takım reytingi (EA formülü), toplam kimya, oyuncu başı kimya, lig/ülke/kulüp/nadirlik/reyting oyuncu sayısı, aynı lig/ülke/kulüp en çok/en az, farklı lig/ülke/kulüp sayısı (en az/en çok/tam), tekrar sayısı, kilitli kartlar.
+Desteklenen şartlar: takım reytingi (EA formülü), toplam kimya, oyuncu başı kimya, lig/ülke/kulüp/nadirlik/reyting/isim oyuncu sayısı, birleşik şartlar (`"all"`: iki alan birden, ör. 84+ VE rare), aynı lig/ülke/kulüp en çok/en az, farklı lig/ülke/kulüp sayısı (en az/en çok/tam), tekrar sayısı, kilitli kartlar.
 
 ## Bilinen sınırlar
 

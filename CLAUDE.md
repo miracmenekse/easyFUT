@@ -50,6 +50,9 @@ Görüntüdeki şartların karşılığı:
 | Team of the Week: Min 1 | `{"field":"rarity","in":["totw"],"min":1}` |
 | Squad Total Chemistry Points: Min 20 | `"min_chem": 20` |
 | Chemistry Points Per Player: Min 1 | `"min_player_chem": 1` |
+| Gold TOTW: Min 1 (iki şart birden) | `{"all":[{"field":"rating","gte":75},{"field":"rarity","in":["totw"]}],"min":1}` |
+| Real Madrid + Arsenal toplam Min 3 | `{"field":"club","in":["Real Madrid","Arsenal"],"min":3}` (liste = "veya") |
+| Belirli oyuncu: Mauro Icardi | `{"field":"name","in":["Mauro Icardi"],"min":1}` |
 | Repeatable x5 | `"repeat": 5` |
 
 - **Diziliş:** `solver.FORMATIONS` anahtarlarından biri olmalı (`.venv/bin/python -c "import solver;print(list(solver.FORMATIONS))"`). Aynı adlı varyantlar `4-3-3(2)` gibi yazılır; slot pozisyonlarını görüntüdekiyle karşılaştırıp doğru varyantı seç. Listede yoksa `solver.FORMATIONS`'a ekle. Kimya şartı varsa diziliş doğru olmalı: kimya sadece pozisyonundaki oyuncuya gelir.

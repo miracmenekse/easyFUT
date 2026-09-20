@@ -35,3 +35,12 @@ assert not plan_max([{"name": "imkansız", "min_rating": 99}], club, fodder, 0, 
 print("plan ok", len(p["done"]), "/", p["total"])
 assert all(ok for _, s in p["done"] for _, ok in s["checks"])
 print("bağımsız doğrulama ok")
+
+# birleşik şart: iki alan birden
+sbc = {"name": "birleşik", "size": 11, "min_rating": 80,
+       "requirements": [{"all": [{"field": "rating", "gte": 84}, {"field": "rarity", "in": ["rare"]}], "min": 3}]}
+s = plan_max([sbc], club, fodder, 10**9, 10)["done"][0][1]
+kc = [c for c in s["squad"] if c["source"] == "kulüp"]
+assert sum(c["rating"] >= 84 and c["rarity"] == "rare" for c in kc) >= 3
+assert all(ok for _, ok in s["checks"])
+print("birleşik şart ok")

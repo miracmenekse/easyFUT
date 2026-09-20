@@ -92,6 +92,7 @@ th,td{padding:6px;border-bottom:1px solid var(--line);text-align:left}
 th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase}
 td input,td select{width:100%;padding:5px 6px}
 .req{display:grid;grid-template-columns:1.3fr 1fr 1fr 2fr .7fr .7fr auto;gap:6px;margin-bottom:6px}
+.req .f2,.req .o2,.req .v2,.req .andlbl{grid-row:2}.req .v2{grid-column:4}
 .spin{display:inline-block;width:16px;height:16px;border:2px solid var(--muted);border-top-color:var(--accent);border-radius:50%;animation:s 1s linear infinite;vertical-align:middle}
 @keyframes s{to{transform:rotate(360deg)}}
 @media(max-width:800px){body{grid-template-columns:1fr}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.brand,aside .foot{display:none}main{padding:16px}.req{grid-template-columns:1fr 1fr}}
@@ -255,6 +256,8 @@ function card(c, del, chem) {
     <div class="nm">${esc(name)}</div><div class="l">${esc(sub)}</div></div>`;
 }
 function reqText(r) {
+  const one = q => `${FIELDS[q.field] || q.field}: ${q.in ? q.in.join(' / ') : q.gte != null ? '≥ ' + q.gte : '≤ ' + q.lte}`;
+  if (r.all) return r.all.map(one).join(' ve ') + (r.min != null ? ` · en az ${r.min}` : '') + (r.max != null ? ` · en fazla ${r.max}` : '');
   const f = FIELDS[r.field] || r.field;
   const lim = r.exact != null ? `tam ${r.exact}` : [r.min != null ? `en az ${r.min}` : '', r.max != null ? `en fazla ${r.max}` : ''].filter(Boolean).join(', ');
   if (r.type === 'same') return `Aynı ${f.toLowerCase()}: ${lim}`;
@@ -325,33 +328,51 @@ function renderPlan() {
 
 /* ---------- şart düzenleyici (SBC + Evo) ---------- */
 function addReq(box, r = {}) {
-  const type = r.type || 'count', op = r.in ? 'in' : r.gte != null ? 'gte' : r.lte != null ? 'lte' : 'in';
-  const val = r.in ? r.in.join(', ') : r.gte ?? r.lte ?? '';
+  const type = r.all ? 'and' : r.type || 'count';
   const opt = (v, t, cur) => `<option value="${v}" ${v === cur ? 'selected' : ''}>${t}</option>`;
   const d = document.createElement('div'); d.className = 'req';
-  d.innerHTML = `<select class="t">${opt('count', 'Oyuncu sayısı', type)}${opt('same', 'Aynı … (en çok/en az)', type)}${opt('distinct', 'Farklı … sayısı', type)}</select>
-    <select class="f">${Object.entries(FIELDS).map(([k, v]) => opt(k, v, r.field)).join('')}</select>
-    <select class="o">${opt('in', 'eşittir', op)}${opt('gte', 'en az (≥)', op)}${opt('lte', 'en fazla (≤)', op)}</select>
-    <input class="v" placeholder="Değer (virgülle birden fazla)" value="${esc(val)}">
+  const [q1, q2] = r.all || [r, {}];
+  const op1 = q1.in ? 'in' : q1.gte != null ? 'gte' : q1.lte != null ? 'lte' : 'in';
+  const op2 = q2.in ? 'in' : q2.gte != null ? 'gte' : q2.lte != null ? 'lte' : 'in';
+  const v1 = q1.in ? q1.in.join(', ') : q1.gte ?? q1.lte ?? '';
+  const v2 = q2.in ? q2.in.join(', ') : q2.gte ?? q2.lte ?? '';
+  d.innerHTML = `<select class="t">${opt('count', 'Oyuncu sayısı', type)}${opt('and', 'Oyuncu sayısı (iki şart birden)', type)}${opt('same', 'Aynı … (en çok/en az)', type)}${opt('distinct', 'Farklı … sayısı', type)}</select>
+    <select class="f">${Object.entries(FIELDS).map(([k, v]) => opt(k, v, q1.field)).join('')}</select>
+    <select class="o">${opt('in', 'eşittir', op1)}${opt('gte', 'en az (≥)', op1)}${opt('lte', 'en fazla (≤)', op1)}</select>
+    <input class="v" placeholder="Değer (virgülle birden fazla)" value="${esc(v1)}">
     <input class="mn" type="number" placeholder="min" value="${r.min ?? r.exact ?? ''}">
     <input class="mx" type="number" placeholder="max" value="${r.max ?? r.exact ?? ''}">
-    <button class="btn bad" onclick="this.parentNode.remove()">✕</button>`;
-  const sync = () => { const c = d.querySelector('.t').value === 'count'; d.querySelector('.o').disabled = !c; d.querySelector('.v').disabled = !c; };
+    <button class="btn bad" onclick="this.parentNode.remove()">✕</button>
+    <span class="andlbl muted" style="grid-column:1;text-align:right;align-self:center">ve</span>
+    <select class="f2">${Object.entries(FIELDS).map(([k, v]) => opt(k, v, q2.field)).join('')}</select>
+    <select class="o2">${opt('in', 'eşittir', op2)}${opt('gte', 'en az (≥)', op2)}${opt('lte', 'en fazla (≤)', op2)}</select>
+    <input class="v2" placeholder="İkinci şartın değeri" value="${esc(v2)}">`;
+  const sync = () => {
+    const t = d.querySelector('.t').value, c = t === 'count' || t === 'and';
+    d.querySelector('.o').disabled = d.querySelector('.v').disabled = !c;
+    ['.andlbl', '.f2', '.o2', '.v2'].forEach(q => d.querySelector(q).style.display = t === 'and' ? '' : 'none');
+  };
   d.querySelector('.t').onchange = sync; sync();
   $(box).appendChild(d);
 }
 function readReqs(box) {
   return [...$(box).children].map(d => {
     const g = c => d.querySelector(c).value.trim(), t = g('.t');
-    const r = t === 'count' ? {field: g('.f')} : {type: t, field: g('.f')};
-    if (t === 'count') {
-      if (!g('.v')) return null;
-      if (g('.o') === 'in') r.in = g('.v').split(',').map(x => x.trim()).filter(Boolean); else r[g('.o')] = +g('.v');
+    const one = (fs, os, vs) => {
+      const q = {field: g(fs)};
+      if (g(os) === 'in') q.in = g(vs).split(',').map(x => x.trim()).filter(Boolean); else q[g(os)] = +g(vs);
+      return q;
+    };
+    const r = t === 'count' ? one('.f', '.o', '.v') : t === 'and' ? {} : {type: t, field: g('.f')};
+    if (t === 'count' && !g('.v')) return null;
+    if (t === 'and') {
+      if (!g('.v') || !g('.v2')) return null;
+      r.all = [one('.f', '.o', '.v'), one('.f2', '.o2', '.v2')];
     }
     if (g('.mn') !== '') r.min = +g('.mn');
     if (g('.mx') !== '') r.max = +g('.mx');
     if (t === 'distinct' && r.min != null && r.min === r.max) { r.exact = r.min; delete r.min; delete r.max; }
-    return r.min == null && r.max == null && r.exact == null && t !== 'count' ? null : r;
+    return r.min == null && r.max == null && r.exact == null && !['count', 'and'].includes(t) ? null : r;
   }).filter(Boolean);
 }
 const slug = s => s.toLowerCase().replace(/[çğıöşü]/g, c => 'cgiosu'['çğıöşü'.indexOf(c)]).replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '') || 'kayit';
@@ -437,8 +458,8 @@ async function delCard(i) {
   S.club.splice(i, 1); await saveClub();
 }
 async function saveClub() {
-  try { await api('/api/club', {method: 'POST', body: JSON.stringify(S.club.filter(c => String(c.name).trim()))}); toast('Kulüp kaydedildi'); load(); }
-  catch (e) { toast(e.message, true); }
+  try { await api('/api/club?v=' + encodeURIComponent(S.v), {method: 'POST', body: JSON.stringify(S.club.filter(c => String(c.name).trim()))}); toast('Kulüp kaydedildi'); load(); }
+  catch (e) { toast(e.message, true); load(); }  // reddedildiyse güncel veriyi al
 }
 ['q', 'fl', 'fr'].forEach(i => $(i).oninput = renderClub);
 
