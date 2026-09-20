@@ -1,3 +1,16 @@
-{"name": "Bronze Upgrade", "size": 11, "formation": "4-1-2-1-2", "reward_value": 600, "repeat": 1,
- "notes": "Tekrarlanabilir. Oyuncu Kalitesi: Tam olarak Bronz (64 ve altı). Ödül: x2 Silver Players Pack.",
- "requirements": [{"field": "rating", "lte": 64, "min": 11}]}
+{
+  "name": "Bronze Upgrade",
+  "size": 11,
+  "formation": "4-1-2-1-2",
+  "reward_value": 600,
+  "repeat": 1,
+  "notes": "Tekrarlanabilir. Oyuncu Kalitesi: Tam olarak Bronz (64 ve altı). Ödül: x2 Silver Players Pack.",
+  "requirements": [
+    {
+      "field": "rating",
+      "lte": 64,
+      "min": 11
+    }
+  ],
+  "passive": false
+}

@@ -52,6 +52,7 @@ label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mu
 .sbc{background:linear-gradient(160deg,#1f2d4d,#141c30);border:1px solid var(--line);border-radius:12px;padding:14px;position:relative;overflow:hidden}
 .sbc:before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--accent),#3a7bff)}
 .sbc h3{margin:2px 0 6px;font-size:16px}
+.sbc.passive{opacity:.5}.sbc.passive:before{background:var(--muted)}
 .sbc .meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-top:8px}
 .step{display:flex;gap:14px;align-items:flex-start;background:rgba(22,31,51,.9);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
 .step .n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#04211b;font-weight:900;display:grid;place-items:center}
@@ -269,7 +270,7 @@ function reqText(r) {
 
 /* ---------- ana sayfa ---------- */
 function renderStats() {
-  const c = S.club, jobs = S.sbcs.reduce((a, s) => a + (s.repeat || 1), 0);
+  const c = S.club, jobs = S.sbcs.filter(s => !s.passive).reduce((a, s) => a + (s.repeat || 1), 0);
   $('stats').innerHTML = [
     [c.length, 'Kart'], [c.filter(x => x.duplicate).length, 'Kopya'],
     [c.filter(x => x.tradeable).length, 'Takaslanabilir'],
@@ -379,13 +380,14 @@ const slug = s => s.toLowerCase().replace(/[çğıöşü]/g, c => 'cgiosu'['çğ
 
 /* ---------- SBC ---------- */
 function renderSbcs() {
-  $('sbcList').innerHTML = S.sbcs.map(s => `<div class="sbc">
+  $('sbcList').innerHTML = S.sbcs.map(s => `<div class="sbc ${s.passive ? 'passive' : ''}">
     <h3>${esc(s.name)}</h3>
     <span class="chip ok">Takım ≥ ${s.min_rating ?? '-'}</span><span class="chip">${s.size || 11} oyuncu</span><span class="chip">${esc(s.formation || '4-3-3')}</span>${s.min_chem ? `<span class="chip">Kimya ≥ ${s.min_chem}</span>` : ''}${s.min_player_chem ? `<span class="chip">Oyuncu kimyası ≥ ${s.min_player_chem}</span>` : ''}
     ${(s.repeat || 1) > 1 ? `<span class="chip">×${s.repeat}</span>` : ''}
     <div>${(s.requirements || []).map(r => `<span class="chip">${esc(reqText(r))}</span>`).join('')}</div>
-    <div class="meta"><span>Ödül ~${fmt(s.reward_value)}</span>
-      <span><a href="#" onclick="editSbc('${esc(s._file)}');return false" style="color:var(--accent)">Düzenle</a> ·
+    <div class="meta"><span>Ödül ~${fmt(s.reward_value)}${s.passive ? ' · <b style="color:var(--warn)">PASİF</b>' : ''}</span>
+      <span><a href="#" onclick="togglePassive('${esc(s._file)}');return false" style="color:var(--warn)">${s.passive ? 'Aktif et' : 'Pasife al'}</a> ·
+      <a href="#" onclick="editSbc('${esc(s._file)}');return false" style="color:var(--accent)">Düzenle</a> ·
       <a href="#" onclick="delFile('sbcs/${esc(s._file)}');return false" style="color:var(--bad)">Sil</a></span></div></div>`).join('')
     || '<p class="muted">Henüz SBC yok. Aşağıdan ekle.</p>';
 }
@@ -409,6 +411,15 @@ async function saveSbc() {
   const f = editFile || slug(name) + '.json';
   try { await api('/api/file?name=sbcs/' + encodeURIComponent(f), {method: 'POST', body: JSON.stringify(s, null, 2)}); toast('SBC kaydedildi'); resetSbc(); load(); }
   catch (e) { toast(e.message, true); }
+}
+async function togglePassive(f) {
+  try {
+    const s = JSON.parse(await api('/api/file?name=sbcs/' + encodeURIComponent(f)));
+    s.passive = !s.passive;
+    await api('/api/file?name=sbcs/' + encodeURIComponent(f), {method: 'POST', body: JSON.stringify(s, null, 2)});
+    toast(s.passive ? 'SBC pasife alındı, plana girmeyecek' : 'SBC yeniden aktif');
+    await load(); runPlan();
+  } catch (e) { toast(e.message, true); }
 }
 async function delFile(name) {
   if (!confirm(name + ' silinsin mi?')) return;

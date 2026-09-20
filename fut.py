@@ -64,7 +64,7 @@ def expand_repeats(sbcs):
 def plan_max(sbcs, club, fodder, budget=0, time_limit=20):
     """Bütün SBC'leri birlikte çözer: en fazla SBC, sonra en az coin + kart değeri.
     budget=0: sadece kulüpteki kartlar, hiçbir şey satın alınmaz."""
-    jobs = expand_repeats(sbcs)
+    jobs = expand_repeats([s for s in sbcs if not s.get("passive")])  # pasife alınanlar plana girmez
     r = solver.plan(jobs, club, fodder, lambda c: card_cost(c, fodder), budget, True, time_limit)
     done = []
     for sbc, chosen in r["done"]:

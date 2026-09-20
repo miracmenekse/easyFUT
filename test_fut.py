@@ -61,3 +61,10 @@ assert sum(c.get("club") == "K0" for c in s["squad"]) >= 2  # hazır oyuncu da s
 assert next(sl for sl in s["slots"] if sl["card"]["name"] == "Hazır")["pos"] == "LW"
 assert all(ok for _, ok in s["checks"])
 print("hazır oyuncu ok")
+
+# pasife alınan SBC plana girmez
+akt = {"name": "aktif", "size": 11}
+pas = {"name": "pasif", "size": 11, "passive": True}
+p = plan_max([akt, pas], sahte, {}, 0, 10)
+assert p["total"] == 1 and [s["name"] for s, _ in p["done"]] == ["aktif"]
+print("pasif SBC ok")
