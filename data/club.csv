@@ -1,141 +1,170 @@
-name,rating,position,positions,nation,league,club,rarity,tradeable,duplicate,locked,price
-Olise,90,RM,RM,France,Bundesliga,Bayern München,,hayır,hayır,evet,0
-Gabriel,89,CB,CB,Brazil,Premier League,Arsenal,,hayır,hayır,evet,0
-Mapi León,88,CB,CB,Spain,Barclays WSL,Bilinmiyor 1,,hayır,hayır,evet,0
-Lavelle,87,CAM,CAM,United States,NWSL,Gotham FC,,hayır,hayır,evet,0
-Heath,86,RW,RW,United States,?,Bilinmiyor 2,,hayır,hayır,evet,0
-Al Jaber,86,ST,ST,Saudi Arabia,Roshn Saudi League,Bilinmiyor 3,,hayır,hayır,evet,0
-Dimarco,86,LB,LB,Italy,Serie A,Inter,,hayır,hayır,evet,0
-Kelly,86,RM,LM|LW|RM|RW|ST,England,Barclays WSL,Bilinmiyor 1,,hayır,hayır,hayır,0
-Fernández,86,CM,CM,Argentina,Premier League,Manchester City,,hayır,hayır,evet,0
-Lewandowski,84,ST,ST,Poland,Major League Soccer,Chicago Fire,,evet,hayır,hayır,0
-Freigang,84,CAM,CAM,Germany,Google Pixel Frauen-Bundesliga,Eintracht Frankfurt,,evet,hayır,hayır,0
-Rémy,84,ST,ST,France,Premier League,Bilinmiyor 4,,hayır,hayır,evet,0
-Oberdorf,84,CDM,CDM|CM,Germany,Google Pixel Frauen-Bundesliga,Bayern München,,hayır,hayır,hayır,0
-Nico Paz,84,CAM,CAM,Argentina,Serie A,Como,,hayır,hayır,hayır,0
-Mancini,84,CB,CB,Italy,Serie A,Roma,,hayır,hayır,hayır,0
-Rogers,84,CAM,CAM,England,Premier League,Chelsea,,hayır,hayır,evet,0
-Rose,83,CB,CB,Canada,Barclays WSL,Manchester City,,evet,hayır,hayır,0
-Saibari,83,CAM,CAM,Morocco,Bundesliga,Bayern München,,evet,hayır,evet,0
-Fudalla,83,ST,ST,Germany,Google Pixel Frauen-Bundesliga,Bayer Leverkusen,,hayır,hayır,hayır,0
-Becho,83,RW,RW,France,Arkema Premier Ligue,Bilinmiyor 5,,hayır,hayır,hayır,0
-Rüdiger,83,CB,CB,Germany,LaLiga,Real Madrid,,hayır,hayır,hayır,0
-Pavlović,83,CDM,CDM,Germany,Bundesliga,Bayern München,,hayır,hayır,hayır,0
-Alba Redondo,83,ST,ST,Spain,Serie A Femminile,Juventus,,hayır,hayır,hayır,0
-João Pedro,83,ST,ST,Brazil,Premier League,Chelsea,,hayır,hayır,hayır,0
-Dumfries,83,RB,RB,Netherlands,LaLiga,Real Madrid,,hayır,hayır,evet,0
-Kostoulas,82,ST,ST,Greece,Premier League,Brighton,special,hayır,hayır,hayır,0
-Lindelöf,82,CB,CB,Sweden,Premier League,Aston Villa,special,hayır,hayır,hayır,0
-Tapsoba,82,CB,CB,Burkina Faso,Bundesliga,Bayer Leverkusen,,evet,hayır,hayır,0
-Bednarek,82,CB,CB,Poland,Liga Portugal,Porto,,hayır,hayır,hayır,0
-Morroni,82,LB,LB,France,NWSL,San Diego Wave,,hayır,hayır,hayır,0
-Šeško,82,ST,ST,Slovenia,Premier League,Manchester United,,hayır,hayır,hayır,0
-L. Martínez,82,CB,CB,Argentina,Premier League,Manchester United,,hayır,hayır,hayır,0
-Éderson,82,CM,CM,Brazil,Serie A,Juventus,,hayır,hayır,hayır,0
-Giménez,82,CB,CB,Uruguay,LaLiga,Bilinmiyor 7,,hayır,hayır,hayır,0
-Gordon,82,LW,LW,England,LaLiga,Barcelona,,hayır,hayır,hayır,0
-Trossard,82,LW,LW,Belgium,Süper Lig,Beşiktaş,,hayır,hayır,evet,0
-Sancet,82,CAM,CAM,Spain,LaLiga,Athletic Club,,hayır,hayır,hayır,0
-Thauvin,82,RW,RW,France,Ligue 1,RC Lens,,hayır,hayır,hayır,0
-Carrasco,82,LW,LW,Belgium,Roshn Saudi League,Al Shabab,,hayır,hayır,hayır,0
-Maguire,82,CB,CB,England,Premier League,Manchester United,,hayır,hayır,hayır,0
-Spitse,82,CB,CB,Netherlands,Eredivisie,Ajax,,hayır,hayır,hayır,0
-Maanum,82,CAM,CAM,Norway,Barclays WSL,Arsenal,,hayır,hayır,hayır,0
-Berardi,82,RW,RW,Italy,Serie A,Sassuolo,,hayır,hayır,hayır,0
-Rosa Márquez,82,CM,CM,Spain,Liga F,Sevilla,,hayır,hayır,hayır,0
-Kiwior,82,CB,CB,Poland,Liga Portugal,Porto,,hayır,hayır,hayır,0
-Mané,82,LM,LM,Senegal,Roshn Saudi League,Bilinmiyor 6,,hayır,hayır,hayır,0
-Burkardt,82,ST,ST,Germany,Bundesliga,Eintracht Frankfurt,,hayır,hayır,hayır,0
-Lukaku,82,ST,ST,Belgium,Süper Lig,Fenerbahçe,,hayır,hayır,hayır,0
-Ndiaye,82,LM,LM,Senegal,Premier League,Manchester City,,hayır,hayır,hayır,0
-Lewis-Potter,81,RW,LB|LM|RM|RW,England,Premier League,Brentford,,hayır,hayır,hayır,0
-Banzuzi,81,CM,CDM|CM,Netherlands,Bundesliga,RB Leipzig,,hayır,hayır,evet,0
-Mace,81,RB,LB|LM|RB,United States,NWSL,Bilinmiyor 2,,hayır,hayır,hayır,0
-Kramarić,81,CAM,CAM|CM,Croatia,Bundesliga,Hoffenheim,,hayır,hayır,hayır,0
-Fornals,81,CM,CDM|CM|RM,Spain,LaLiga,Real Betis,,hayır,hayır,hayır,0
-Torreira,81,CDM,CDM|CM,Uruguay,Süper Lig,Galatasaray,,hayır,hayır,hayır,0
-Brown,81,LB,LB|LM,Germany,Bundesliga,Bayern München,,hayır,hayır,evet,0
-Fleming,81,CM,CAM|CDM|CM|RM|RW,Canada,NWSL,Portland Thorns,,hayır,hayır,hayır,0
-Smith,81,ST,CAM|RM|ST,Canada,Barclays WSL,Arsenal,,hayır,hayır,hayır,0
-Guendouzi,81,CDM,CAM|CB|CDM|CM|RM,France,Süper Lig,Bilinmiyor 3,,hayır,hayır,hayır,0
-Turner,81,ST,ST,England,Barclays WSL,Bilinmiyor 4,,hayır,hayır,hayır,0
-Perišić,81,RW,LW|RM|RW,Croatia,Eredivisie,PSV,,hayır,hayır,hayır,0
-Wood,81,ST,ST,New Zealand,Premier League,Nottingham Forest,,hayır,hayır,hayır,0
-Brahim,81,RM,CAM|LM|RM|RW,Morocco,LaLiga,Real Madrid,,hayır,hayır,hayır,0
-Hernández,81,LB,CDM|LB|LM|LW|RB,France,Ligue 1,Paris Saint-Germain,,hayır,hayır,hayır,0
-Lepaul,81,ST,CAM|CM|ST,France,Ligue 1,Rennes,,hayır,hayır,hayır,0
-Sarr,81,CAM,CAM|CM|RM|RW,Senegal,Premier League,Crystal Palace,,hayır,hayır,hayır,0
-Chabot,81,CB,CB,Germany,Bundesliga,Stuttgart,,hayır,hayır,hayır,0
-Scott,81,,,England,Premier League,Bournemouth,,hayır,hayır,hayır,0
-Koke,81,CM,CDM|CM,Spain,LaLiga,Atlético Madrid,,hayır,hayır,hayır,0
-Niakhaté,81,CB,CB,Senegal,Ligue 1,Lyon,,hayır,hayır,hayır,0
-Galeno,81,LM,LM|LW,Brazil,Roshn Saudi League,Al Ahli,,hayır,hayır,hayır,0
-Hutton,81,CDM,CDM|CM,United States,NWSL,Bilinmiyor 5,,hayır,hayır,hayır,0
-Dewsbury-Hall,81,CM,CAM|CDM|CM,England,Premier League,Everton,,hayır,hayır,hayır,0
-Paradela,80,RW,LM|LW|RM|RW,Argentina,Bilinmiyor L6,Bilinmiyor 6,,hayır,hayır,evet,0
-Mastantuono,80,CAM,CAM|RW|ST,Argentina,Serie A,Fiorentina,,hayır,hayır,hayır,0
-Aké,80,CB,CB|CDM|LB|LM|RB,Netherlands,Süper Lig,Fenerbahçe,,hayır,hayır,hayır,0
-Di Guglielmo,80,LB,LB|LM|RB,Italy,NWSL,Bilinmiyor 7,,hayır,hayır,hayır,0
-Baleba,80,CDM,CDM|CM,Cameroon,Premier League,Manchester United,,hayır,hayır,hayır,0
-Buendía,80,CAM,CAM|CM|LM|RM,Argentina,Premier League,Aston Villa,,hayır,hayır,hayır,0
-Saelemaekers,80,RM,LM|RM|RW,Belgium,Serie A,Milan,,hayır,hayır,hayır,0
-Stach,80,CM,CB|CDM|CM,Germany,Premier League,Bilinmiyor 8,,hayır,hayır,hayır,0
-Lukébakio,80,RM,RM|RW|ST,Belgium,Liga Portugal,Benfica,,hayır,hayır,hayır,0
-Mingueza,80,RB,LM|RB|RM,Spain,Premier League,Crystal Palace,,hayır,hayır,hayır,0
-Williams,80,LW,LM|LW|RM,Wales,Premier League,Nottingham Forest,,hayır,hayır,hayır,0
-Bischof,80,CM,CAM|CDM|CM|RM,Germany,Bundesliga,Bayern München,,hayır,hayır,hayır,0
-Chiesa,80,RM,LM|LW|RM|RW|ST,Italy,Premier League,Liverpool,,hayır,hayır,hayır,0
-Tarkowski,80,CB,CB,England,Premier League,Everton,,hayır,hayır,hayır,0
-Isi,80,ST,CAM|CM|RM|ST,Spain,LaLiga,Rayo Vallecano,,hayır,hayır,hayır,0
-Schjelderup,80,LW,CAM|LM|LW|RW,Norway,Liga Portugal,Benfica,,hayır,hayır,hayır,0
-Pavard,80,CB,CB,France,Serie A,Inter,,hayır,hayır,hayır,0
-Sergi Cardona,80,LB,LB|LM,Spain,LaLiga,Villarreal,,hayır,hayır,hayır,0
-Konstantelias,79,CAM,CAM|CM|RW,Greece,Bundesliga,Borussia Dortmund,,hayır,hayır,hayır,0
-Lejeune,79,CB,CB,France,LaLiga,Rayo Vallecano,,hayır,hayır,hayır,0
-Svensson,79,CM,CM|LB|LM|LW,Sweden,Bundesliga,Borussia Dortmund,,hayır,hayır,hayır,0
-Dufour,79,LM,LM|LW|RM,France,NWSL,Bilinmiyor 9,,hayır,hayır,hayır,0
-Altena,79,RB,RB,Netherlands,Eredivisie,Bilinmiyor 10,,hayır,hayır,evet,0
-Uzun,79,CAM,CAM|CM|ST,Türkiye,Bundesliga,Eintracht Frankfurt,,hayır,hayır,hayır,0
-Gusto,79,RB,RB|RM,France,Premier League,Chelsea,,hayır,hayır,hayır,0
-Bensebaini,79,LB,CB|LB|LM,Algeria,Bundesliga,Borussia Dortmund,,hayır,hayır,hayır,0
-Tanaka,79,CDM,CDM|CM,Japan,NWSL,Bilinmiyor 11,,hayır,hayır,hayır,0
-Djimsiti,79,CB,CB,Albania,Bilinmiyor L12,Bilinmiyor 12,,hayır,hayır,hayır,0
-Fofana,79,CB,CB,France,Premier League,Chelsea,,hayır,hayır,hayır,0
-Sergio Gómez,78,LM,CM|LB|LM,Spain,LaLiga,Real Sociedad,,hayır,hayır,hayır,0
-van den Berg,78,CB,CB|RB,Netherlands,Premier League,Brentford,,hayır,hayır,hayır,0
-Almada,78,CAM,CAM|CM,Argentina,Liga Profesional,River Plate,,hayır,hayır,hayır,0
-Onyedika,78,CDM,CB|CDM|CM,Nigeria,Bundesliga,Eintracht Frankfurt,,hayır,hayır,hayır,0
-Felde,78,CDM,CDM|CM,Germany,Bilinmiyor L13,Bilinmiyor 13,,hayır,hayır,hayır,0
-Emegha,78,ST,ST,Netherlands,Premier League,Chelsea,,hayır,hayır,hayır,0
-Kalimuendo,78,ST,ST,France,Premier League,Nottingham Forest,,hayır,hayır,hayır,0
-Addai,78,RM,RM|RW,Netherlands,Bilinmiyor L14,Bilinmiyor 14,,hayır,hayır,hayır,0
-Partey,78,CDM,CDM|CM|RB,Ghana,LaLiga,Villarreal,,hayır,hayır,hayır,0
-Luis Rioja,77,RM,LM|RM|RW,Spain,LaLiga,Valencia,,hayır,hayır,hayır,0
-Edu Expósito,77,CAM,CAM|CM,Spain,LaLiga,Espanyol,,hayır,hayır,hayır,0
-Al Tamari,77,RM,LM|RM|RW|ST,Jordan,Ligue 1,Rennes,,hayır,hayır,hayır,0
-Bender,76,RM,RM|RW,Germany,Google Pixel Frauen-Bundesliga,Bayer Leverkusen,,hayır,hayır,hayır,0
-Larrubia,75,RM,RM|RW|ST,Spain,LaLiga,Málaga,,hayır,hayır,hayır,0
-Ndidi,75,CDM,CDM|CM,Nigeria,Süper Lig,Beşiktaş,,hayır,hayır,hayır,0
-Luna,75,CAM,CAM|LM|LW,Argentina,Liga Profesional,Bilinmiyor 15,,hayır,hayır,hayır,0
-Alisson Santos,74,,,Brazil,Liga Portugal,Bilinmiyor 16,,hayır,hayır,hayır,0
-Thierry Correia,74,RB,LB|RB|RM,Portugal,Liga Portugal,Bilinmiyor 17,,hayır,hayır,hayır,0
-Höbinger,74,CM,CAM|CDM|CM,Austria,NWSL,Bilinmiyor 18,,hayır,hayır,hayır,0
-Tóth,73,CDM,CDM|CM,Hungary,Premier League,Bournemouth,,hayır,hayır,hayır,0
-Thomas-Asante,73,ST,ST,England,Premier League,Bilinmiyor 19,,hayır,hayır,hayır,0
-Banzuzi,73,CM,CDM|CM,Netherlands,Bundesliga,RB Leipzig,,hayır,hayır,hayır,0
-Ampoorter,72,,,Belgium,Bilinmiyor L20,Bilinmiyor 20,,hayır,hayır,hayır,0
-Alba Ruíz,72,,,Spain,LaLiga,Bilinmiyor 21,,hayır,hayır,hayır,0
-E. Martínez,85,GK,GK,Argentina,Premier League,Chelsea,,hayır,hayır,evet,0
-Bounou,82,GK,GK,Morocco,Roshn Saudi League,Al Hilal,,hayır,hayır,hayır,0
-Henderson,82,GK,GK,England,Premier League,Crystal Palace,,hayır,hayır,hayır,0
-Chavas,82,GK,GK,France,Arkema Premier Ligue,Paris FC,,hayır,hayır,hayır,0
-Trubin,80,GK,GK,Ukraine,Liga Portugal,Benfica,,hayır,hayır,hayır,0
-Özer,79,GK,GK,Türkiye,Ligue 1,Lille,,hayır,hayır,hayır,0
-Ryan,79,,,Australia,LaLiga,Bilinmiyor 22,,hayır,hayır,hayır,0
-Vandevoordt,78,GK,GK,Belgium,Bundesliga,RB Leipzig,,hayır,hayır,hayır,0
-Ortega,78,GK,GK,Germany,Bilinmiyor L23,Bilinmiyor 23,,hayır,hayır,hayır,0
-Canales,78,GK,GK,Chile,Bilinmiyor L24,Bilinmiyor 24,,hayır,hayır,hayır,0
-Andrea Tarazona,77,GK,GK,Spain,Liga F,Bilinmiyor 25,,hayır,hayır,hayır,0
-Aitor Fernández,77,CM,CAM|CDM|CM,Spain,LaLiga,Osasuna,,hayır,hayır,hayır,0
-Petroli,73,GK,GK,Bilinmiyor U26,Bilinmiyor L26,Bilinmiyor 26,,hayır,hayır,hayır,0
-Seimen,72,GK,GK,Germany,Bilinmiyor L27,Bilinmiyor 27,,hayır,hayır,hayır,0
+name,rating,position,positions,nation,league,club,rarity,tradeable,duplicate,locked,price,value
+Olise,90,RM,RM|CAM|RW,France,Bundesliga,FC Bayern München,rare,hayır,hayır,evet,0,14000
+Gabriel,89,CB,CB,Brazil,Premier League,Arsenal,rare,hayır,hayır,evet,0,11000
+Mapi León,88,CB,CB,Spain,Barclays Women’s Super League,London City,rare,hayır,hayır,evet,0,8300
+Lavelle,87,CAM,CAM|CM|ST,United States,National Women's Soccer League,Gotham FC,rare,hayır,hayır,evet,0,5500
+Stanway,86,CDM,CDM|CM,England,Barclays Women’s Super League,Arsenal,rare,evet,hayır,hayır,0,4100
+Heath,86,RW,RW|RM|LM|LW,United States,Icons,,icon,hayır,hayır,evet,0,4100
+Aubameyang,86,ST,ST,Gabon,LALIGA EA SPORTS,RC Deportivo,destined for glory,hayır,hayır,evet,0,5125
+Al Jaber,86,ST,ST,Saudi Arabia,ROSHN Saudi League,,hero,hayır,hayır,evet,0,5125
+Dimarco,86,LB,LB|LM,Italy,Serie A Enilive,Lombardia FC,rare,hayır,hayır,evet,0,4100
+Kelly,86,RM,RM|LM|RW|LW,England,Barclays Women’s Super League,Arsenal,rare,hayır,hayır,hayır,0,4100
+Fernández,86,CM,CM|CDM|CAM,Argentina,Premier League,Manchester City,rare,hayır,hayır,evet,0,4100
+Foord,85,LM,LM|LW,Australia,Barclays Women’s Super League,Arsenal,rare,hayır,hayır,hayır,0,2100
+Martínez,85,GK,GK,Argentina,Premier League,Chelsea,rare,hayır,hayır,evet,0,2100
+Gravenberch,85,CDM,CDM|CM,Netherlands,Premier League,Liverpool,rare,evet,hayır,evet,0,2100
+Osimhen,85,ST,ST,Nigeria,Trendyol Süper Lig,Galatasaray,rare,hayır,hayır,evet,0,2100
+Anyomi,84,ST,ST|LM|CAM|LW,Germany,Barclays Women’s Super League,London City,ones to watch,hayır,hayır,hayır,0,1038
+Ferran Torres,84,ST,ST|LM|LW,Spain,Ligue 1 McDonald's,PSG,ones to watch,hayır,hayır,hayır,0,1038
+Lewandowski,84,ST,ST,Poland,Major League Soccer,Chicago Fire FC,rare,evet,hayır,hayır,0,830
+Freigang,84,CAM,CAM|ST,Germany,Google Pixel Frauen-Bundesliga,Frankfurt,rare,evet,hayır,hayır,0,830
+Rémy,84,ST,ST|RM|RW,France,Premier League,HALL OF FUT,base hall of fut,hayır,hayır,evet,0,830
+Oberdorf,84,CDM,CDM|CM,Germany,Google Pixel Frauen-Bundesliga,FC Bayern München,rare,hayır,hayır,hayır,0,830
+Toone,84,CAM,CAM|CDM|CM,England,Barclays Women’s Super League,Man Utd,rare,hayır,hayır,hayır,0,830
+Zubimendi,84,CDM,CDM|CM,Spain,Premier League,Arsenal,rare,hayır,hayır,hayır,0,830
+Fiamma Benítez,84,CAM,CAM|CDM|CM,Spain,Liga F,Atlético de Madrid,rare,hayır,hayır,hayır,0,830
+Falcone,84,GK,GK,Italy,Serie A Enilive,US Lecce,rare,hayır,hayır,hayır,0,830
+Damaris Egurrola,84,CDM,CDM|CM,Netherlands,Arkema Première Ligue,OL,rare,hayır,hayır,hayır,0,830
+Nico Paz,84,CAM,CAM|ST,Argentina,Serie A Enilive,Como 1907,rare,hayır,hayır,hayır,0,830
+Mancini,84,CB,CB,Italy,Serie A Enilive,AS Roma,rare,hayır,hayır,hayır,0,830
+Rogers,84,CAM,CAM|CM|LM|LW,England,Premier League,Chelsea,rare,hayır,hayır,evet,0,830
+Lacroix,83,CB,CB,France,Premier League,Chelsea,ones to watch,hayır,hayır,hayır,0,513
+Vušković,83,CB,CB,Croatia,Premier League,Brighton,ones to watch,hayır,hayır,hayır,0,513
+Lookman,83,ST,ST|LM|CAM|LW,Nigeria,LALIGA EA SPORTS,Atlético de Madrid,rare,hayır,hayır,evet,0,410
+Rose,83,CB,CB,Canada,Barclays Women’s Super League,Manchester City,rare,evet,hayır,hayır,0,410
+Saibari,83,CAM,CAM|CDM|CM|ST,Morocco,Bundesliga,FC Bayern München,rare,evet,hayır,evet,0,410
+Palacios,83,CM,CM|CDM,Argentina,Premier League,Ipswich,rare,hayır,hayır,hayır,0,410
+Stiller,83,CDM,CDM|CM,Germany,Bundesliga,VfB Stuttgart,rare,hayır,hayır,hayır,0,410
+Santos,83,CAM,CAM|CM,Colombia,National Women's Soccer League,Washington Spirit,rare,hayır,hayır,hayır,0,410
+Matheus Nunes,83,RB,RB|CM,Portugal,Premier League,Manchester City,rare,hayır,hayır,hayır,0,410
+Bussy,83,LW,LW|RM|LM|RW,France,Google Pixel Frauen-Bundesliga,VfL Wolfsburg,rare,hayır,hayır,hayır,0,410
+Fudalla,83,ST,ST|CAM,Germany,Google Pixel Frauen-Bundesliga,Leverkusen,rare,hayır,hayır,hayır,0,410
+Becho,83,RW,RW|RM|CAM|ST,France,Arkema Première Ligue,OL,rare,hayır,hayır,hayır,0,410
+Rüdiger,83,CB,CB,Germany,LALIGA EA SPORTS,Real Madrid,rare,hayır,hayır,hayır,0,410
+Pavlović,83,CDM,CDM|CM,Germany,Bundesliga,FC Bayern München,rare,hayır,hayır,hayır,0,410
+Alba Redondo,83,ST,ST|RM|LM|RW|LW,Spain,Calcio A Femminile,Juventus FC,rare,hayır,hayır,hayır,0,410
+João Pedro,83,ST,ST|CAM,Brazil,Premier League,Chelsea,rare,hayır,hayır,hayır,0,410
+Dumfries,83,RB,RB|RM,Netherlands,LALIGA EA SPORTS,Real Madrid,rare,hayır,hayır,evet,0,410
+Kostoulas,82,ST,ST,Greece,Premier League,Brighton,squad foundations,hayır,hayır,hayır,0,340
+Lindelöf,82,CB,CB,Sweden,Premier League,Aston Villa,squad foundations,hayır,hayır,hayır,0,340
+Wharton,82,CM,CM|CDM,England,Premier League,Crystal Palace,rare,evet,hayır,hayır,0,340
+Palhinha,82,CDM,CDM|CM,Portugal,Liga Portugal,SL Benfica,rare,evet,hayır,hayır,0,340
+Bounou,82,GK,GK,Morocco,ROSHN Saudi League,Al Hilal,rare,evet,hayır,hayır,0,340
+Tapsoba,82,CB,CB,Burkina Faso,Bundesliga,Leverkusen,rare,evet,hayır,hayır,0,340
+Garner,82,CDM,CDM|RB|CM,England,Premier League,Everton,rare,hayır,hayır,hayır,0,340
+Diaby,82,RM,RM|LM|RW|LW,France,Bundesliga,Leverkusen,rare,hayır,hayır,hayır,0,340
+Simon,82,LB,LB|LM,Germany,Google Pixel Frauen-Bundesliga,Leverkusen,rare,hayır,hayır,hayır,0,340
+Di María,82,RW,RW|RM|CAM|ST,Argentina,Liga Profesional de Fútbol,Rosario Central ,rare,hayır,hayır,hayır,0,340
+Hernández,82,LB,LB|LM,France,ROSHN Saudi League,Al Hilal,rare,hayır,hayır,hayır,0,340
+Suárez,82,ST,ST,Colombia,Liga Portugal,Sporting CP,rare,hayır,hayır,hayır,0,340
+Budimir,82,ST,ST,Croatia,LALIGA EA SPORTS,CA Osasuna,rare,hayır,hayır,hayır,0,340
+Kögel,82,LM,LM|LW,Germany,Arkema Première Ligue,Strasbourg,rare,hayır,hayır,hayır,0,340
+Linari,82,CB,CB,Italy,Barclays Women’s Super League,London City,rare,hayır,hayır,hayır,0,340
+Brandt,82,CAM,CAM|CDM|CM,Germany,Eredivisie,Ajax,rare,hayır,hayır,evet,0,340
+Bednarek,82,CB,CB,Poland,Liga Portugal,FC Porto,rare,hayır,hayır,hayır,0,340
+Morroni,82,LB,LB|LM,France,National Women's Soccer League,San Diego Wave,rare,hayır,hayır,hayır,0,340
+Šeško,82,ST,ST,Slovenia,Premier League,Man Utd,rare,hayır,hayır,hayır,0,340
+Martínez,82,CB,CB,Argentina,Premier League,Man Utd,rare,hayır,hayır,hayır,0,340
+Éderson,82,CM,CM|CDM,Brazil,Serie A Enilive,Bergamo Calcio,rare,hayır,hayır,hayır,0,340
+Giménez,82,CB,CB,Uruguay,LALIGA EA SPORTS,RC Deportivo,rare,hayır,hayır,hayır,0,340
+Henderson,82,GK,GK,England,Premier League,Crystal Palace,rare,hayır,hayır,hayır,0,340
+Gordon,82,LW,LW|LM|ST,England,LALIGA EA SPORTS,FC Barcelona,rare,hayır,hayır,evet,0,340
+Trossard,82,LW,LW|LM,Belgium,Trendyol Süper Lig,Beşiktaş,rare,hayır,hayır,hayır,0,340
+Sancet,82,CAM,CAM|CDM|CM|ST,Spain,LALIGA EA SPORTS,Athletic Club,rare,hayır,hayır,hayır,0,340
+Thauvin,82,RW,RW|RM|CAM|ST,France,Ligue 1 McDonald's,RC Lens,rare,hayır,hayır,hayır,0,340
+Carrasco,82,LW,LW|LM|ST,Belgium,ROSHN Saudi League,Al Shabab,rare,hayır,hayır,hayır,0,340
+Maguire,82,CB,CB,England,Premier League,Man Utd,rare,hayır,hayır,hayır,0,340
+Spitse,82,CB,CB|CDM,Netherlands,Nederland Vrouwen Liga,Ajax,rare,hayır,hayır,hayır,0,340
+Maanum,82,CAM,CAM|ST,Norway,Barclays Women’s Super League,Arsenal,rare,hayır,hayır,hayır,0,340
+Berardi,82,RW,RW|RM,Italy,Serie A Enilive,Sassuolo,rare,hayır,hayır,hayır,0,340
+Rosa Márquez,82,CM,CM|CDM|CAM,Spain,Liga F,Sevilla FC,rare,hayır,hayır,hayır,0,340
+Chavas,82,GK,GK,France,Arkema Première Ligue,Paris FC,rare,hayır,hayır,hayır,0,340
+Kiwior,82,CB,CB|LB,Poland,Liga Portugal,FC Porto,rare,hayır,hayır,hayır,0,340
+Mané,82,LM,LM|RM|CAM|RW|ST|LW,Senegal,ROSHN Saudi League,Al Nassr,rare,hayır,hayır,hayır,0,340
+Burkardt,82,ST,ST,Germany,Bundesliga,Frankfurt,rare,hayır,hayır,hayır,0,340
+Lukaku,82,ST,ST,Belgium,Trendyol Süper Lig,Fenerbahçe,rare,hayır,hayır,hayır,0,340
+Ndiaye,82,LM,LM|RM|RW|LW,Senegal,Premier League,Manchester City,rare,hayır,hayır,evet,0,340
+Lewis-Potter,81,LB,LB|RM|LM|RW|LW,England,Premier League,Brentford,squad foundations,hayır,hayır,hayır,0,280
+Banzuzi,81,CM,CM|CDM|CAM,Netherlands,Bundesliga,RB Leipzig,squad foundations,hayır,hayır,hayır,0,280
+Mateta,81,ST,ST,France,Premier League,Crystal Palace,rare,evet,hayır,hayır,0,280
+Mace,81,RB,RB|CB|CM,United States,National Women's Soccer League,Orlando City,rare,evet,hayır,hayır,0,280
+Kramarić,81,CAM,CAM|CM|ST,Croatia,Bundesliga,TSG Hoffenheim,rare,evet,hayır,hayır,0,280
+Fornals,81,CM,CM|CDM|CAM,Spain,LALIGA EA SPORTS,Real Betis,rare,evet,hayır,hayır,0,280
+Torreira,81,CDM,CDM|CM,Uruguay,Trendyol Süper Lig,Galatasaray,rare,evet,hayır,hayır,0,280
+Brown,81,LB,LB|LM,Germany,Bundesliga,FC Bayern München,rare,evet,hayır,hayır,0,280
+Ajibade,81,RM,RM|LM|RW|LW,Nigeria,Arkema Première Ligue,PSG,rare,hayır,hayır,hayır,0,280
+Koné,81,CM,CM|CAM,France,Serie A Enilive,AS Roma,rare,hayır,hayır,hayır,0,280
+Dudek,81,CB,CB,Poland,Arkema Première Ligue,PSG,rare,hayır,hayır,hayır,0,280
+O'Sullivan,81,CM,CM|CDM,Republic of Ireland,National Women's Soccer League,Gotham FC,rare,hayır,hayır,hayır,0,280
+Kayode,81,RB,RB|RM,Italy,Premier League,Brentford,rare,hayır,hayır,hayır,0,280
+Verbruggen,81,GK,GK,Netherlands,Premier League,Brighton,rare,hayır,hayır,hayır,0,280
+Frimpong,81,RB,RB|RM|RW,Netherlands,Premier League,Liverpool,rare,hayır,hayır,evet,0,280
+Fleming,81,CM,CM|CDM|RM|RW,Canada,National Women's Soccer League,Portland Timbers,rare,hayır,hayır,hayır,0,280
+Smith,81,RM,RM|LM|RW|LW,Canada,Barclays Women’s Super League,Arsenal,rare,hayır,hayır,hayır,0,280
+Guendouzi,81,CDM,CDM|CM,France,Trendyol Süper Lig,Fenerbahçe,rare,hayır,hayır,hayır,0,280
+Turner,81,CB,CB,England,Barclays Women’s Super League,Birmingham City,rare,hayır,hayır,hayır,0,280
+Perišić,81,LW,LW|RM|LM|RW,Croatia,Eredivisie,PSV,rare,hayır,hayır,hayır,0,280
+Wood,81,ST,ST,New Zealand,Premier League,Nott'm Forest,rare,hayır,hayır,hayır,0,280
+Brahim,81,RM,RM|LM|CAM|RW|ST|LW,Morocco,LALIGA EA SPORTS,Real Madrid,rare,hayır,hayır,hayır,0,280
+Hernández,81,CB,CB|LB|LM,France,Ligue 1 McDonald's,PSG,rare,hayır,hayır,hayır,0,280
+Lepaul,81,ST,ST,France,Ligue 1 McDonald's,Stade Rennais FC,rare,hayır,hayır,hayır,0,280
+Sarr,81,RW,RW|RM,Senegal,Premier League,Crystal Palace,rare,hayır,hayır,hayır,0,280
+Chabot,81,CB,CB,Germany,Bundesliga,VfB Stuttgart,rare,hayır,hayır,hayır,0,280
+Scott,81,CM,CM|CDM|CAM,England,Premier League,AFC Bournemouth,rare,hayır,hayır,hayır,0,280
+Koke,81,CM,CM|CDM,Spain,LALIGA EA SPORTS,Atlético de Madrid,rare,hayır,hayır,hayır,0,280
+Niakhaté,81,CB,CB,Senegal,Ligue 1 McDonald's,OL,rare,hayır,hayır,hayır,0,280
+Galeno,81,LM,LM|LW,Brazil,ROSHN Saudi League,Al Ahli,rare,hayır,hayır,hayır,0,280
+Hutton,81,CDM,CDM|CB|CM,United States,National Women's Soccer League,Bay FC,rare,hayır,hayır,hayır,0,280
+Dewsbury-Hall,81,CAM,CAM|CDM|CM,England,Premier League,Everton,rare,hayır,hayır,hayır,0,280
+Paradela,80,RW,RW|RM|CM|CAM,Argentina,Liga BBVA MX,CF Cruz Azul,totw,evet,hayır,evet,0,225
+Mastantuono,80,RM,RM|CAM|RW,Argentina,Serie A Enilive,ACF Fiorentina,totw,hayır,hayır,hayır,0,225
+Aké,80,CB,CB|LB|CDM,Netherlands,Trendyol Süper Lig,Fenerbahçe,rare,evet,hayır,hayır,0,180
+Di Guglielmo,80,RB,RB|LB,Italy,National Women's Soccer League,Washington Spirit,rare,evet,hayır,hayır,0,180
+Baleba,80,CDM,CDM|CM,Cameroon,Premier League,Man Utd,rare,evet,hayır,hayır,0,180
+Buendía,80,LM,LM|CM|CAM|LW,Argentina,Premier League,Aston Villa,rare,evet,hayır,hayır,0,180
+Balogun,80,ST,ST,United States,Ligue 1 McDonald's,AS Monaco,rare,hayır,hayır,hayır,0,180
+Chevalier,80,GK,GK,France,Ligue 1 McDonald's,PSG,rare,hayır,hayır,hayır,0,180
+Arambarri,80,CM,CM|CDM,Uruguay,Liga Profesional de Fútbol,River Plate,rare,hayır,hayır,hayır,0,180
+Rafa,80,CAM,CAM|RM|RW,Portugal,Liga Portugal,SL Benfica,rare,hayır,hayır,hayır,0,180
+Saelemaekers,80,RB,RB|RM,Belgium,Serie A Enilive,Milano FC,rare,hayır,hayır,hayır,0,180
+Trubin,80,GK,GK,Ukraine,Liga Portugal,SL Benfica,rare,hayır,hayır,hayır,0,180
+Stach,80,CM,CM|CDM,Germany,Premier League,Leeds United,rare,hayır,hayır,hayır,0,180
+Lukébakio,80,RW,RW|RM|LM|LW,Belgium,Liga Portugal,SL Benfica,rare,hayır,hayır,hayır,0,180
+Mingueza,80,RB,RB|RM|LM,Spain,Premier League,Crystal Palace,rare,hayır,hayır,hayır,0,180
+Williams,80,LB,LB|RB,Wales,Premier League,Nott'm Forest,rare,hayır,hayır,hayır,0,180
+Bischof,80,CM,CM|LB|CDM,Germany,Bundesliga,FC Bayern München,rare,hayır,hayır,hayır,0,160
+Chiesa,80,RM,RM|RW|ST,Italy,Premier League,Liverpool,rare,hayır,hayır,hayır,0,180
+Tarkowski,80,CB,CB,England,Premier League,Everton,rare,hayır,hayır,hayır,0,180
+Isi,80,CAM,CAM|RM|CM|RW|ST,Spain,LALIGA EA SPORTS,Rayo Vallecano,rare,hayır,hayır,hayır,0,180
+Schjelderup,80,LW,LW|LM,Norway,Liga Portugal,SL Benfica,rare,hayır,hayır,hayır,0,180
+Pavard,80,CB,CB,France,Serie A Enilive,Lombardia FC,rare,hayır,hayır,hayır,0,180
+Sergi Cardona,80,LB,LB|LM,Spain,LALIGA EA SPORTS,Villarreal CF,rare,hayır,hayır,hayır,0,160
+Konstantelias,79,CAM,CAM|CM|LM|LW,Greece,Bundesliga,Borussia Dortmund,rare,evet,hayır,hayır,0,160
+Özer,79,GK,GK,Türkiye,Ligue 1 McDonald's,LOSC,rare,evet,hayır,hayır,0,160
+Svensson,79,LB,LB|LM|LW,Sweden,Bundesliga,Borussia Dortmund,rare,evet,hayır,hayır,0,160
+Bentancur,79,CDM,CDM|CM,Uruguay,Premier League,Spurs,rare,hayır,hayır,hayır,0,160
+Carlos Soler,79,CM,CM|CDM|CAM,Spain,LALIGA EA SPORTS,Real Sociedad,rare,hayır,hayır,hayır,0,160
+Koffi,79,GK,GK,Burkina Faso,1A Pro League,R. Union St.-G.,rare,hayır,hayır,hayır,0,160
+Udogie,79,LB,LB|LM,Italy,Premier League,Spurs,rare,hayır,hayır,hayır,0,160
+Dufour,79,RW,RW|RM|LM|LW,France,National Women's Soccer League,Portland Timbers,rare,hayır,hayır,hayır,0,160
+Ryan,79,GK,GK,Australia,LALIGA EA SPORTS,Levante UD,rare,hayır,hayır,hayır,0,160
+Uzun,79,CAM,CAM|CM|ST,Türkiye,Bundesliga,Frankfurt,rare,hayır,hayır,hayır,0,140
+Gotts,79,CDM,CDM|CM,England,EFL League One,Doncaster,rare,hayır,hayır,hayır,0,20
+Bensebaini,79,CB,CB|LB|LM,Algeria,Bundesliga,Borussia Dortmund,rare,hayır,hayır,hayır,0,160
+Tanaka,79,CAM,CAM|CDM|CM|ST,Japan,National Women's Soccer League,Real Salt Lake,rare,hayır,hayır,evet,0,160
+Djimsiti,79,CB,CB,Albania,ROSHN Saudi League,Diriyah,rare,hayır,hayır,hayır,0,160
+van den Berg,78,CB,CB,Netherlands,Premier League,Brentford,rare,evet,hayır,hayır,0,140
+Onyedika,78,CDM,CDM|CM,Nigeria,Bundesliga,Frankfurt,rare,evet,hayır,hayır,0,140
+Batna,78,ST,ST|RM|CAM|RW,Morocco,ROSHN Saudi League,Al Fateh,rare,hayır,hayır,hayır,0,140
+Kılıçsoy,78,ST,ST|CAM,Türkiye,Trendyol Süper Lig,Beşiktaş,rare,hayır,hayır,hayır,0,35
+Lavia,78,CDM,CDM|CM,Belgium,Premier League,Chelsea,rare,hayır,hayır,hayır,0,140
+Vandevoordt,78,GK,GK,Belgium,Bundesliga,RB Leipzig,rare,hayır,hayır,hayır,0,140
+Felde,78,CDM,CDM|CM,Germany,Google Pixel Frauen-Bundesliga,SC Freiburg,rare,hayır,hayır,hayır,0,140
+Ortega,78,GK,GK,Germany,Hellas Liga,Olympiacos FC,rare,hayır,hayır,hayır,0,140
+Addai,78,RM,RM|RW,Netherlands,Serie A Enilive,Como 1907,rare,hayır,hayır,hayır,0,35
+Thomas-Asante,73,ST,ST|RM|CAM|RW,Ghana,Premier League,Coventry City,rare,hayır,hayır,hayır,0,35
+Broggio,63,RM,RM|LM|CAM|RW|LW,England,EFL League One,Stevenage,rare,evet,hayır,hayır,0,20
+Sanabria,62,CDM,CDM|CM,Paraguay,Liga BBVA MX,Club Puebla,rare,evet,hayır,hayır,0,20
+Freeman,60,CM,CM|RB|CDM|RM,England,EFL League Two,Gillingham,rare,evet,hayır,hayır,0,20
+Ibbitson,53,ST,ST,England,EFL League One,Bradford City,rare,evet,hayır,hayır,0,20
+Ba,63,CB,CB,Mauritania,PKO Bank Polski Ekstraklasa,Śląsk Wrocław,rare,evet,hayır,hayır,0,0

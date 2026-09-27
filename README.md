@@ -1,17 +1,19 @@
 # FUT Asistanı
 
-EA hesabına **hiç bağlanmaz**. Veriyi sen `data/` klasörüne koyarsın, program hesaplar ve önerir, tıklamaları Web App'te sen yaparsın. Bu yüzden ban riski yok.
+EA hesabına **hiç bağlanmaz**. Veriyi sen `data/` klasörüne koyarsın, program hesaplar ve önerir, tıklamaları Web App'te sen yaparsın. Kulüp listesi istenirse Web App'ten ekran görüntüsüyle okunur (`webapp_ekran.py`: sadece fare tekerleği ve "Next" tıklaması, sayfaya kod enjekte etmez, EA'ya ek istek atmaz).
 
-Python 3.10+ ve Google OR-Tools gerekir. OR-Tools proje içindeki `.venv` ortamında kurulu (sistem Python'una dokunulmaz). Sıfırdan kurulum:
+Python 3.10+ ve Google OR-Tools gerekir; `webapp_ekran.py` için ayrıca python-xlib ve Pillow (X11 masaüstü). Hepsi proje içindeki `.venv` ortamında (sistem Python'una dokunulmaz). Sıfırdan kurulum:
 
 ```bash
-python3 -m venv --without-pip .venv && curl -sS https://bootstrap.pypa.io/get-pip.py | .venv/bin/python && .venv/bin/python -m pip install ortools
+python3 -m venv --without-pip .venv && curl -sS https://bootstrap.pypa.io/get-pip.py | .venv/bin/python && .venv/bin/python -m pip install ortools python-xlib pillow
 ```
 
 ## Arayüz
 
 Uygulama menüsünden **FUT Asistanı**'na tıkla ya da `./start.sh` çalıştır. Tarayıcıda http://127.0.0.1:8765 açılır.
 Ana Sayfa, bütçene göre **en fazla sayıda SBC'yi** tamamlayacak kart dağıtımını ve her SBC'nin sahadaki dizilişini gösterir. "Şu an oyunda hangi SBC'desin?" seçimiyle sadece o kadro büyük görünür.
+Tam yapılamayan SBC'ler, plandan kalan kartlarla **en az eksik oyuncuyla** doldurulur ve her eksik yer için pazardan alınacak oyuncunun özellikleri yazılır (ör. `CB · reyting 72+ · Kulüp: Nottingham Forest (Premier League)`; yazmayan alan herhangi olabilir). "En fazla kaç eksik" sınırına giren yarım SBC'ler "A veya B" diye listelenir, birini seçersin.
+Sonucun yanında "kanıtlanmış en iyi" yazıyorsa daha fazla SBC (yarımda daha az eksik) mümkün değildir; "süre sınırında" yazıyorsa daha iyisi olabilir.
 
 SBC ve kulüp ekran görüntülerini Claude Code oturumuna atarsan veri dosyalarını Claude yazar (kurallar `CLAUDE.md`'de). Arayüz değişikliği 3 saniye içinde kendisi görür, yeniden başlatma gerekmez.
 
@@ -25,7 +27,9 @@ SBC ve kulüp ekran görüntülerini Claude Code oturumuna atarsan veri dosyalar
 .venv/bin/python fut.py evo                # hangi oyuncu hangi Evolution'a uygun
 .venv/bin/python fut.py kar 10000 12500    # 10.000'e alıp 12.500'e satarsam kârım (%5 vergi dahil)
 .venv/bin/python fut.py fiyat 10000 1000   # 1.000 kâr için en az kaça listelemeliyim
-.venv/bin/python test_fut.py               # hızlı kontrol
+.venv/bin/python test_fut.py               # hızlı kontrol (uydurma veriyle)
+.venv/bin/python bench.py 0-11             # planlayıcı ölçümü: testveri.py örnekleriyle hız, kanıt, doğruluk
+.venv/bin/python futgg.py kulup            # data/webapp_kulup.csv'den club.csv'yi kur (FUT.GG ile tamamlar)
 ```
 
 ## Veriyi nasıl atarsın

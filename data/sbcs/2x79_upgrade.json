@@ -1,0 +1,17 @@
+{
+  "name": "2x 79+ Upgrade",
+  "size": 10,
+  "formation": "4-4-2",
+  "repeat": 3,
+  "reward_value": 1500,
+  "expires": "2026-09-28",
+  "notes": "Kaleci yeri kilitli: 10 oyuncu. Ödül: 2x 79+ Gold Players Pack (Untradeable); değer tahmin. Repeatable: 3.",
+  "requirements": [
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 10
+    }
+  ],
+  "passive": true
+}

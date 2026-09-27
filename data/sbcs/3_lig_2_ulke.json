@@ -32,5 +32,5 @@
       "min": 11
     }
   ],
-  "passive": true
+  "passive": false
 }

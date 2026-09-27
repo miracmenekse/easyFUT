@@ -1,0 +1,40 @@
+{
+  "name": "Netherlands v Germany (Marquee Matchups)",
+  "size": 11,
+  "formation": "5-3-2(2)",
+  "min_chem": 22,
+  "reward_value": 2500,
+  "expires": "2026-10-01",
+  "notes": "Marquee Matchups grubu 3/4 (grup ödülü: Large Gold Players Pack). Ödül: Small Gold Players Pack; değer tahmin.",
+  "requirements": [
+    {
+      "field": "nation",
+      "in": [
+        "Netherlands",
+        "Germany"
+      ],
+      "min": 2
+    },
+    {
+      "type": "same",
+      "field": "club",
+      "max": 2
+    },
+    {
+      "type": "same",
+      "field": "league",
+      "min": 4
+    },
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 2
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "min": 11
+    }
+  ],
+  "passive": false
+}

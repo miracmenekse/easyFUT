@@ -1,0 +1,31 @@
+{
+  "name": "Italy v Belgium (Marquee Matchups)",
+  "size": 11,
+  "formation": "4-4-2",
+  "min_chem": 14,
+  "reward_value": 800,
+  "expires": "2026-10-01",
+  "notes": "Marquee Matchups grubu 1/4 (grup ödülü: Large Gold Players Pack). Ödül: Mini Gold Pack; değer tahmin. Player Quality: Min Bronze şartı her kartla sağlanır.",
+  "requirements": [
+    {
+      "field": "nation",
+      "in": [
+        "Italy",
+        "Belgium"
+      ],
+      "min": 1
+    },
+    {
+      "type": "distinct",
+      "field": "club",
+      "min": 3
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "lte": 74,
+      "min": 3
+    }
+  ],
+  "passive": false
+}

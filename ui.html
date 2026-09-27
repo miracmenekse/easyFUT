@@ -46,6 +46,8 @@ label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mu
 .chip.ok{color:var(--accent);border-color:rgba(32,227,178,.35)}
 .chip.w{color:var(--warn);border-color:rgba(255,181,71,.35)}
 .muted{color:var(--muted)}
+.slot.sel .card,tr.sel td{outline:3px solid var(--bad);outline-offset:-3px}.slot[onclick],tr[onclick]{cursor:pointer}
+.pickbar{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;background:var(--panel2);border:1px solid var(--bad);padding:10px 14px;border-radius:12px;display:none;gap:10px;align-items:center;z-index:8;max-width:90vw}
 .toast{position:fixed;right:20px;bottom:20px;background:var(--panel2);border:1px solid var(--line);padding:12px 16px;border-radius:10px;display:none;z-index:9}
 /* SBC kartları */
 .sbcs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
@@ -121,6 +123,7 @@ td input,td select{width:100%;padding:5px 6px}
         <label class="f">SBC için harcayabileceğin coin<input id="budget" type="number" min="0" step="1000" value="0"></label>
         <button class="btn" id="planBtn" onclick="runPlan()">Planı oluştur</button>
         <span class="muted">0 = sadece kulübündeki kartlar, hiçbir şey satın alınmaz.</span>
+        <label class="f">Yarım SBC: en fazla kaç eksik oyuncu?<input id="maxMissing" type="number" min="1" max="11" value="3" style="width:90px" oninput="renderPlan()"></label>
       </div>
     </div>
     <div class="panel" id="focusBox" style="display:none"><div class="row">
@@ -215,6 +218,7 @@ td input,td select{width:100%;padding:5px 6px}
     </div>
   </section>
 </main>
+<div class="pickbar" id="pickbar"></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -231,15 +235,16 @@ async function api(path, opt) {
   if (!r.ok) throw new Error(body.error || body);
   return body;
 }
+let VER = null;  // sunucudaki veri sürümü (yoklama bununla karşılaştırır)
 async function load() {
-  try { S = await api('/api/state'); } catch (e) { toast('Veri okunamadı: ' + e.message, true); return; }
+  try { S = await api('/api/state'); VER = S.v; } catch (e) { toast('Veri okunamadı: ' + e.message, true); return; }
   $('s-form').innerHTML = S.formations.map(f => `<option>${f}</option>`).join('');
   renderStats(); renderSbcs(); renderClub(); renderEvos(); loadFiles();
 }
 
 /* ---------- kart ---------- */
 function tier(c) {
-  if (c.source === 'pazar') return 'market';
+  if (c.source === 'pazar' || c.source === 'eksik') return 'market';
   if (!['rare', 'common', ''].includes(c.rarity || '')) return 'special';
   const r = +c.rating;
   if (r < 65) return 'bronze';
@@ -248,7 +253,7 @@ function tier(c) {
 }
 function card(c, del, chem) {
   const sub = c.source === 'pazar' ? `~${fmt(c.price)} coin` : [c.league, c.nation].filter(Boolean).join(' · ');
-  const name = c.source === 'pazar' ? 'Pazardan al' : c.name;
+  const name = c.source === 'pazar' ? 'Pazardan al' : c.source === 'eksik' ? 'Pazardan al (eksik)' : c.name;
   return `<div class="card ${tier(c)} ${c.locked === true ? 'locked' : ''}" title="${esc(c.name)}${c.club ? ' — ' + esc(c.club) : ''}${c.positions ? ' · ' + esc(c.positions) : ''}">
     ${del != null ? `<span class="lk" title="Kilitle: SBC'de kullanılmasın" onclick="toggleLock(${del})">${c.locked ? '🔒' : '🔓'}</span>` : ''}
     <div class="r">${c.rating}</div><div class="p">${esc(c.position || '')}</div>
@@ -270,7 +275,7 @@ function reqText(r) {
 
 /* ---------- ana sayfa ---------- */
 function renderStats() {
-  const c = S.club, jobs = S.sbcs.filter(s => !s.passive).reduce((a, s) => a + (s.repeat || 1), 0);
+  const c = S.club, jobs = S.sbcs.filter(s => !s.passive && !s.completed).reduce((a, s) => a + (s.repeat || 1), 0);
   $('stats').innerHTML = [
     [c.length, 'Kart'], [c.filter(x => x.duplicate).length, 'Kopya'],
     [c.filter(x => x.tradeable).length, 'Takaslanabilir'],
@@ -278,7 +283,12 @@ function renderStats() {
     [jobs, 'Bekleyen SBC']].map(([b, s]) => `<div class="tile"><b>${b}</b><span>${s}</span></div>`).join('');
 }
 let PLAN = null;
+let planBusy = false, planAgain = false;
 async function runPlan() {
+  // aynı anda tek plan isteği: yığılan istekler tarayıcının bağlantılarını (sunucu başına 6) doldurup
+  // Pasife al gibi diğer istekleri bekletiyordu. Hesaplanırken yeni istek gelirse bitince bir kez daha çalışır.
+  if (planBusy) { planAgain = true; return; }
+  planBusy = true;
   const btn = $('planBtn'); btn.disabled = true;
   try { localStorage.setItem('budget', $('budget').value); } catch (e) {}
   $('plan').insertAdjacentHTML('afterbegin', '<div class="panel" id="planWait"><span class="spin"></span> En iyi dağıtım aranıyor (SBC sayısına göre 1-2 dk sürebilir)…</div>');
@@ -286,12 +296,50 @@ async function runPlan() {
   catch (e) { $('plan').innerHTML = `<div class="panel" style="color:var(--bad)">${esc(e.message)}</div>`; }
   finally { $('planWait') && $('planWait').remove(); }
   btn.disabled = false;
+  planBusy = false;
+  if (planAgain) { planAgain = false; runPlan(); }
 }
 const key = d => d.sbc._file + '#' + d.sbc._copy;
+const PICK = new Set();  // planda seçilen kartlar (SBC'den çıkarılacak)
+function pickCard(id) {
+  if (id !== null) PICK.has(id) ? PICK.delete(id) : PICK.add(id);
+  renderPlan();
+  const bar = $('pickbar'), names = [...PICK].map(i => S.club[i] ? S.club[i].name : '?');
+  bar.style.display = PICK.size ? 'flex' : 'none';
+  bar.innerHTML = `<span><b>${PICK.size}</b> oyuncu seçildi: ${esc(names.join(', '))}</span>
+    <button class="btn" onclick="excludePicked()">SBC'den çıkar</button><button class="btn ghost" onclick="PICK.clear();pickCard(null)">Temizle</button>`;
+}
+async function excludePicked() {
+  const ids = [...PICK], plan = [...PLAN.done, ...(PLAN.partial || [])].flatMap(d => d.slots.map(sl => sl.card));
+  for (const i of ids) {  // plan eski veriyle hesaplandıysa yanlış kartı kilitleme
+    const c = plan.find(x => x.id === i);
+    if (!S.club[i] || !c || S.club[i].name !== c.name || S.club[i].rating !== c.rating) { toast('Veri değişti, planı yenileyip tekrar seç', true); return; }
+  }
+  ids.forEach(i => S.club[i].locked = true);
+  PICK.clear(); $('pickbar').style.display = 'none';
+  await saveClub(); runPlan();  // kilitli kart SBC'ye girmez; Kulüp sayfasından kilit açılabilir
+}
 function pitch(d) {
-  return `<div class="pitch">${d.slots.map(sl => sl.x == null ? '' : `<div class="slot" style="left:${sl.x}%;top:${sl.y}%">
-    ${card(sl.card)}<div class="sp ${sl.fit}" title="${{tam: 'Kendi pozisyonu', alt: 'Alternatif pozisyonu', farklı: 'Pozisyon dışı: kimya 0', pazar: 'Pazardan al'}[sl.fit] || ''}">${sl.pos}</div>
+  return `<div class="pitch">${d.slots.map(sl => sl.x == null ? '' : `<div class="slot ${PICK.has(sl.card.id) ? 'sel' : ''}" style="left:${sl.x}%;top:${sl.y}%"${sl.card.source === 'kulüp' ? ` onclick="pickCard(${sl.card.id})" title="Seç: SBC'den çıkarılacaklar"` : ''}>
+    ${card(sl.card)}<div class="sp ${sl.fit}" title="${{tam: 'Kendi pozisyonu', alt: 'Alternatif pozisyonu', farklı: 'Pozisyon dışı: kimya 0', pazar: 'Pazardan al', eksik: 'Eksik: pazardan alacağın oyuncu'}[sl.fit] || ''}">${sl.pos}</div>
     <div class="ch" title="Kimya">${'◆'.repeat(sl.chem)}${'◇'.repeat(3 - sl.chem)}</div></div>`).join('')}</div>`;
+}
+async function markDone(kind, i) {
+  const d = PLAN[kind][i], cards = d.slots.map(sl => sl.card).filter(c => c.source === 'kulüp');
+  const tekrar = (d.sbc.repeat || 1) > 1 ? `\nTekrarlı SBC: kalan tekrar ${d.sbc.repeat - 1} olacak.` : '\nSBC tamamlandı olarak işaretlenecek.';
+  if (!confirm(`"${d.sbc.name}" oyunda yapıldı mı?\n\nBu ${cards.length} kart kulüpten silinecek (kopyası varsa sadece kopya işareti kalkar):\n`
+      + cards.map(c => `${c.rating} ${c.name}`).join(', ') + tekrar)) return;
+  try {
+    const r = await api('/api/done', {method: 'POST', body: JSON.stringify({file: d.sbc._file,
+      cards: cards.map(c => ({name: c.name, rating: c.rating, club: c.club}))})});
+    toast(`Tamam: ${r.silinen.length} kart silindi` + (r.kopyasi_kalan.length ? `, ${r.kopyasi_kalan.length} kopya kaldı` : '')
+      + (r.bulunamayan.length ? `. Bulunamayan: ${r.bulunamayan.join(', ')}` : ''), r.bulunamayan.length > 0);
+    await load(); runPlan();
+  } catch (e) { toast('Olmadı: ' + e.message, true); }
+}
+function pickPartial(k) {
+  let cur = ''; try { cur = localStorage.getItem('pick') || ''; localStorage.setItem('pick', cur === k ? '' : k); } catch (e) {}
+  renderPlan();
 }
 function renderPlan() {
   const p = PLAN; if (!p) return;
@@ -309,7 +357,8 @@ function renderPlan() {
     if (sel.value && sel.value !== key(d)) return;
     const s = d.sbc, buy = d.slots.filter(sl => sl.card.source === 'pazar').length;
     h += `<div class="step"><div class="n">${i + 1}</div><div class="body">
-      <h3>${esc(s.name)}${(s.repeat || 1) > 1 ? ` <span class="chip">${s._copy}. tekrar</span>` : ''}</h3>
+      <h3>${esc(s.name)}${(s.repeat || 1) > 1 ? ` <span class="chip">${s._copy}. tekrar</span>` : ''}
+        <button class="btn ghost" onclick="markDone('done', ${i})" title="Oyunda bu kadroyla yaptım: kartlar kulüpten silinsin, SBC tamamlandı olsun">Bunu yaptım</button></h3>
       <span class="chip ok">Takım ${d.rating}</span><span class="chip ok">Kimya ${d.chem}/33</span><span class="chip">${esc(d.formation)}</span>
       ${buy ? `<span class="chip w">${buy} kart satın al · ${fmt(d.spend)} coin</span>` : '<span class="chip ok">Sadece kulüp kartları</span>'}
       ${s.reward_value ? `<span class="chip">Ödül ~${fmt(s.reward_value)}</span>` : ''}
@@ -317,13 +366,42 @@ function renderPlan() {
       <div class="stepgrid">${pitch(d)}<div>
         <ul class="checks">${d.checks.map(([t, ok]) => `<li class="${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'} ${esc(t)}</li>`).join('')}</ul>
         <table style="margin-top:12px"><tr><th>Poz.</th><th>Oyuncu</th><th>Rey.</th><th>Kimya</th></tr>
-        ${d.slots.map(sl => `<tr><td><b>${sl.pos}</b></td><td>${esc(sl.card.source === 'pazar' ? 'Pazardan al (' + sl.card.rating + ', ~' + fmt(sl.card.price) + ')' : sl.card.name)}</td>
+        ${d.slots.map(sl => `<tr${sl.card.source === 'kulüp' ? ` class="${PICK.has(sl.card.id) ? 'sel' : ''}" onclick="pickCard(${sl.card.id})"` : ''}><td><b>${sl.pos}</b></td><td>${esc(sl.card.source === 'pazar' ? 'Pazardan al (' + sl.card.rating + ', ~' + fmt(sl.card.price) + ')' : sl.card.name)}</td>
           <td>${sl.card.rating}</td><td class="muted">${sl.chem}</td></tr>`).join('')}</table>
         <p class="legend">Pozisyon etiketi: beyaz kendi pozisyonu, mavi alternatif pozisyonu, kırmızı pozisyon dışı (kimya 0). ◆ = kimya puanı.</p></div></div></div></div>`;
   });
   if (p.skipped.length && !sel.value) h += `<div class="panel"><h2>Yapılamayanlar</h2>${p.skipped.map(s =>
     `<span class="chip w">${esc(s.name)}${(s.repeat || 1) > 1 ? ' #' + s._copy : ''}</span>`).join('')}
     <p class="muted">Kartlar ya da bütçe yetmiyor. Bütçeyi artırmayı ya da fodder_prices.csv'deki fiyatları güncellemeyi dene.</p></div>`;
+  const mx = +$('maxMissing').value || 0, opts = (p.partial || []).filter(d => d.missing.length <= mx);
+  if (opts.length && !sel.value) {
+    let pick = ''; try { pick = localStorage.getItem('pick') || ''; } catch (e) {}
+    if (!opts.some(d => key(d) === pick)) pick = '';
+    h += `<div class="panel"><h2>Yarım kalan SBC'ler: birini seç</h2>
+      <p class="muted">Yukarıdaki plandan kalan kartlarla doldurulabildiği kadar dolduruldu. Seçenekler aynı kalan kartları kullanır, sadece birini yapabilirsin:
+      <b>${opts.map(d => esc(d.sbc.name)).join('</b> veya <b>')}</b>. Eksik yerleri transfer market'ten sen tamamla.</p></div>`;
+    opts.forEach((d, i) => {
+      const k = key(d), on = pick === k, btn = `<button class="btn ${on ? '' : 'ghost'}" onclick="pickPartial('${esc(k)}')">${on ? 'Seçildi ✓' : 'Bunu yapacağım'}</button>`;
+      const head = `<h3>${esc(d.sbc.name)} <span class="chip w">${d.missing.length} oyuncu eksik</span>
+        <span class="chip ${d.proven ? 'ok' : ''}" title="${d.proven ? 'Kalan kartlarla daha az eksikle yapılamayacağı kanıtlandı' : 'Süre doldu: daha az eksikli bir çözüm olabilir'}">${d.proven ? 'En az eksik (kanıtlı)' : 'Süre sınırında'}</span> ${btn}
+        ${on ? `<button class="btn ghost" onclick="markDone('partial', ${p.partial.indexOf(d)})" title="Eksikleri pazardan alıp oyunda yaptım: kulüp kartları silinsin, SBC tamamlandı olsun">Bunu yaptım</button>` : ''}</h3>`;
+      if (pick && !on) {  // seçilmeyen seçenekler tek satır
+        h += `<div class="step"><div class="n">veya</div><div class="body">${head}</div></div>`;
+        return;
+      }
+      h += `<div class="step"><div class="n">${i ? 'veya' : '?'}</div><div class="body">${head}
+        <span class="chip">${esc(d.formation)}</span>
+        <div>${(d.sbc.requirements || []).map(r => `<span class="chip">${esc(reqText(r))}</span>`).join('')}</div>
+        <div class="stepgrid">${pitch(d)}<div>
+          <h3>Pazardan alman gerekenler</h3>
+          <ul class="checks">${d.lines.map(([n, t]) => `<li class="no">➜ ${n > 1 ? `<b>${n} ×</b> ` : ''}${esc(t)}</li>`).join('')}</ul>
+          <p class="legend">Sadece yazan özellikler önemli; yazmayan alanlar (ülke, lig, kulüp) herhangi olabilir. Yazan reyting aralığındaki her oyuncu olur.</p>
+          <ul class="checks">${d.checks.map(([t, ok]) => `<li class="${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'} ${esc(t)}</li>`).join('')}</ul>
+          <table style="margin-top:12px"><tr><th>Poz.</th><th>Oyuncu</th><th>Rey.</th></tr>
+          ${d.slots.map(sl => `<tr${sl.card.source === 'kulüp' ? ` class="${PICK.has(sl.card.id) ? 'sel' : ''}" onclick="pickCard(${sl.card.id})"` : ''}><td><b>${sl.pos}</b></td><td>${esc(sl.card.source === 'eksik' ? '➜ Pazardan al' : sl.card.name)}</td>
+            <td>${sl.card.source === 'eksik' ? '' : sl.card.rating}</td></tr>`).join('')}</table></div></div></div></div>`;
+    });
+  }
   $('plan').innerHTML = h;
 }
 
@@ -380,12 +458,12 @@ const slug = s => s.toLowerCase().replace(/[çğıöşü]/g, c => 'cgiosu'['çğ
 
 /* ---------- SBC ---------- */
 function renderSbcs() {
-  $('sbcList').innerHTML = S.sbcs.map(s => `<div class="sbc ${s.passive ? 'passive' : ''}">
+  $('sbcList').innerHTML = S.sbcs.map(s => `<div class="sbc ${s.passive || s.completed ? 'passive' : ''}">
     <h3>${esc(s.name)}</h3>
     <span class="chip ok">Takım ≥ ${s.min_rating ?? '-'}</span><span class="chip">${s.size || 11} oyuncu</span><span class="chip">${esc(s.formation || '4-3-3')}</span>${s.min_chem ? `<span class="chip">Kimya ≥ ${s.min_chem}</span>` : ''}${s.min_player_chem ? `<span class="chip">Oyuncu kimyası ≥ ${s.min_player_chem}</span>` : ''}
     ${(s.repeat || 1) > 1 ? `<span class="chip">×${s.repeat}</span>` : ''}
     <div>${(s.requirements || []).map(r => `<span class="chip">${esc(reqText(r))}</span>`).join('')}</div>
-    <div class="meta"><span>Ödül ~${fmt(s.reward_value)}${s.passive ? ' · <b style="color:var(--warn)">PASİF</b>' : ''}</span>
+    <div class="meta"><span>Ödül ~${fmt(s.reward_value)}${s.passive ? ' · <b style="color:var(--warn)">PASİF</b>' : ''}${s.completed ? ` · <b style="color:var(--accent)">TAMAMLANDI (${esc(s.completed)})</b>` : ''}</span>
       <span><a href="#" onclick="togglePassive('${esc(s._file)}');return false" style="color:var(--warn)">${s.passive ? 'Aktif et' : 'Pasife al'}</a> ·
       <a href="#" onclick="editSbc('${esc(s._file)}');return false" style="color:var(--accent)">Düzenle</a> ·
       <a href="#" onclick="delFile('sbcs/${esc(s._file)}');return false" style="color:var(--bad)">Sil</a></span></div></div>`).join('')
@@ -442,12 +520,12 @@ function renderClub() {
     $('clubView').innerHTML = `<p class="muted">${rows.length} kart</p><div class="cards">${rows.map(([c, i]) => card(c, i)).join('')}</div>`;
     return;
   }
-  const cols = ['name', 'rating', 'position', 'positions', 'nation', 'league', 'club', 'rarity', 'tradeable', 'duplicate', 'locked', 'price'];
+  const cols = ['name', 'rating', 'position', 'positions', 'nation', 'league', 'club', 'rarity', 'tradeable', 'duplicate', 'locked', 'price', 'value'];
   const head = ['Ad', 'Rey.', 'Poz.', 'Diğer poz. (ST|CF)', 'Ülke', 'Lig', 'Kulüp', 'Nadirlik', 'Takas', 'Kopya', 'Kilit', 'Fiyat'];
   $('clubView').innerHTML = `<div class="panel" style="overflow:auto"><table><tr>${head.map(h => `<th>${h}</th>`).join('')}<th></th></tr>
     ${rows.map(([c, i]) => `<tr data-i="${i}">${cols.map(k => ['tradeable', 'duplicate', 'locked'].includes(k)
       ? `<td><input type="checkbox" data-k="${k}" ${c[k] ? 'checked' : ''}></td>`
-      : `<td><input data-k="${k}" value="${esc(c[k])}" ${k === 'rating' || k === 'price' ? 'type="number"' : ''}></td>`).join('')}
+      : `<td><input data-k="${k}" value="${esc(c[k])}" ${['rating', 'price', 'value'].includes(k) ? 'type="number"' : ''}></td>`).join('')}
       <td><button class="btn bad" onclick="delCard(${i})">✕</button></td></tr>`).join('')}</table>
     <div class="row" style="margin-top:10px"><button class="btn ghost" onclick="addCard()">+ Oyuncu ekle</button>
     <button class="btn" onclick="saveClub()">Kulübü kaydet</button></div></div>`;
@@ -458,7 +536,7 @@ function renderClub() {
 }
 function toggleEdit() { editing = !editing; $('modeBtn').textContent = editing ? 'Kart görünümü' : 'Tablo ile düzenle'; renderClub(); }
 function addCard() {
-  S.club.push({name: '', rating: 75, position: '', positions: '', nation: '', league: '', club: '', rarity: 'rare', tradeable: false, duplicate: false, locked: false, price: 0});
+  S.club.push({name: '', rating: 75, position: '', positions: '', nation: '', league: '', club: '', rarity: 'rare', tradeable: false, duplicate: false, locked: false, price: 0, value: 0});
   $('q').value = ''; $('fl').value = ''; $('fr').value = ''; renderClub();
   const last = [...$('clubView').querySelectorAll('tr[data-i]')].find(tr => +tr.dataset.i === S.club.length - 1);
   last && last.querySelector('input').focus();
@@ -527,14 +605,15 @@ addReq('e-reqs');
 try { const b = localStorage.getItem('budget'); if (b) $('budget').value = b; } catch (e) {}
 load().then(runPlan);
 // veri dosyaları değişince (ör. ekran görüntüsünden yeni SBC eklendi) kendiliğinden yenile
-let VER = null;
 setInterval(async () => {
   try {
     const {v} = await api('/api/version');
     if (VER !== null && v !== VER) {
       const fs = document.activeElement && ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName) && document.activeElement.id !== 'focus';
-      if (!fs) { await load(); await runPlan(); toast('Yeni veri geldi, plan güncellendi'); }
-      else return;  // kullanıcı yazıyorken bozma; sonraki yoklamada tekrar dener
+      if (fs) return;  // kullanıcı yazıyorken bozma; sonraki yoklamada tekrar dener
+      VER = v;  // planı beklemeden: yoksa her yoklama aynı değişiklik için yeni plan isteği açar
+      await load(); runPlan(); toast('Yeni veri geldi, plan yeniden hesaplanıyor');
+      return;
     }
     VER = v;
   } catch (e) {}

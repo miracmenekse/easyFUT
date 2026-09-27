@@ -1,3 +1,17 @@
-{"name": "Silver Upgrade", "size": 11, "formation": "4-1-2-1-2", "reward_value": 5000, "repeat": 1,
- "notes": "Tekrarlanabilir. Oyuncu Kalitesi: Tam olarak Gümüş (65-74). Ödül: 75+ Gold Player Pack.",
- "requirements": [{"field": "rating", "gte": 65, "lte": 74, "min": 11}]}
+{
+  "name": "Silver Upgrade",
+  "size": 11,
+  "formation": "4-1-2-1-2",
+  "reward_value": 5000,
+  "repeat": 1,
+  "notes": "Tekrarlanabilir. Oyuncu Kalitesi: Tam olarak Gümüş (65-74). Ödül: 75+ Gold Player Pack.",
+  "requirements": [
+    {
+      "field": "rating",
+      "gte": 65,
+      "lte": 74,
+      "min": 11
+    }
+  ],
+  "passive": true
+}

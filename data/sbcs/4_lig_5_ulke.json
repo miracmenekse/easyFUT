@@ -28,5 +28,5 @@
       "max": 3
     }
   ],
-  "passive": true
+  "passive": false
 }

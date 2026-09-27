@@ -8,7 +8,7 @@ import fut
 PORT = 8765
 ROOT = fut.DATA.parent
 CLUB_COLS = ["name", "rating", "position", "positions", "nation", "league", "club", "rarity", "tradeable", "duplicate",
-             "locked", "price"]
+             "locked", "price", "value"]
 
 
 _fut_mtime = [0]
@@ -78,7 +78,12 @@ def _plan(budget, time_limit):
                       "formation": s.get("formation") or fut.DEFAULT_FORMATION,
                       "slots": [sl | {"card": card_json(sl["card"])} for sl in r["slots"]]}
                      for s, r in p["done"]],
-            "skipped": p["skipped"]}
+            "skipped": p["skipped"],
+            "partial": [{"sbc": s, "missing": r["missing"], "lines": fut.need_lines(r["missing"]), "rating": r["rating"],
+                         "chem": r["chem"], "checks": r["checks"], "proven": r["proven"],
+                         "formation": s.get("formation") or fut.DEFAULT_FORMATION,
+                         "slots": [sl | {"card": card_json(sl["card"])} for sl in r["slots"]]}
+                        for s, r in p["partial"]]}
 
 
 def evos():
@@ -104,7 +109,7 @@ def save_club(rows):
         if not str(r.get("name", "")).strip() or not str(r.get("rating", "")).strip().isdigit():
             raise ValueError(f"eksik isim veya reyting: {r}")
         w.writerow({**r, **{k: "evet" if r.get(k) in (True, "evet") else "hayır" for k in ("tradeable", "duplicate", "locked")},
-                    "price": int(r.get("price") or 0)})
+                    "price": int(r.get("price") or 0), "value": int(r.get("value") or 0)})
     (fut.DATA / "club.csv").write_text(out.getvalue(), encoding="utf-8")
 
 
@@ -140,6 +145,9 @@ class H(BaseHTTPRequestHandler):
                     raise ValueError("veri bu sayfa açıldıktan sonra değişti, sayfa yenilendi")
                 save_club(json.loads(body))
                 return self.send({"ok": True})
+            if method == "POST" and u.path == "/api/done":  # SBC oyunda yapıldı
+                d = json.loads(body)
+                return self.send(fut.complete_sbc(d["file"], d["cards"]))
             if u.path == "/api/file":
                 p = data_path(q["name"])
                 if method == "GET":
