@@ -1,0 +1,34 @@
+{
+  "name": "Destined for Glory Challenge 1",
+  "formation": "4-5-1",
+  "min_chem": 14,
+  "size": 11,
+  "requirements": [
+    {
+      "type": "same",
+      "field": "league",
+      "min": 2
+    },
+    {
+      "type": "distinct",
+      "field": "nation",
+      "min": 3
+    },
+    {
+      "type": "distinct",
+      "field": "club",
+      "max": 4
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-09-30",
+  "source": "fut.gg 27-21-destined-for-glory-challenge-1 / 48",
+  "requirements_text": [
+    "Min. 2 Players from the same League",
+    "Min. Nationalities in Squad: 3",
+    "Max. Clubs in Squad: 4",
+    "Player quality: Min. Bronze",
+    "Min. Squad Total Chemistry Points: 14"
+  ],
+  "completed": "2026-09-27"
+}

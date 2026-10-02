@@ -85,7 +85,8 @@ Kullanıcı "kulübü güncelle" derse (Firefox'ta Web App > Club > Players aç�
    ülke/lig/kulüp/alternatif pozisyon/nadirlik oradan gelir. Eşleşmeyenler (Evolution kartları) en yakın temel
    karttan alınır ve listelenir. Kopya (`duplicate`) ve fiyat eski club.csv'den taşınır. Eski dosya club.csv.bak.
 4. `.venv/bin/python futgg.py deger`: club.csv'yi bozmadan `value` sütununu (FUT.GG kart değeri = `gradingScore`,
-   sitedeki elmas ikonlu sayı) doldurur. `value` pazar fiyatı (`price`) değildir.
+   sitedeki elmas ikonlu sayı) doldurur. `value` pazar fiyatı (`price`) değildir. Planlayıcı SBC'de kartın
+   bedeli olarak önce `value`'yu kullanır (`fut.card_cost`); değeri 0/boş kartta pazar fiyatına düşer.
 
 ## Kulüp ekran görüntüsü → `data/club.csv`
 - Sütunlar: `name,rating,position,positions,nation,league,club,rarity,tradeable,duplicate,locked,price,value`

@@ -275,7 +275,7 @@ function reqText(r) {
 
 /* ---------- ana sayfa ---------- */
 function renderStats() {
-  const c = S.club, jobs = S.sbcs.filter(s => !s.passive && !s.completed).reduce((a, s) => a + (s.repeat || 1), 0);
+  const c = S.club, jobs = S.sbcs.filter(s => !s.passive && !s.completed).length;
   $('stats').innerHTML = [
     [c.length, 'Kart'], [c.filter(x => x.duplicate).length, 'Kopya'],
     [c.filter(x => x.tradeable).length, 'Takaslanabilir'],
@@ -307,7 +307,29 @@ function pickCard(id) {
   const bar = $('pickbar'), names = [...PICK].map(i => S.club[i] ? S.club[i].name : '?');
   bar.style.display = PICK.size ? 'flex' : 'none';
   bar.innerHTML = `<span><b>${PICK.size}</b> oyuncu seçildi: ${esc(names.join(', '))}</span>
-    <button class="btn" onclick="excludePicked()">SBC'den çıkar</button><button class="btn ghost" onclick="PICK.clear();pickCard(null)">Temizle</button>`;
+    <button class="btn" onclick="replacePicked()" title="Sadece seçilenler değişir, diğerleri yerinde kalır">Seçilenleri değiştir</button>
+    <button class="btn ghost" onclick="excludePicked()" title="Kilitle: hiçbir SBC'ye girmesin, plan baştan hesaplanır">SBC'den çıkar</button><button class="btn ghost" onclick="PICK.clear();pickCard(null)">Temizle</button>`;
+}
+async function replacePicked() {
+  const all = [...PLAN.done, ...(PLAN.partial || [])];
+  const hit = all.filter(d => d.slots.some(sl => PICK.has(sl.card.id) && sl.card.source === 'kulüp'));
+  if (!hit.length) return;
+  $('pickbar').innerHTML = '<span class="spin"></span> Seçilenlerin yerine kart aranıyor…';
+  for (const d of hit) {
+    const kulup = x => x.slots.map(sl => sl.card).filter(c => c.source === 'kulüp').map(c => c.id);
+    const used = all.filter(x => x !== d).flatMap(kulup);
+    const drop = kulup(d).filter(i => PICK.has(i)).concat(d.dropped || []);
+    const keep = d.slots.filter(sl => !drop.includes(sl.card.id) && sl.card.source !== 'eksik' && sl.card.source !== 'pazar')
+      .map(sl => ({pos: sl.pos, card: sl.card.source === 'kulüp' ? sl.card.id : sl.card}));
+    try {
+      const r = await api('/api/replace', {method: 'POST', body: JSON.stringify({file: d.sbc._file, keep, drop, used})});
+      Object.assign(d, {slots: r.slots, checks: r.checks, chem: r.chem, rating: r.rating, missing: r.missing,
+                        lines: r.lines, proven: r.proven, dropped: drop});
+    } catch (e) { toast(d.sbc.name + ': ' + e.message, true); }
+  }
+  PICK.clear(); $('pickbar').style.display = 'none';
+  renderPlan();
+  toast('Seçilenler değiştirildi; eksik kalan yerler SBC\'lerin altında yazıyor');
 }
 async function excludePicked() {
   const ids = [...PICK], plan = [...PLAN.done, ...(PLAN.partial || [])].flatMap(d => d.slots.map(sl => sl.card));
@@ -351,6 +373,7 @@ function renderPlan() {
   let h = `<div class="tiles">
     <div class="tile"><b style="color:var(--accent)">${p.done.length} / ${p.total}</b><span>Yapılabilir SBC</span></div>
     <div class="tile"><b>${fmt(p.spent)}</b><span>Harcanacak coin</span></div>
+    <div class="tile"><b>${fmt(p.done.reduce((a, d) => a + (d.gallery || 0), 0))}</b><span>Harcanan galeri puanı</span></div>
     <div class="tile"><b>${fmt(p.done.reduce((a, d) => a + (d.sbc.reward_value || 0), 0))}</b><span>Toplam ödül değeri</span></div></div>
     <p class="muted">Sonuç: ${esc(p.status)}.</p>`;
   p.done.forEach((d, i) => {
@@ -359,11 +382,13 @@ function renderPlan() {
     h += `<div class="step"><div class="n">${i + 1}</div><div class="body">
       <h3>${esc(s.name)}${(s.repeat || 1) > 1 ? ` <span class="chip">${s._copy}. tekrar</span>` : ''}
         <button class="btn ghost" onclick="markDone('done', ${i})" title="Oyunda bu kadroyla yaptım: kartlar kulüpten silinsin, SBC tamamlandı olsun">Bunu yaptım</button></h3>
-      <span class="chip ok">Takım ${d.rating}</span><span class="chip ok">Kimya ${d.chem}/33</span><span class="chip">${esc(d.formation)}</span>
+      <span class="chip ok">Takım ${d.rating}</span><span class="chip ok">Kimya ${d.chem}/33</span><span class="chip" title="Bu SBC'de harcanan kulüp kartlarının FUT.GG galeri puanı toplamı: düşük olması iyi">Galeri puanı ${fmt(d.gallery)}</span><span class="chip">${esc(d.formation)}</span>
       ${buy ? `<span class="chip w">${buy} kart satın al · ${fmt(d.spend)} coin</span>` : '<span class="chip ok">Sadece kulüp kartları</span>'}
       ${s.reward_value ? `<span class="chip">Ödül ~${fmt(s.reward_value)}</span>` : ''}
       <div>${(s.requirements || []).map(r => `<span class="chip">${esc(reqText(r))}</span>`).join('')}</div>
       <div class="stepgrid">${pitch(d)}<div>
+        ${d.lines && d.lines.length ? `<h3>Pazardan alman gerekenler</h3><ul class="checks">${d.lines.map(([n, t]) => `<li class="no">➜ ${n > 1 ? `<b>${n} ×</b> ` : ''}${esc(t)}</li>`).join('')}</ul>
+          <p class="legend">Sadece yazan özellikler önemli; yazmayan alanlar herhangi olabilir.</p>` : ''}
         <ul class="checks">${d.checks.map(([t, ok]) => `<li class="${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'} ${esc(t)}</li>`).join('')}</ul>
         <table style="margin-top:12px"><tr><th>Poz.</th><th>Oyuncu</th><th>Rey.</th><th>Kimya</th></tr>
         ${d.slots.map(sl => `<tr${sl.card.source === 'kulüp' ? ` class="${PICK.has(sl.card.id) ? 'sel' : ''}" onclick="pickCard(${sl.card.id})"` : ''}><td><b>${sl.pos}</b></td><td>${esc(sl.card.source === 'pazar' ? 'Pazardan al (' + sl.card.rating + ', ~' + fmt(sl.card.price) + ')' : sl.card.name)}</td>
@@ -390,7 +415,7 @@ function renderPlan() {
         return;
       }
       h += `<div class="step"><div class="n">${i ? 'veya' : '?'}</div><div class="body">${head}
-        <span class="chip">${esc(d.formation)}</span>
+        <span class="chip">${esc(d.formation)}</span><span class="chip">Galeri puanı ${fmt(d.gallery)}</span>
         <div>${(d.sbc.requirements || []).map(r => `<span class="chip">${esc(reqText(r))}</span>`).join('')}</div>
         <div class="stepgrid">${pitch(d)}<div>
           <h3>Pazardan alman gerekenler</h3>

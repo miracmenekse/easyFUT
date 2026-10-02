@@ -1,0 +1,22 @@
+{
+  "name": "Bronze Upgrade",
+  "formation": "4-1-2-1-2",
+  "size": 11,
+  "requirements": [
+    {
+      "field": "rating",
+      "lte": 64,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2035-08-20",
+  "source": "fut.gg 27-4-bronze-upgrade / 16",
+  "requirements_text": [
+    "Exactly Bronze Players"
+  ],
+  "notes_repeat": "sınırsız tekrarlanabilir: planda bir kez",
+  "reward_value": 600,
+  "notes": "Tekrarlanabilir. Oyuncu Kalitesi: Tam olarak Bronz (64 ve altı). Ödül: x2 Silver Players Pack.",
+  "passive": true
+}

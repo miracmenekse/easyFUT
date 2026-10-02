@@ -1,0 +1,47 @@
+{
+  "name": "Greece v Germany",
+  "formation": "5-3-2",
+  "min_chem": 18,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "nation",
+      "in": [
+        "Greece",
+        "Germany"
+      ],
+      "min": 1
+    },
+    {
+      "type": "same",
+      "field": "club",
+      "min": 2
+    },
+    {
+      "type": "distinct",
+      "field": "league",
+      "max": 4
+    },
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 2
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-08",
+  "source": "fut.gg 27-24-marquee-matchups / 52",
+  "requirements_text": [
+    "Nation: Min. 1 player from Greece or Germany",
+    "Same club: Min. 2 players",
+    "Leagues: Max. 4",
+    "Quality: Min. 2 Gold players",
+    "Quality: Min. Silver",
+    "Chemistry: Min. 18"
+  ]
+}

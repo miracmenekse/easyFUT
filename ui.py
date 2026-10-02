@@ -57,8 +57,8 @@ def plan(budget, time_limit=0):
     """Aynı anda tek plan hesaplanır (paralel hesaplar işlemciyi bölüp sonucu kötüleştirir);
     veri ve bütçe değişmediyse önceki sonuç döner."""
     if not time_limit:  # SBC sayısı arttıkça daha uzun ara
-        işler = sum(s.get("repeat", 1) for s in fut.load_json_dir("sbcs"))
-        time_limit = min(150, 20 + 10 * işler)
+        işler = len(fut.load_json_dir("sbcs"))
+        time_limit = min(90, 20 + 5 * işler)
     with _plan_lock:
         v = version()
         if _plan_cache.get("v") != v:  # veri değişti: bütün eski sonuçlar geçersiz
@@ -71,16 +71,17 @@ def plan(budget, time_limit=0):
 
 
 def _plan(budget, time_limit):
-    p = fut.plan_max(fut.load_json_dir("sbcs"), fut.load_club(), fut.load_fodder_prices(), budget, time_limit)
+    p = fut.plan_max(fut.load_json_dir("sbcs"), fut.load_club(), fut.load_fodder_prices(), budget, time_limit, 20)
     return {"total": p["total"], "spent": p["spent"], "status": p["status"],
             "done": [{"sbc": s, "spend": r["spend"], "used": r["used"], "net": r["net"], "rating": r["rating"],
+                      "gallery": r["gallery"],
                       "chem": r["chem"], "checks": r["checks"],
                       "formation": s.get("formation") or fut.DEFAULT_FORMATION,
                       "slots": [sl | {"card": card_json(sl["card"])} for sl in r["slots"]]}
                      for s, r in p["done"]],
             "skipped": p["skipped"],
             "partial": [{"sbc": s, "missing": r["missing"], "lines": fut.need_lines(r["missing"]), "rating": r["rating"],
-                         "chem": r["chem"], "checks": r["checks"], "proven": r["proven"],
+                         "chem": r["chem"], "checks": r["checks"], "proven": r["proven"], "gallery": r["gallery"],
                          "formation": s.get("formation") or fut.DEFAULT_FORMATION,
                          "slots": [sl | {"card": card_json(sl["card"])} for sl in r["slots"]]}
                         for s, r in p["partial"]]}
@@ -145,6 +146,11 @@ class H(BaseHTTPRequestHandler):
                     raise ValueError("veri bu sayfa açıldıktan sonra değişti, sayfa yenilendi")
                 save_club(json.loads(body))
                 return self.send({"ok": True})
+            if method == "POST" and u.path == "/api/replace":  # plandaki SBC'de seçilen kartları değiştir
+                d = json.loads(body)
+                r = fut.replace_in_sbc(d["file"], [(k["pos"], k["card"]) for k in d["keep"]], d["drop"], d["used"])
+                return self.send(r | {"lines": fut.need_lines(r["missing"]),
+                                      "slots": [sl | {"card": card_json(sl["card"])} for sl in r["slots"]]})
             if method == "POST" and u.path == "/api/done":  # SBC oyunda yapıldı
                 d = json.loads(body)
                 return self.send(fut.complete_sbc(d["file"], d["cards"]))

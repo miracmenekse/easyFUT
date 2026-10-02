@@ -1,0 +1,19 @@
+{
+  "name": "Premier League POTM September",
+  "formation": "",
+  "size": 0,
+  "min_score": 18750,
+  "requirements": [],
+  "card_filter": [
+    {
+      "field": "rating",
+      "gte": 45
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-30",
+  "source": "fut.gg 27-34-premier-league-potm-september / 64",
+  "requirements_text": [
+    "Rating: Min. 45"
+  ]
+}

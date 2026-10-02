@@ -1,0 +1,47 @@
+{
+  "name": "Croatia v England",
+  "formation": "4-1-4-1",
+  "min_chem": 22,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "nation",
+      "in": [
+        "Croatia",
+        "England"
+      ],
+      "min": 2
+    },
+    {
+      "type": "same",
+      "field": "club",
+      "max": 3
+    },
+    {
+      "type": "same",
+      "field": "league",
+      "min": 4
+    },
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 2
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-08",
+  "source": "fut.gg 27-24-marquee-matchups / 53",
+  "requirements_text": [
+    "Nation: Min. 2 players from Croatia or England",
+    "Same club: Max. 3 players",
+    "Same league: Min. 4 players",
+    "Quality: Min. 2 Gold players",
+    "Quality: Min. Silver",
+    "Chemistry: Min. 22"
+  ]
+}

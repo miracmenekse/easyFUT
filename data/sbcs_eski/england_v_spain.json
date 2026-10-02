@@ -1,0 +1,46 @@
+{
+  "name": "England v Spain",
+  "formation": "5-2-1-2(2)",
+  "min_rating": 75,
+  "min_chem": 26,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "nation",
+      "in": [
+        "England",
+        "Spain"
+      ],
+      "min": 2
+    },
+    {
+      "type": "same",
+      "field": "nation",
+      "min": 4
+    },
+    {
+      "type": "same",
+      "field": "club",
+      "max": 3
+    },
+    {
+      "type": "distinct",
+      "field": "league",
+      "max": 5
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-01",
+  "source": "fut.gg 27-19-marquee-matchups / 46",
+  "requirements_text": [
+    "Min. 2 Players from: England OR Spain",
+    "Min. 4 Players from the same Nation",
+    "Max. 3 Players from the same Club",
+    "Max. Leagues in Squad: 5",
+    "Min. Team Rating: 75",
+    "Min. Squad Total Chemistry Points: 26"
+  ],
+  "reward_value": 4000,
+  "notes": "Marquee Matchups grubu 4/4 (grup ödülü: Large Gold Players Pack). Ödül: Large Electrum Players Pack; değer tahmin.",
+  "completed": "2026-09-28"
+}

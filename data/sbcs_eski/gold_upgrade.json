@@ -1,0 +1,22 @@
+{
+  "name": "Gold Upgrade",
+  "formation": "4-1-2-1-2",
+  "size": 11,
+  "requirements": [
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2035-08-20",
+  "source": "fut.gg 27-6-gold-upgrade / 18",
+  "requirements_text": [
+    "Player quality: Min. Gold"
+  ],
+  "notes_repeat": "sınırsız tekrarlanabilir: planda bir kez",
+  "reward_value": 12000,
+  "notes": "Tekrarlanabilir. Ödül: 2x 78+ Gold Players Pack.",
+  "passive": true
+}

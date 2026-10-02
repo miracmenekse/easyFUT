@@ -1,0 +1,49 @@
+{
+  "name": "Norway v Portugal",
+  "formation": "4-5-1",
+  "min_chem": 18,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "nation",
+      "in": [
+        "Norway",
+        "Portugal"
+      ],
+      "min": 1
+    },
+    {
+      "type": "same",
+      "field": "club",
+      "min": 3
+    },
+    {
+      "type": "distinct",
+      "field": "league",
+      "max": 5
+    },
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 2
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-01",
+  "source": "fut.gg 27-19-marquee-matchups / 44",
+  "requirements_text": [
+    "Min. 1 Players from: Norway OR Portugal",
+    "Min. 3 Players from the same Club",
+    "Max. Leagues in Squad: 5",
+    "Min. 2 Players: Gold",
+    "Player quality: Min. Silver",
+    "Min. Squad Total Chemistry Points: 18"
+  ],
+  "reward_value": 1500,
+  "notes": "Marquee Matchups grubu 2/4 (grup ödülü: Large Gold Players Pack). Ödül: Small Mixed Players Pack; değer tahmin."
+}

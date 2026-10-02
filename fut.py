@@ -43,11 +43,12 @@ def load_json_dir(name):
 
 def card_cost(card, fodder):
     """Kartı kullanmanın bedeli: kulüp kartı için fırsat maliyeti (kopyalar yarı fiyat).
-    Fiyat tablosunda olmayan yüksek reyting tablodaki en yüksek fiyattan sayılır,
-    yoksa 90'lık kart bedava görünür ve SBC'de harcanır."""
+    Önce FUT.GG kart değeri (value = gradingScore): SBC'de değeri en düşük kartlar harcanır.
+    Değeri bilinmeyen kart pazar fiyatından; fiyat tablosunda olmayan yüksek reyting tablodaki
+    en yüksek fiyattan sayılır, yoksa 90'lık kart bedava görünür ve SBC'de harcanır."""
     r = card["rating"]
     tablo = fodder.get(r, max(fodder.values()) if fodder and r > max(fodder) else 0)
-    base = max(card["price"], tablo)
+    base = card.get("value") or max(card["price"], tablo)
     return base * 0.5 if card.get("duplicate") else base
 
 
@@ -58,8 +59,8 @@ def price_step(p):
 # ---------- SBC ----------
 
 def expand_repeats(sbcs):
-    """"repeat": 3 olan SBC üç ayrı iş sayılır."""
-    return [s | {"_copy": k + 1} for s in sbcs for k in range(s.get("repeat", 1))]
+    """Tekrarlanabilir SBC'ler de planda bir kez yapılır (kullanıcı isteği; "repeat" sadece bilgi)."""
+    return [s | {"_copy": 1} for s in sbcs]
 
 
 WILD_FIELDS = ("club", "league", "nation", "rarity")
@@ -113,11 +114,14 @@ def needs(sbc, slots):
             for pos, c in slots if c["source"] == "eksik"]
 
 
-def plan_max(sbcs, club, fodder, budget=0, time_limit=20, partial_time=60):
+def plan_max(sbcs, club, fodder, budget=0, time_limit=0, partial_time=60):
     """Bütün SBC'leri birlikte çözer: en fazla SBC, sonra en az coin + kart değeri.
     budget=0: sadece kulüpteki kartlar, hiçbir şey satın alınmaz. Sonra yapılamayan her SBC, kalan kartlarla
     en az eksik oyuncuyla doldurulur (partial; partial_time=0 ise yapılmaz)."""
     jobs = expand_repeats([s for s in sbcs if not s.get("passive") and not s.get("completed")])  # pasif/bitmiş girmez
+    scored = sorted((s for s in jobs if s.get("min_score")), key=lambda s: s["min_score"])  # streamlined: küçük eşik önce
+    jobs = [s for s in jobs if not s.get("min_score")]
+    time_limit = time_limit or min(150, 20 + 10 * len(jobs))  # 20 sn 8 SBC'de 3-4 buluyordu, 100 sn'de kanıtlı 7
     r = solver.plan(jobs, club, fodder, lambda c: card_cost(c, fodder), budget, True, time_limit)
     done = []
     for sbc, chosen in r["done"]:
@@ -126,12 +130,28 @@ def plan_max(sbcs, club, fodder, budget=0, time_limit=20, partial_time=60):
         spend = sum(c["price"] for c in squad if c["source"] == "pazar")
         used = sum(card_cost(c, fodder) for c in squad if c["source"] == "kulüp")
         done.append((sbc, {"slots": rows, "squad": squad, "chem": chem, "spend": spend, "used": used,
+                           "gallery": sum(c.get("value") or 0 for c in squad if c["source"] == "kulüp"),
                            "checks": solver.check(sbc, chosen),
                            "rating": squad_rating([c["rating"] for c in squad]),
                            "net": sbc.get("reward_value", 0) - spend - used}))
     # yapılamayanlar: kalan kartlarla elden geldiğince doldur, eksik yerler pazardan alınacak
     used = {c["id"] for _, chosen in r["done"] for _, c in chosen if c["source"] == "kulüp"}
     left = [c for c in club if not c.get("locked") and c["id"] not in used]
+    skipped = list(r["skipped"])
+    for sbc in scored:
+        pick = score_pick(sbc, left, fodder)
+        if pick is None:
+            skipped.append(sbc)
+            continue
+        chosen = [("?", c) for c in pick]
+        rows, chem = solver.describe(chosen)
+        got = sum(c["value"] for c in pick)
+        used_v = sum(card_cost(c, fodder) for c in pick)
+        done.append((sbc, {"slots": rows, "squad": pick, "chem": chem, "spend": 0, "used": used_v, "gallery": got,
+                           "checks": [(f"Item score en az {sbc['min_score']} (şu an {got})", True)],
+                           "rating": 0, "net": sbc.get("reward_value", 0) - used_v}))
+        ids = {c["id"] for c in pick}
+        left = [c for c in left if c["id"] not in ids]
     tablo = lambda r: fodder.get(r, max(fodder.values()) if fodder and r > max(fodder) else 0)
     ratings = [(r, tablo(r)) for r in range(45, 100)]
     partial, seen = [], set()
@@ -145,11 +165,34 @@ def plan_max(sbcs, club, fodder, budget=0, time_limit=20, partial_time=60):
             continue
         rows, chem = solver.describe(chosen)
         partial.append((sbc, {"slots": rows, "chem": chem, "checks": solver.check(sbc, chosen),
+                              "gallery": sum(c.get("value") or 0 for _, c in chosen if c["source"] == "kulüp"),
                               "missing": needs(sbc, chosen), "proven": proven,
                               "rating": squad_rating([c["rating"] for _, c in chosen])}))
     partial.sort(key=lambda t: len(t[1]["missing"]))
-    return {"done": done, "skipped": r["skipped"], "spent": r["spent"], "total": len(jobs), "status": r["status"],
+    return {"done": done, "skipped": skipped, "spent": r["spent"], "total": len(jobs) + len(scored), "status": r["status"],
             "proven": r["proven"], "partial": partial}
+
+
+def score_pick(sbc, cards, fodder, max_cards=30):
+    """Streamlined SBC: toplam item score (value) >= min_score, en çok 30 kart, en az kart bedeli.
+    Bedel önce value olduğundan bu, hedefi en az taşmayla geçmek demek. Olmuyorsa None."""
+    from ortools.sat.python import cp_model
+    ok = [c for c in cards if c.get("value") and all(matches(c, q) for q in sbc.get("card_filter", []))]
+    m = cp_model.CpModel()
+    x = [m.NewBoolVar("") for _ in ok]
+    m.Add(sum(c["value"] * v for c, v in zip(ok, x)) >= sbc["min_score"])
+    m.Add(sum(x) <= max_cards)
+    names = {}
+    for c, v in zip(ok, x):
+        names.setdefault(c["name"], []).append(v)
+    for vs in names.values():  # aynı oyuncu bir kez
+        m.Add(sum(vs) <= 1)
+    m.Minimize(sum(int(card_cost(c, fodder) * 2) * v for c, v in zip(ok, x)) * 100 + sum(x))  # eşitlikte az kart
+    s = cp_model.CpSolver()
+    s.parameters.max_time_in_seconds = 10
+    if s.Solve(m) not in (cp_model.OPTIMAL, cp_model.FEASIBLE):
+        return None
+    return [c for c, v in zip(ok, x) if s.Value(v)]
 
 
 def need_text(m):
@@ -162,6 +205,32 @@ def need_text(m):
     r = f"{m['min']}+" if m["max"] == 99 else str(m["min"]) if m["min"] == m["max"] else f"{m['min']}-{m['max']}"
     return f"{m['pos'] if m.get('chem', True) else 'Herhangi pozisyon'} · reyting {r} · " + \
         (" + ".join(what) or "herhangi bir oyuncu")
+
+
+def replace_in_sbc(file, keep, drop, used, time_limit=30):
+    """Plandaki bir SBC'de sadece seçilen kartları değiştir: keep [(pozisyon, kart id ya da hazır kart)] yerinde
+    kalır; drop ve used (başka SBC'lerdeki) id'ler kullanılmaz. Boş yerler kulüpten, yoksa "eksik oyuncu" ile dolar.
+    Dönen: {"slots": describe satırları, "missing": needs(), "checks", "chem", "rating", "proven"}"""
+    club, fodder = load_club(), load_fodder_prices()
+    sbc = json.load(open(DATA / "sbcs" / Path(file).name, encoding="utf-8"))
+    kept = []
+    for pos, c in keep:
+        c = club[c] if isinstance(c, int) else c
+        if pos in solver.positions_of(c):  # kendi/alternatif pozisyonunda: yerinde kalır
+            kept.append(c | {"position": pos, "positions": pos, "_orig": c, "_pin": True})
+        else:  # zaten pozisyon dışı: kimya vermez, almaz (çözücü de öyle saysın)
+            kept.append(c | {"position": "", "positions": "", "_orig": c})
+    ban = set(drop) | set(used) | {c["id"] for c in kept if c.get("source") == "kulüp"}
+    pool = [c for c in club if not c.get("locked") and c["id"] not in ban]
+    tablo = lambda r: fodder.get(r, max(fodder.values()) if fodder and r > max(fodder) else 0)
+    chosen, proven = solver.partial(sbc | {"fixed": kept}, pool, [int(card_cost(c, fodder)) for c in pool],
+                                    [(r, tablo(r)) for r in range(45, 100)], wild_profiles(sbc, club), time_limit)
+    if not chosen:
+        raise ValueError("kalan kartlarla ve pazardan alımla bile bu SBC tamamlanamıyor")
+    chosen = [(pos, c["_orig"] if "_orig" in c else c) for pos, c in chosen]
+    rows, chem = solver.describe(chosen)
+    return {"slots": rows, "missing": needs(sbc, chosen), "checks": solver.check(sbc, chosen), "chem": chem,
+            "rating": squad_rating([c["rating"] for _, c in chosen]), "proven": proven}
 
 
 def complete_sbc(file, cards, today=None):
@@ -224,7 +293,7 @@ def print_squad(s):
         who = f"Pazardan al: {c['rating']} (~{c['price']} coin)" if c["source"] == "pazar" else \
             f"{c['rating']} {c['name']}  ({c.get('league', '')} / {c.get('nation', '')})" + (" kopya" if c.get("duplicate") else "")
         print(f"   {r['pos']:>4}  {who}  [kimya {r['chem']}, {r['fit']}]")
-    print(f"   Takım {s['rating']} | Kimya {s['chem']}/33 | Coin {s['spend']} | Kart değeri {s['used']:.0f}")
+    print(f"   Takım {s['rating']} | Kimya {s['chem']}/33 | Coin {s['spend']} | Galeri puanı {s['gallery']}")
 
 
 # ---------- komutlar ----------

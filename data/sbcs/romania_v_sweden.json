@@ -1,0 +1,37 @@
+{
+  "name": "Romania v Sweden",
+  "formation": "5-2-1-2",
+  "min_chem": 14,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "nation",
+      "in": [
+        "Romania",
+        "Sweden"
+      ],
+      "min": 1
+    },
+    {
+      "type": "distinct",
+      "field": "club",
+      "min": 4
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "lte": 74,
+      "min": 3
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-08",
+  "source": "fut.gg 27-24-marquee-matchups / 51",
+  "requirements_text": [
+    "Nation: Min. 1 player from Romania or Sweden",
+    "Clubs: Min. 4",
+    "Quality: Min. 3 Silver players",
+    "Quality: Min. Bronze",
+    "Chemistry: Min. 14"
+  ]
+}

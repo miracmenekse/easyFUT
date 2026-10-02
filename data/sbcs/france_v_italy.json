@@ -1,0 +1,43 @@
+{
+  "name": "France v Italy",
+  "formation": "4-4-2",
+  "min_rating": 75,
+  "min_chem": 26,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "nation",
+      "in": [
+        "France",
+        "Italy"
+      ],
+      "min": 2
+    },
+    {
+      "type": "same",
+      "field": "nation",
+      "min": 3
+    },
+    {
+      "type": "same",
+      "field": "club",
+      "max": 4
+    },
+    {
+      "type": "distinct",
+      "field": "league",
+      "max": 4
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-08",
+  "source": "fut.gg 27-24-marquee-matchups / 54",
+  "requirements_text": [
+    "Nation: Min. 2 players from France or Italy",
+    "Same nation: Min. 3 players",
+    "Same club: Max. 4 players",
+    "Leagues: Max. 4",
+    "Team rating: Min. 75",
+    "Chemistry: Min. 26"
+  ]
+}

@@ -1,11 +1,7 @@
 {
   "name": "2x 79+ Upgrade",
-  "size": 10,
   "formation": "4-4-2",
-  "repeat": 3,
-  "reward_value": 1500,
-  "expires": "2026-09-28",
-  "notes": "Kaleci yeri kilitli: 10 oyuncu. Ödül: 2x 79+ Gold Players Pack (Untradeable); değer tahmin. Repeatable: 3.",
+  "size": 10,
   "requirements": [
     {
       "field": "rating",
@@ -13,5 +9,14 @@
       "min": 10
     }
   ],
-  "passive": true
+  "repeat": 1,
+  "expires": "2026-10-05",
+  "source": "fut.gg 27-23-2x-79-upgrade / 50",
+  "requirements_text": [
+    "Quality: Gold only",
+    "Players: 10"
+  ],
+  "notes_repeat": "sınırsız tekrarlanabilir: planda bir kez",
+  "reward_value": 1500,
+  "notes": "Kaleci yeri kilitli: 10 oyuncu. Ödül: 2x 79+ Gold Players Pack (Untradeable); değer tahmin. Repeatable: 3."
 }

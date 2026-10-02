@@ -1,0 +1,23 @@
+{
+  "name": "Silver Upgrade",
+  "formation": "4-1-2-1-2",
+  "size": 11,
+  "requirements": [
+    {
+      "field": "rating",
+      "gte": 65,
+      "lte": 74,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2035-08-20",
+  "source": "fut.gg 27-5-silver-upgrade / 42",
+  "requirements_text": [
+    "Exactly Silver Players"
+  ],
+  "notes_repeat": "sınırsız tekrarlanabilir: planda bir kez",
+  "reward_value": 5000,
+  "notes": "Tekrarlanabilir. Oyuncu Kalitesi: Tam olarak Gümüş (65-74). Ödül: 75+ Gold Player Pack.",
+  "passive": true
+}

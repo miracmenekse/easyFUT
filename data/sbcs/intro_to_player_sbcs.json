@@ -1,0 +1,19 @@
+{
+  "name": "Intro to Player SBCs",
+  "formation": "",
+  "size": 0,
+  "min_score": 4000,
+  "requirements": [],
+  "card_filter": [
+    {
+      "field": "rating",
+      "gte": 45
+    }
+  ],
+  "repeat": 1,
+  "expires": "2035-08-31",
+  "source": "fut.gg 27-20-intro-to-player-sbcs / 47",
+  "requirements_text": [
+    "Rating: Min. 45"
+  ]
+}

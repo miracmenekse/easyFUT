@@ -1,0 +1,37 @@
+{
+  "name": "5 Leagues & 6 Nations",
+  "formation": "3-1-4-2",
+  "min_rating": 81,
+  "min_chem": 25,
+  "size": 11,
+  "requirements": [
+    {
+      "type": "distinct",
+      "field": "league",
+      "exact": 5
+    },
+    {
+      "type": "distinct",
+      "field": "nation",
+      "exact": 6
+    },
+    {
+      "type": "same",
+      "field": "club",
+      "max": 2
+    }
+  ],
+  "repeat": 1,
+  "expires": "2035-08-31",
+  "source": "fut.gg 27-10-league-nation-advanced / 27",
+  "requirements_text": [
+    "Exact Leagues in Squad: 5",
+    "Exact Nationalities in Squad: 6",
+    "Max. 2 Players from the same Club",
+    "Min. Team Rating: 81",
+    "Min. Squad Total Chemistry Points: 25"
+  ],
+  "reward_value": 3000,
+  "notes": "Leagues & Nations grubu 3/3. Ödül: Small Gold Players Pack.",
+  "completed": "2026-09-28"
+}

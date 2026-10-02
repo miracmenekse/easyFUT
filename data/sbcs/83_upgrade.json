@@ -1,0 +1,19 @@
+{
+  "name": "83+ Upgrade",
+  "formation": "",
+  "size": 0,
+  "min_score": 2500,
+  "requirements": [],
+  "card_filter": [
+    {
+      "field": "rating",
+      "gte": 45
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-06",
+  "source": "fut.gg 27-31-83-upgrade / 61",
+  "requirements_text": [
+    "Rating: Min. 45"
+  ]
+}

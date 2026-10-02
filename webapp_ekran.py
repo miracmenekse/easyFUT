@@ -13,9 +13,9 @@ from Xlib import X, display
 from Xlib.ext import xtest
 from Xlib.protocol import event
 
-KUTU = (630, 300, 1190, 1095)  # oyuncu listesi paneli (Next satırı hariç)
-NEXT, PREV = (1148, 1107), (666, 1107)
-LISTE = (900, 700)  # tekerleğin çevrileceği nokta (liste üstü)
+KUTU = (665, 250, 1165, 985)  # oyuncu listesi paneli (Next satırı hariç), 1920x1080 %60
+NEXT, PREV = (1136, 997), (690, 997)
+LISTE = (915, 600)  # tekerleğin çevrileceği nokta (liste üstü)
 PENCERE = "FC Ultimate Team Web App"
 
 d = display.Display()
@@ -56,7 +56,21 @@ def teker(n):
     time.sleep(0.6)
 
 
+def odakta():
+    w = d.get_input_focus().focus
+    for _ in range(6):
+        if isinstance(w, int):
+            return False
+        n = w.get_full_property(d.intern_atom("_NET_WM_NAME"), d.intern_atom("UTF8_STRING"))
+        if n:
+            return PENCERE in n.value.decode()
+        w = w.query_tree().parent
+    return False
+
+
 def goruntu():
+    if not odakta():  # başka pencere öne geçtiyse yanlışlıkla "sayfa sonu" sanma
+        sys.exit("Web App penceresi önde değil: yakalama durduruldu, eksik kalmasın diye baştan çalıştır")
     g = root.get_geometry()
     raw = root.get_image(0, 0, g.width, g.height, X.ZPixmap, 0xffffffff)
     return Image.frombytes("RGB", (g.width, g.height), raw.data, "raw", "BGRX").crop(KUTU)

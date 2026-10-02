@@ -102,4 +102,18 @@ with tempfile.TemporaryDirectory() as tmp:
     assert plan_max(fut.load_json_dir("sbcs"), [], {}, 0, 5, 0)["total"] == 0  # tamamlanan plana girmez
 fut.DATA = eski_data
 print("SBC tamamlama ok")
+
+# SBC'de FUT.GG değeri (value) düşük olan kart harcanır, aynı reytingte değerli olan kalır
+kul = [kart(0, 85, value=5000), kart(1, 85, value=300), kart(2, 85, value=0, price=900)]
+p = plan_max([{"name": "v", "size": 1, "min_rating": 85}], kul, {85: 1600}, 0, 5, 0)
+assert [c["id"] for c in p["done"][0][1]["squad"]] == [1], p["done"]
+print("değer ok")
+
+# streamlined: 4000 puan; 86 (4100) yerine 5x84 (4150) değil, en az taşma: 86 tek başına; 84'ler kalır
+kul = [kart(i, 84, value=830) for i in range(5)] + [kart(9, 86, value=4100), kart(8, 40, value=20)]
+p = plan_max([{"name": "s", "size": 0, "min_score": 4000, "card_filter": [{"field": "rating", "gte": 45}]}],
+             kul, {}, 0, 5, 0)
+assert [c["id"] for c in p["done"][0][1]["squad"]] == [9], p["done"]
+assert fut.score_pick({"min_score": 99999}, kul, {}) is None
+print("streamlined ok")
 print(f"geçti ({time.time() - t0:.0f} sn)")

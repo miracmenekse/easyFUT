@@ -247,6 +247,8 @@ def _add_sbc(m, k, sbc, cards, cand, market, wild):
             if ys[idx]:
                 inpos[idx] = sum(y for _, y in ys[idx])
                 m.Add(inpos[idx] <= v)
+                if c.get("_pin"):  # yerinde kalacak kart: kendi pozisyonunda olmak zorunda
+                    m.Add(inpos[idx] == v)
             elif pchem:
                 m.Add(v == 0)
         for P, n_ in cnt.items():
@@ -287,7 +289,7 @@ def _add_sbc(m, k, sbc, cards, cand, market, wild):
                     if len(ex) < t:
                         break
                     b = m.NewBoolVar("")
-                    m.Add(sum(ex) >= t).OnlyEnforceIf(b)
+                    m.Add(sum(ex) >= t * b)  # koşullu yazım (OnlyEnforceIf) alt sınırı zayıflatıyordu
                     if prev is not None:
                         m.AddImplication(b, prev)
                     prev = b
@@ -349,7 +351,22 @@ def _add_sbc(m, k, sbc, cards, cand, market, wild):
             E.append(e)
         half = (n - 1) // 2  # yuvarlama: kesirli kısım tam 0,5 olabiliyorsa (çift n) güvenli taraf
         if T:
-            m.Add(n * S + sum(E) >= n * n * T - half).OnlyEnforceIf(d)
+            K = n * n * T - half
+            m.Add(n * S + sum(E) >= K).OnlyEnforceIf(d)
+            # aynı şart doğrusal: S'nin her değeri s için Σ_r c_r*max(0, n*r - s) >= K - n*s. Çarpımın gevşemesi
+            # alt sınırı çökertiyordu (5 lig/6 ülke tek başına 60 sn'de kanıtlanamıyordu); bu yazımla saniyeler.
+            lo, hi = min(by_r), max(by_r)
+            # S=s iken sapma toplamının üst sınırı: artılar eksilere eşit, k oyuncu hi, kalanlar lo
+            gap = lambda s: max(min(k * (n * hi - s), (n - k) * (s - n * lo)) for k in range(n + 1))
+            bs = {s: m.NewBoolVar("") for s in range(n * lo, n * T) if n * s + gap(s) >= K}
+            bh = m.NewBoolVar("")  # S >= n*T: şart kendiliğinden sağlanır
+            X = m.NewIntVar(0, 99 * n, "")
+            m.Add(X >= n * T * bh)
+            m.Add(X <= 99 * n * bh)
+            m.Add(S == sum(s * b for s, b in bs.items()) + X)
+            m.Add(sum(bs.values()) + bh == d)
+            for s, b in bs.items():
+                m.Add(sum(max(0, n * r - s) * sum(vs) for r, vs in by_r.items() if n * r > s) >= (K - n * s) * b)
         if T2:  # "Team Rating: Max X"
             m.Add(n * S + sum(E) <= n * n * T2 + n * n - n + half)
 
@@ -517,7 +534,7 @@ def _chosen(k, sbc, sol, cards, prices, profiles=()):
     missing = {s: unknown | {g: profiles[j].get(g) for g in unknown} |
                {"name": "Eksik oyuncu", "rating": r, "source": "eksik", "id": f"w{k}-{s}", "price": 0}
                for s, j, r in sol.get("wild", [])}
-    real = [(cards[i], P) for i, P in sol["cards"].items()] + list(zip(fixed, sol.get("fixed") or [None] * len(fixed)))
+    real = list(zip(fixed, sol.get("fixed") or [None] * len(fixed))) + [(cards[i], P) for i, P in sol["cards"].items()]
     out = [None] * len(slots)
     rest = [c for c, _ in real] + bought
     if _needs_chem(sbc):  # çözücünün pozisyonları: eksik oyuncu kendi slotunda, kartlar oynadığı pozisyonda
@@ -636,7 +653,8 @@ def _feasible(jobs, sel, cards, market, ccost, budget, time_limit, hints=None, m
     st = solver.Solve(m)
     sols = {k: _extract(inf, solver.Value, jobs[k]) for k, inf in info.items()} if st in OK else None
     if st in OK and (not soft or solver.ObjectiveValue() == 0):
-        return "evet", sols, st == cp_model.OPTIMAL
+        # minimize: (bulunan maliyet, kanıtlı alt sınır); eşitse en iyisi kanıtlı
+        return "evet", sols, (solver.ObjectiveValue(), solver.BestObjectiveBound()) if minimize else st == cp_model.OPTIMAL
     if st == cp_model.INFEASIBLE or soft and st == cp_model.OPTIMAL:
         return "hayır", list(sel), True
     if not sols:
@@ -771,15 +789,15 @@ def plan(jobs, club, fodder, cost, budget=0, buy=True, time_limit=20):
             break
     dbg("sonuç:", len(best), "üst sınır:", ub(), "kanıtlı" if proven else "")
     sel = sorted(best)
-    cost_ok = False
-    if sel and left() > 1:  # seçilen SBC'ler sabit: en düşük maliyet
-        ans, res, cost_ok = _feasible(jobs, sel, cards, market, ccost, budget, min(left(), reserve), best,
-                                      minimize=True)
+    cost_ok, gap = False, ""
+    if sel and left() > 1:  # seçilen SBC'ler sabit: en düşük maliyet, kalan sürenin hepsi
+        ans, res, ob = _feasible(jobs, sel, cards, market, ccost, budget, left(), best, minimize=True)
         if ans == "evet":
-            best = res
+            best, cost_ok = res, ob[0] <= ob[1]
+            gap = f"kart maliyeti en iyiden en fazla {ob[0] - ob[1]:.0f} (%{100 * (ob[0] - ob[1]) / max(1, ob[1]):.0f}) fazla"
     sols = [best.get(k) for k in range(len(jobs))]
     status = ("kanıtlanmış en iyi" if proven and cost_ok else
-              "SBC sayısı kanıtlanmış en iyi (kart maliyeti süre sınırında)" if proven else
+              f"SBC sayısı kanıtlanmış en iyi ({gap or 'kart maliyeti süre sınırında'})" if proven else
               "süre sınırında bulunan en iyi")
     return {"done": [(sbc, _chosen(k, sbc, sol, cards, prices)) for k, (sbc, sol) in enumerate(zip(jobs, sols)) if sol],
             "skipped": [sbc for sbc, sol in zip(jobs, sols) if not sol],

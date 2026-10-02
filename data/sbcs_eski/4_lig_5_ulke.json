@@ -1,0 +1,43 @@
+{
+  "name": "4 Leagues & 5 Nations",
+  "formation": "4-1-4-1",
+  "min_rating": 78,
+  "min_chem": 25,
+  "size": 11,
+  "requirements": [
+    {
+      "type": "distinct",
+      "field": "league",
+      "exact": 4
+    },
+    {
+      "type": "distinct",
+      "field": "nation",
+      "exact": 5
+    },
+    {
+      "type": "same",
+      "field": "league",
+      "max": 4
+    },
+    {
+      "type": "same",
+      "field": "nation",
+      "max": 3
+    }
+  ],
+  "repeat": 1,
+  "expires": "2035-08-31",
+  "source": "fut.gg 27-10-league-nation-advanced / 26",
+  "requirements_text": [
+    "Exact Leagues in Squad: 4",
+    "Exact Nationalities in Squad: 5",
+    "Max. 4 Players from the same League",
+    "Max. 3 Players from the same Nation",
+    "Min. Team Rating: 78",
+    "Min. Squad Total Chemistry Points: 25"
+  ],
+  "reward_value": 4000,
+  "notes": "Leagues & Nations grubu 2/3. Ödül: Large Electrum Players Pack.",
+  "completed": "2026-09-27"
+}

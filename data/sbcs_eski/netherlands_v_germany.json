@@ -1,0 +1,49 @@
+{
+  "name": "Netherlands v Germany",
+  "formation": "5-3-2(2)",
+  "min_chem": 22,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "nation",
+      "in": [
+        "Netherlands",
+        "Germany"
+      ],
+      "min": 2
+    },
+    {
+      "type": "same",
+      "field": "club",
+      "max": 2
+    },
+    {
+      "type": "same",
+      "field": "league",
+      "min": 4
+    },
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 2
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-01",
+  "source": "fut.gg 27-19-marquee-matchups / 45",
+  "requirements_text": [
+    "Min. 2 Players from: Netherlands OR Germany",
+    "Max. 2 Players from the same Club",
+    "Min. 4 Players from the same League",
+    "Min. 2 Players: Gold",
+    "Player quality: Min. Silver",
+    "Min. Squad Total Chemistry Points: 22"
+  ],
+  "reward_value": 2500,
+  "notes": "Marquee Matchups grubu 3/4 (grup ödülü: Large Gold Players Pack). Ödül: Small Gold Players Pack; değer tahmin."
+}

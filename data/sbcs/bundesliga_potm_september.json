@@ -1,0 +1,19 @@
+{
+  "name": "Bundesliga POTM September",
+  "formation": "",
+  "size": 0,
+  "min_score": 700000,
+  "requirements": [],
+  "card_filter": [
+    {
+      "field": "rating",
+      "gte": 45
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-29",
+  "source": "fut.gg 27-39-bundesliga-potm-september / 72",
+  "requirements_text": [
+    "Rating: Min. 45"
+  ]
+}
