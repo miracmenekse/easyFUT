@@ -1,0 +1,20 @@
+{
+  "name": "Break Away",
+  "formation": "",
+  "size": 1,
+  "requirements": [
+    {
+      "field": "rating",
+      "lte": 64,
+      "min": 1
+    }
+  ],
+  "repeat": 1,
+  "expires": "2035-08-20",
+  "source": "fut.gg 27-1-intro-to-sbcs / 1",
+  "requirements_text": [
+    "Rating: Min. 1 player rated 64 or lower",
+    "Players: 1"
+  ],
+  "completed": "2026-10-10"
+}

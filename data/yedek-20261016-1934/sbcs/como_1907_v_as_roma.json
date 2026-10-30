@@ -1,0 +1,50 @@
+{
+  "name": "Como 1907 v AS Roma",
+  "formation": "",
+  "min_chem": 18,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "club",
+      "in": [
+        "Como 1907",
+        "AS Roma"
+      ],
+      "min": 1
+    },
+    {
+      "field": "nation",
+      "in": [
+        "Italy"
+      ],
+      "min": 2
+    },
+    {
+      "type": "distinct",
+      "field": "league",
+      "max": 4
+    },
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 1
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-15",
+  "source": "fut.gg 27-36-marquee-matchups / 67",
+  "requirements_text": [
+    "Club: Min. 1 player from Como 1907 or AS Roma",
+    "Nation: Min. 2 players from Italy",
+    "Leagues: Max. 4",
+    "Quality: Min. 1 Gold player",
+    "Quality: Min. Silver",
+    "Chemistry: Min. 18"
+  ],
+  "completed": "2026-10-10"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "A Pair Of Pairs",
+  "formation": "",
+  "size": 4,
+  "requirements": [
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 4
+    },
+    {
+      "field": "rating",
+      "lte": 84,
+      "min": 4
+    }
+  ],
+  "repeat": 1,
+  "expires": "2035-08-20",
+  "source": "fut.gg 27-1-intro-to-sbcs / 4",
+  "requirements_text": [
+    "Rating: Min. 4 players rated 75+",
+    "Rating: Min. 4 players rated 84 or lower",
+    "Players: 4"
+  ],
+  "completed": "2026-10-10"
+}

@@ -1,0 +1,38 @@
+{
+  "name": "RB Leipzig v Eintracht Frankfurt",
+  "formation": "",
+  "min_chem": 14,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "club",
+      "in": [
+        "RB Leipzig",
+        "Frankfurt"
+      ],
+      "min": 1
+    },
+    {
+      "type": "distinct",
+      "field": "club",
+      "min": 4
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "lte": 74,
+      "min": 1
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-15",
+  "source": "fut.gg 27-36-marquee-matchups / 66",
+  "requirements_text": [
+    "Club: Min. 1 player from RB Leipzig or Frankfurt",
+    "Clubs: Min. 4",
+    "Quality: Min. 1 Silver player",
+    "Quality: Min. Bronze",
+    "Chemistry: Min. 14"
+  ],
+  "completed": "2026-10-10"
+}

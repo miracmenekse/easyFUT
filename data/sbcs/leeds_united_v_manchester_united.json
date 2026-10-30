@@ -1,42 +1,42 @@
 {
-  "name": "France v Italy",
-  "formation": "4-4-2",
+  "name": "Leeds United v Manchester United",
+  "formation": "",
   "min_rating": 75,
   "min_chem": 26,
   "size": 11,
   "requirements": [
     {
-      "field": "nation",
+      "field": "club",
       "in": [
-        "France",
-        "Italy"
+        "Leeds United",
+        "Man Utd"
       ],
       "min": 2
     },
     {
       "type": "same",
       "field": "nation",
-      "min": 3
+      "max": 3
     },
     {
       "type": "same",
       "field": "club",
-      "max": 4
+      "min": 4
     },
     {
       "type": "distinct",
       "field": "league",
-      "max": 4
+      "min": 3
     }
   ],
   "repeat": 1,
-  "expires": "2026-10-08",
-  "source": "fut.gg 27-24-marquee-matchups / 54",
+  "expires": "2026-10-22",
+  "source": "fut.gg 27-45-marquee-matchups / 82",
   "requirements_text": [
-    "Nation: Min. 2 players from France or Italy",
-    "Same nation: Min. 3 players",
-    "Same club: Max. 4 players",
-    "Leagues: Max. 4",
+    "Club: Min. 2 players from Leeds United or Man Utd",
+    "Same nation: Max. 3 players",
+    "Same club: Min. 4 players",
+    "Leagues: Min. 3",
     "Team rating: Min. 75",
     "Chemistry: Min. 26"
   ]

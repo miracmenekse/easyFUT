@@ -1,0 +1,19 @@
+{
+  "name": "Max. 86 Base Hero Upgrade",
+  "formation": "",
+  "size": 0,
+  "min_score": 85000,
+  "requirements": [],
+  "card_filter": [
+    {
+      "field": "rating",
+      "gte": 45
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-14",
+  "source": "fut.gg 27-43-max-86-base-hero-upgrade / 77",
+  "requirements_text": [
+    "Rating: Min. 45"
+  ]
+}

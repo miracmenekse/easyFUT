@@ -100,6 +100,12 @@ with tempfile.TemporaryDirectory() as tmp:
     fut.complete_sbc("t.json", [])
     assert json.load(open(fut.DATA / "sbcs" / "t.json")).get("completed")
     assert plan_max(fut.load_json_dir("sbcs"), [], {}, 0, 5, 0)["total"] == 0  # tamamlanan plana girmez
+    # kilitli (aktif kadro) satır silinmez; aynı adlı kilitsiz kopya silinir
+    (fut.DATA / "club.csv").write_text("name,rating,club,duplicate,locked\nD,85,K,hayır,evet\nD,85,K,hayır,hayır\nE,84,K,hayır,evet\n")
+    (fut.DATA / "sbcs" / "t.json").write_text(json.dumps({"name": "t", "repeat": 3}))
+    r = fut.complete_sbc("t.json", [{"name": "D", "rating": 85}, {"name": "E", "rating": 84}])
+    assert r["silinen"] == ["D"] and r["bulunamayan"] == ["E"], r
+    assert (fut.DATA / "club.csv").read_text().split()[1:] == ["D,85,K,hayır,evet", "E,84,K,hayır,evet"]
 fut.DATA = eski_data
 print("SBC tamamlama ok")
 
@@ -115,5 +121,24 @@ p = plan_max([{"name": "s", "size": 0, "min_score": 4000, "card_filter": [{"fiel
              kul, {}, 0, 5, 0)
 assert [c["id"] for c in p["done"][0][1]["squad"]] == [9], p["done"]
 assert fut.score_pick({"min_score": 99999}, kul, {}) is None
+# plandaki streamlined SBC'de kart değiştir: 86 çıkar, 84'lerle tamamlanır (diziliş çözücüsüne gitmez)
+with tempfile.TemporaryDirectory() as tmp:
+    fut.DATA = Path(tmp)
+    (fut.DATA / "sbcs").mkdir()
+    (fut.DATA / "club.csv").write_text("name,rating,club,value\n" + "".join(f"P{i},84,K,1000\n" for i in range(5))
+                                       + "Q,86,K,4100\n")
+    (fut.DATA / "sbcs" / "s.json").write_text(json.dumps({"name": "s", "size": 0, "min_score": 4000, "card_filter": []}))
+    ids = {c["name"]: c["id"] for c in fut.load_club()}
+    r = fut.replace_in_sbc("s.json", [], [ids["Q"]], [ids["P4"]])
+    assert sorted(sl["card"]["name"] for sl in r["slots"]) == ["P0", "P1", "P2", "P3"], r["slots"]
+    fut.DATA = eski_data
 print("streamlined ok")
+# veri kontrolü: eksik diziliş, bilinmeyen diziliş, dolmuş SBC, eksik kart alanı
+k = {"name": "X", "rating": 80, "league": "L", "nation": "N", "club": "C", "value": 5, "price": 0, "rarity": "rare"}
+w = fut.veri_kontrol([{"name": "a", "min_chem": 16}, {"name": "b", "min_chem": 16, "formation": "4-4-2"},
+                      {"name": "c", "formation": "9-9-9"}, {"name": "d", "expires": "2020-01-01"}],
+                     [k, k | {"league": ""}, k | {"value": 0}], today="2026-10-17")
+assert len(w) == 5 and "a:" in w[0] and "c:" in w[1] and "d:" in w[2], w
+assert fut.veri_kontrol([{"name": "b", "min_chem": 16, "formation": "4-4-2"}], [k]) == []
+print("veri kontrolü ok")
 print(f"geçti ({time.time() - t0:.0f} sn)")

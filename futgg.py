@@ -64,10 +64,12 @@ def kulup():
     with open(CLUB) as f:
         r = csv.DictReader(f)
         fields = cols(r.fieldnames)
-        for c in r:
-            eski[(norm(c["name"]), c["rating"])] = c
+        for c in r:  # aynı ad+reytingte kulüp kartı depo kopyasından önce gelir (kilit/fiyat ondan taşınır)
+            if c.get("duplicate") != "evet" or (norm(c["name"]), c["rating"]) not in eski:
+                eski[(norm(c["name"]), c["rating"])] = c
     CLUB.with_suffix(".csv.bak").write_text(CLUB.read_text())
     rows, sorun = [], []
+    sem = json.loads(SEMBOL.read_text()) if SEMBOL.exists() else {}
     liste = list(csv.DictReader(open(CLUB.parent / "webapp_kulup.csv")))
     for i, w in enumerate(liste, 1):
         print(f"\r{i}/{len(liste)}", end="", flush=True)
@@ -81,7 +83,9 @@ def kulup():
             sorun.append(f'{w["name"]} {w["rating"]}: istatistik tam tutmadı ({fark}), en yakın kart alındı: '
                          f'{p["commonName"] or p["lastName"]} {p["overall"]} {p["rarityName"]}')
         rows.append(satir(w, p, eski.get((norm(w["name"]), w["rating"]), {})))
+        sembol_ekle(sem, p)
     print()
+    SEMBOL.write_text(json.dumps(sem, ensure_ascii=False, indent=1))
     with open(CLUB, "w", newline="") as f:
         wr = csv.DictWriter(f, fields)
         wr.writeheader()
@@ -92,7 +96,16 @@ def kulup():
 
 
 def cols(fields):
-    return fields + ["value"] * ("value" not in fields)
+    return fields + [k for k in ("value", "gender") if k not in fields]
+
+
+SEMBOL = CLUB.parent / "semboller.json"  # {"nation"|"league"|"club": {ad: FUT.GG simge adresi}}, arayüz için
+
+
+def sembol_ekle(sem, p):
+    for k in ("nation", "league", "club"):
+        if p.get(k) and p.get(f"{k}ImageUrl"):
+            sem.setdefault(k, {})[p[k]["name"]] = p[f"{k}ImageUrl"]
 
 
 def deger():
@@ -124,15 +137,20 @@ def deger():
 
 
 def satir(w, p, o):
-    """Web App satırı (w) + FUT.GG kartı (p) + eski club.csv satırı (o: kopya/fiyat) -> club.csv satırı"""
+    """Web App satırı (w) + FUT.GG kartı (p) + eski club.csv satırı (o: kopya/fiyat/kilit) -> club.csv satırı"""
     return {"name": w["name"], "rating": w["rating"], "position": p["position"],
             "positions": "|".join([p["position"]] + p["alternativePositions"]),
             "nation": (p["nation"] or {}).get("name", ""), "league": (p["league"] or {}).get("name", ""),
             "club": (p["club"] or {}).get("name", ""),
             "rarity": "icon" if p["isIcon"] else "hero" if p["isHero"] else  # kimya: her zaman 3
                       RARITY.get(p["rarityName"].lower(), p["rarityName"].lower()),
-            "tradeable": w["tradeable"], "duplicate": o.get("duplicate", "hayır"), "locked": w["active"],
-            "price": o.get("price", 0) if w["tradeable"] == "evet" else 0, "value": p.get("gradingScore") or 0}
+            "tradeable": w["tradeable"],
+            # depo (SBC Storage) kartı: ayrı satır, SBC'de önce harcanır, kadroda değildir
+            "duplicate": "evet" if w.get("depo") == "evet" else "hayır",  # kopya = depodaki ayrı kart
+            "locked": "hayır" if w.get("depo") == "evet" else
+                      "evet" if "evet" in (w["active"], o.get("locked")) else "hayır",  # arayüz kilidi korunur
+            "price": o.get("price", 0) if w["tradeable"] == "evet" else 0, "value": p.get("gradingScore") or 0,
+            "gender": {1: "erkek", 2: "kadın"}.get(p.get("gender"), "")}
 
 
 def ekle(path):

@@ -1,181 +1,306 @@
-name,rating,stats,tradeable,active
-Olise,90,83 82 89 91 47 69,hayır,evet
-Gabriel,89,64 44 64 66 91 84,hayır,evet
-Gabriel,89,64 44 64 66 91 84,hayır,hayır
-Gabriel,89,64 44 64 66 91 84,hayır,hayır
-Mapi León,88,77 68 80 77 89 86,hayır,evet
-Lavelle,87,85 79 84 87 60 65,hayır,evet
-Kökçü,86,77 84 87 84 74 84,evet,hayır
-Stanway,86,82 79 80 86 78 78,evet,hayır
-Heath,86,84 80 83 86 51 73,hayır,evet
-Aubameyang,86,87 86 78 84 43 73,hayır,evet
-Al Jaber,86,88 86 75 83 44 71,hayır,evet
-Dimarco,86,81 78 85 81 80 74,hayır,evet
-Dimarco,86,81 78 85 81 80 74,hayır,hayır
-Kelly,86,89 85 85 84 43 69,hayır,hayır
-Katoto,86,84 84 77 82 39 75,hayır,hayır
-Fernández,86,68 78 86 83 74 76,hayır,evet
-Rabiot,85,81 79 81 81 78 85,hayır,hayır
-Foord,85,87 77 79 84 45 70,hayır,hayır
-Martínez,85,83 81 82 85 50 85,hayır,evet
-Gravenberch,85,79 76 81 83 80 80,evet,evet
-Osimhen,85,89 84 65 78 51 86,hayır,evet
-Anyomi,84,90 82 74 84 55 83,hayır,hayır
-Ferran Torres,84,88 84 78 82 40 74,hayır,evet
-Little,84,76 75 85 89 78 69,evet,hayır
-Mancini,84,69 50 61 66 85 82,evet,hayır
-Lewandowski,84,67 85 79 80 44 80,evet,hayır
-Freigang,84,84 82 76 83 37 80,evet,hayır
-Rémy,84,91 84 70 78 37 72,hayır,evet
-Oberdorf,84,60 62 77 74 85 84,hayır,hayır
-Baumann,84,85 81 80 84 39 81,hayır,hayır
-Foden,84,77 82 82 88 57 53,hayır,hayır
-Toone,84,81 81 81 84 52 64,hayır,hayır
-Zubimendi,84,65 71 82 80 80 75,hayır,hayır
-Fiamma Benítez,84,83 76 81 83 60 77,hayır,hayır
-Rogers,84,76 82 82 84 67 78,hayır,evet
-Lacroix,83,86 46 63 69 84 83,hayır,evet
-Vušković,83,60 65 64 67 85 84,hayır,hayır
-Lookman,83,86 83 73 84 32 68,hayır,evet
-Girelli,83,78 81 70 81 45 78,evet,hayır
-Orbán,83,54 40 56 56 86 83,evet,hayır
-Fudalla,83,86 85 78 80 55 73,evet,hayır
-Provedel,83,81 80 82 86 42 83,hayır,hayır
-Malen,83,86 83 73 85 38 68,hayır,hayır
-Palacios,83,62 76 79 82 81 71,hayır,hayır
-Palacios,83,62 76 79 82 81 71,hayır,hayır
-Santos,83,75 77 82 83 69 77,hayır,hayır
-Rose,83,75 31 54 65 85 78,hayır,hayır
-Becho,83,90 79 72 86 45 69,hayır,hayır
-Rüdiger,83,75 54 71 69 83 85,hayır,hayır
-Dumfries,83,82 70 74 79 78 87,hayır,evet
-Adeyemi,82,95 80 72 82 36 69,evet,hayır
-Lindelöf,82,60 56 76 73 82 76,hayır,evet
-ter Stegen,82,81 82 85 82 44 81,evet,hayır
-Paula Fernández,82,77 74 78 81 78 80,evet,hayır
-Ryerson,82,75 63 76 77 78 82,evet,hayır
-Wharton,82,54 63 85 80 77 69,evet,hayır
-Terland,82,79 82 73 80 36 71,evet,hayır
-Kean,82,85 82 59 81 41 74,evet,hayır
-Marco Asensio,82,73 81 82 82 44 63,evet,hayır
-Bounou,82,80 82 76 86 38 81,evet,hayır
-Tapsoba,82,74 58 73 72 82 80,evet,hayır
-Koulibaly,82,72 48 62 66 82 83,hayır,hayır
-de Vrij,82,66 42 67 69 85 75,hayır,hayır
-Zambo Anguissa,82,72 77 76 81 79 81,hayır,hayır
-Buchanan,82,65 44 58 66 84 81,hayır,hayır
-Froholdt,82,79 76 76 81 78 80,hayır,hayır
-Marmoush,82,87 83 76 83 34 69,hayır,hayır
-Šeško,82,85 82 67 78 46 77,hayır,hayır
-Koulibaly,82,72 48 62 66 82 83,hayır,hayır
-Ricardo Horta,82,78 81 81 82 46 70,hayır,hayır
-Garbino,82,87 79 78 83 53 66,hayır,hayır
-Tapsoba,82,74 58 73 72 82 80,hayır,hayır
-Di María,82,71 80 85 85 43 62,hayır,hayır
-Hernández,82,89 78 78 82 76 83,hayır,hayır
-Suárez,82,83 82 69 80 42 78,hayır,hayır
-Bounou,82,80 82 76 86 38 81,hayır,hayır
-Budimir,82,65 83 63 74 36 81,hayır,hayır
-Kögel,82,87 79 77 81 46 70,hayır,hayır
-Brandt,82,69 77 83 84 45 69,hayır,evet
-Gordon,82,91 78 77 82 50 71,hayır,evet
-Bednarek,82,50 22 63 70 83 83,hayır,hayır
-Morroni,82,84 46 76 79 78 56,hayır,hayır
-Šeško,82,85 82 67 78 46 77,hayır,hayır
-Éderson,82,81 73 78 80 80 81,hayır,hayır
-Giménez,82,68 46 60 62 83 80,hayır,hayır
-Gordon,82,91 78 77 82 50 71,hayır,hayır
-Trossard,82,76 82 79 85 30 59,hayır,hayır
-Carrasco,82,88 81 78 84 58 71,hayır,hayır
-Maanum,82,70 80 82 82 72 66,hayır,hayır
-Kiwior,82,71 42 72 76 83 78,hayır,hayır
-Mané,82,81 81 78 85 44 75,hayır,hayır
-Ndiaye,82,86 77 74 86 44 65,hayır,evet
-Zakaria,81,80 67 74 77 80 85,evet,hayır
-Freuler,81,48 72 77 77 78 71,evet,hayır
-Mace,81,77 60 76 75 81 75,evet,hayır
-Kramarić,81,67 83 78 84 33 72,evet,hayır
-Fornals,81,66 75 83 80 74 72,evet,hayır
-Torreira,81,72 72 78 75 78 76,evet,hayır
-Fornals,81,66 75 83 80 74 72,hayır,hayır
-Sarr,81,87 80 76 80 40 69,hayır,hayır
-Fleming,81,83 74 78 82 69 56,hayır,hayır
-Verbruggen,81,80 77 81 84 50 81,hayır,hayır
-Perišić,81,74 80 81 79 68 77,hayır,hayır
-Frimpong,81,94 62 74 82 72 62,hayır,evet
-Galeno,81,91 77 76 82 45 70,hayır,hayır
-Hernández,81,71 52 72 71 82 75,hayır,hayır
-Brown,81,90 60 76 83 73 59,hayır,hayır
-Galeno,81,91 77 76 82 45 70,hayır,hayır
-Galeno,81,91 77 76 82 45 70,hayır,hayır
-Hutton,81,71 69 74 81 78 71,hayır,hayır
-Dewsbury-Hall,81,68 77 82 81 70 71,hayır,hayır
-Paradela,80,78 73 81 81 62 70,evet,evet
-Elba Vergés,80,65 61 67 68 81 78,evet,hayır
-Müller,80,57 79 82 77 55 65,evet,hayır
-DiBernardo,80,75 76 79 83 64 56,evet,hayır
-De Almeida,80,74 34 64 61 81 82,evet,hayır
-Baleba,80,74 70 76 79 78 78,evet,hayır
-Aké,80,66 53 71 74 82 71,hayır,hayır
-Gonçalo Inácio,80,76 37 71 73 81 81,hayır,hayır
-Gonçalo Inácio,80,76 37 71 73 81 81,hayır,hayır
-Højbjerg,80,49 71 75 74 76 82,hayır,hayır
-Arambarri,80,68 79 76 78 80 81,hayır,hayır
-Balogun,80,84 80 63 78 24 71,hayır,hayır
-Arambarri,80,68 79 76 78 80 81,hayır,hayır
-Di Guglielmo,80,90 41 71 71 75 65,hayır,hayır
-Bizet,79,83 73 76 79 37 67,evet,hayır
-Gomez,79,70 29 70 71 80 73,evet,hayır
-González,79,85 76 74 79 54 67,evet,hayır
-Elanga,79,94 70 74 80 39 65,evet,hayır
-Amad,79,83 75 74 83 54 53,evet,hayır
-Evander,79,72 78 79 81 66 71,hayır,hayır
-Koch,79,63 44 62 65 80 82,hayır,hayır
-Lejeune,79,53 65 72 66 79 81,hayır,hayır
-Nørgaard,79,44 65 75 71 77 76,hayır,hayır
-Grifo,79,66 74 81 80 43 66,hayır,hayır
-Christensen,79,72 32 67 69 81 71,hayır,hayır
-Fekir,79,73 77 79 81 39 74,hayır,hayır
-Calligaris,79,79 59 71 75 79 80,hayır,hayır
-Burgess,79,30 34 55 54 82 82,hayır,hayır
-Igor Paixão,79,87 78 75 80 32 70,hayır,hayır
-Gotts,79,76 55 78 66 75 78,hayır,hayır
-Tanaka,79,73 74 69 77 52 63,hayır,evet
-Al Juwair,78,76 69 82 76 58 75,evet,hayır
-Burger,78,71 68 77 75 76 83,evet,hayır
-Butez,78,74 79 84 79 49 76,evet,hayır
-Brunetta,78,71 75 82 75 50 64,evet,hayır
-Batna,78,78 79 75 78 36 78,evet,hayır
-Koopmeiners,78,66 74 82 77 74 71,hayır,hayır
-Fernandez-Pardo,78,91 77 70 82 43 76,hayır,hayır
-Kılıçsoy,78,74 78 67 77 32 72,hayır,evet
-Thomas-Asante,78,83 71 75 75 45 80,hayır,hayır
-O'Riley,77,61 77 79 76 67 69,evet,hayır
-Javi Galán,77,77 57 75 77 74 72,evet,hayır
-Puado,77,78 77 71 77 51 74,evet,hayır
-Hrošovský,77,60 76 76 77 71 71,hayır,hayır
-Bobb,76,81 66 73 81 35 43,hayır,hayır
-Cambeses,75,76 71 70 77 55 74,evet,hayır
-Baldi,75,74 75 73 73 28 73,evet,hayır
-Cryzan,75,84 73 69 79 27 86,hayır,hayır
-Mudryk,75,92 71 71 78 38 57,hayır,hayır
-Fábio Silva,78,76 75 67 81 33 76,hayır,hayır
-Taison,76,82 75 73 81 44 64,hayır,hayır
-Anita Marcos,76,76 77 73 77 51 73,hayır,hayır
-Grüll,73,82 74 68 73 36 68,evet,hayır
-Bienz,73,79 71 68 72 50 70,hayır,hayır
-Bola,72,83 42 58 67 68 73,hayır,hayır
-Capasso,71,47 38 45 51 69 81,evet,hayır
-Marc Guiu,71,71 70 55 69 36 72,evet,hayır
-Johnsen,71,92 70 67 74 42 66,evet,hayır
-Mazzocchi,71,74 59 70 73 68 61,hayır,hayır
-Al Dawsari,69,70 62 71 69 66 73,evet,hayır
-Araújo,69,65 53 56 63 63 71,evet,hayır
-Acosta,68,57 46 59 62 70 69,hayır,hayır
-Johansson Schellhas,67,74 59 64 64 48 71,hayır,hayır
-Jiménez,66,67 67 63 67 35 63,hayır,hayır
-N'Diaye,65,66 60 61 71 25 63,evet,hayır
-Lienard,65,65 61 60 66 23 63,evet,hayır
-Rödin,63,60 28 45 59 62 68,evet,hayır
-Palmer,58,38 29 37 40 58 66,evet,hayır
-Suresh,54,58 56 55 51 22 54,evet,hayır
+name,rating,stats,tradeable,active,depo
+Haaland,91,87 92 71 80 47 89,evet,evet,
+Olise,90,83 82 89 91 47 69,hayır,evet,
+Dumornay,89,93 86 81 91 62 75,hayır,evet,
+Messi,89,76 87 89 90 33 63,hayır,evet,
+Gabriel,89,64 44 64 66 91 84,hayır,evet,
+van Dijk,88,70 60 72 70 89 85,evet,evet,
+Kimmich,88,71 73 90 84 81 79,hayır,evet,
+Karchaoui,87,89 76 87 88 79 72,evet,evet,
+Yohannes,86,83 83 86 88 78 77,evet,evet,
+Stanway,86,82 79 80 86 78 78,evet,hayır,
+Heath,86,84 80 83 86 51 73,hayır,evet,
+Aubameyang,86,87 86 78 84 43 73,hayır,hayır,
+Bacha,86,88 73 85 82 79 81,hayır,hayır,
+Fernández,86,68 78 86 83 74 76,hayır,hayır,
+Cata Coll,85,82 81 76 87 53 82,evet,hayır,
+Mateo,85,87 85 80 85 56 77,hayır,hayır,
+Eric García,85,79 58 77 76 86 82,hayır,hayır,
+Xhaka,85,45 75 85 74 78 81,hayır,hayır,
+Rabiot,85,81 79 81 81 78 85,hayır,hayır,
+Martínez,85,83 81 82 85 50 85,hayır,evet,
+Barcola,85,92 76 78 84 39 67,evet,evet,
+Gravenberch,85,79 76 81 83 80 80,evet,evet,
+Dybala,85,77 84 85 86 42 62,hayır,hayır,
+Athenea,84,90 78 77 85 25 75,evet,evet,
+Konaté,84,77 34 65 68 84 85,evet,hayır,
+Marmoush,84,89 85 78 85 37 72,hayır,evet,
+Mukasa,84,83 82 84 84 73 75,hayır,evet,
+Ferran Torres,84,88 84 78 82 40 74,hayır,evet,
+Dani Olmo,84,74 79 82 85 51 59,evet,hayır,
+Milinković-Savić,84,61 79 81 80 77 89,evet,hayır,
+Rémy,84,91 84 70 78 37 72,hayır,evet,
+Oberdorf,84,60 62 77 74 85 84,hayır,hayır,
+Eze,84,74 80 82 87 57 68,hayır,hayır,
+James,84,76 71 83 78 83 82,hayır,hayır,
+Nico Paz,84,81 78 79 84 54 68,hayır,hayır,
+Sanchez,84,86 79 81 83 38 60,hayır,hayır,
+Mancini,84,69 50 61 66 85 82,hayır,hayır,
+Quiñones,84,91 83 70 81 37 82,hayır,hayır,
+Baumann,84,85 81 80 84 39 81,hayır,hayır,
+Matheus Cunha,84,77 86 79 84 44 73,hayır,hayır,
+Hincapié,84,83 48 71 72 84 81,hayır,evet,
+Rogers,84,76 82 82 84 67 78,hayır,hayır,
+Adeyemi,83,95 82 75 83 38 70,hayır,evet,
+Adeyemi,83,95 80 74 83 36 69,hayır,hayır,
+Santos,83,75 77 82 83 69 77,evet,hayır,
+Shrader,83,74 76 79 80 71 76,evet,hayır,
+Girelli,83,78 81 70 81 45 78,evet,hayır,
+Becho,83,90 79 72 86 45 69,evet,hayır,
+Sørloth,83,75 83 71 74 37 83,evet,hayır,
+Kim Min Jae,83,73 32 58 63 84 82,evet,hayır,
+Kanté,83,74 65 73 80 83 79,evet,hayır,
+Provedel,83,81 80 82 86 42 83,hayır,hayır,
+Ndicka,83,74 53 69 70 83 84,hayır,hayır,
+Coman,83,87 75 79 87 30 64,hayır,hayır,
+van Domselaar,83,82 80 83 85 56 82,hayır,hayır,
+Palacios,83,62 76 79 82 81 71,hayır,hayır,
+Güler,83,77 79 85 84 55 57,hayır,hayır,
+Zaïre-Emery,83,79 71 78 81 79 85,hayır,hayır,
+Ginter,83,55 58 71 66 86 77,hayır,hayır,
+Tullis-Joyce,83,81 80 79 83 44 85,hayır,hayır,
+Safonov,83,82 76 80 86 50 83,hayır,hayır,
+Mittelstädt,83,76 63 79 78 80 74,hayır,hayır,
+Pavlović,83,66 68 82 82 79 79,hayır,hayır,
+João Pedro,83,77 83 74 84 38 74,hayır,hayır,
+Dumfries,83,82 70 74 79 78 87,hayır,hayır,
+Lindelöf,82,60 56 76 73 82 76,hayır,evet,
+Sancet,82,75 80 80 84 69 81,evet,hayır,
+Lola Gallardo,82,84 78 75 82 51 83,evet,hayır,
+Diaby,82,94 69 76 85 44 59,evet,evet,
+Goretzka,82,77 78 80 80 80 82,evet,hayır,
+Spitse,82,67 70 80 73 84 81,evet,hayır,
+Bounou,82,80 82 76 86 38 81,evet,hayır,
+Tapsoba,82,74 58 73 72 82 80,evet,hayır,
+Danilo Pereira,82,52 64 68 71 82 85,hayır,hayır,
+Zalazar,82,82 83 80 82 66 76,hayır,hayır,
+Zaccagni,82,87 78 77 84 57 62,hayır,hayır,
+Gakpo,82,77 83 80 81 47 74,hayır,hayır,
+Di María,82,71 80 85 85 43 62,hayır,hayır,
+Hernández,82,89 78 78 82 76 83,hayır,hayır,
+Suárez,82,83 82 69 80 42 78,hayır,hayır,
+Pedro Gonçalves,82,72 82 82 83 63 68,hayır,hayır,
+Kögel,82,87 79 77 81 46 70,hayır,hayır,
+Berardi,82,81 80 80 83 37 68,hayır,hayır,
+Natalia Ramos,82,78 74 77 76 78 87,hayır,hayır,
+Veerman,82,48 74 84 77 66 71,hayır,hayır,
+Palhinha,82,50 68 74 72 83 84,hayır,hayır,
+Misa,82,84 79 70 80 61 82,hayır,hayır,
+Brandt,82,69 77 83 84 45 69,hayır,hayır,
+Bednarek,82,50 22 63 70 83 83,hayır,hayır,
+Morroni,82,84 46 76 79 78 56,hayır,hayır,
+Šeško,82,85 82 67 78 46 77,hayır,hayır,
+Gordon,82,91 78 77 82 50 71,hayır,hayır,
+Trossard,82,76 82 79 85 30 59,hayır,hayır,
+Carrasco,82,88 81 78 84 58 71,hayır,hayır,
+Maanum,82,70 80 82 82 72 66,hayır,hayır,
+Kiwior,82,71 42 72 76 83 78,hayır,hayır,
+Mané,82,81 81 78 85 44 75,hayır,hayır,
+Ndiaye,82,86 77 74 86 44 65,hayır,hayır,
+Banzuzi,81,76 71 77 79 74 81,hayır,hayır,
+Mukiele,81,71 50 71 73 81 80,evet,hayır,
+Kalulu,81,79 53 68 72 83 79,evet,hayır,
+Neuer,81,80 80 87 78 31 82,evet,hayır,
+Álvaro García,81,88 77 78 79 51 45,evet,hayır,
+Zakaria,81,80 67 74 77 80 85,evet,hayır,
+Freuler,81,48 72 77 77 78 71,evet,hayır,
+Fornals,81,66 75 83 80 74 72,evet,hayır,
+Torreira,81,72 72 78 75 78 76,evet,hayır,
+Kılıçsoy,81,81 84 79 80 33 77,hayır,hayır,
+De Frutos,81,82 81 76 81 47 72,hayır,hayır,
+Araújo,81,85 69 76 81 71 75,hayır,hayır,
+Pau Torres,81,66 41 75 69 83 74,hayır,hayır,
+Akliouche,81,74 72 80 84 48 62,hayır,hayır,
+Abde,81,89 75 73 84 37 70,hayır,hayır,
+Mario Gila,81,85 53 68 75 81 79,hayır,hayır,
+Thuram,81,79 74 78 79 81 85,hayır,hayır,
+Vlahović,81,77 84 69 75 35 84,hayır,hayır,
+Brahim,81,80 73 78 84 33 63,hayır,hayır,
+Brown,81,90 60 76 83 73 59,hayır,hayır,
+Ramírez,81,90 80 74 82 32 84,hayır,hayır,
+Kramarić,81,67 83 78 84 33 72,hayır,hayır,
+van de Donk,81,72 77 81 85 66 71,hayır,hayır,
+Aït-Nouri,81,84 52 76 84 77 69,hayır,hayır,
+Samba,81,78 81 81 83 53 80,hayır,hayır,
+Luis Milla,81,68 73 84 78 77 76,hayır,hayır,
+Simons,81,75 76 79 84 61 66,hayır,hayır,
+Mitoma,81,83 76 76 86 57 63,hayır,hayır,
+Fishlock,81,73 77 79 82 73 55,hayır,hayır,
+Antony,81,85 81 79 82 48 71,hayır,hayır,
+Nacho Fernández,81,71 37 68 70 80 79,hayır,hayır,
+Beier,81,86 80 74 81 56 65,hayır,hayır,
+Havertz,81,69 79 77 80 48 72,hayır,hayır,
+Can,81,70 76 71 72 81 82,hayır,hayır,
+Wilson,81,76 82 81 82 46 59,hayır,hayır,
+Meret,81,78 76 75 85 44 82,hayır,hayır,
+Mainoo,81,66 70 77 83 78 75,hayır,hayır,
+Turner,81,52 50 63 65 84 77,hayır,hayır,
+Kulusevski,81,69 79 83 84 63 70,hayır,hayır,
+Zadrazil,81,64 69 73 80 75 82,hayır,hayır,
+Nico González,81,65 70 79 77 78 77,hayır,hayır,
+Udol,81,70 61 76 76 79 84,hayır,hayır,
+Ajibade,81,87 79 73 85 37 76,hayır,hayır,
+Dudek,81,59 46 62 68 85 75,hayır,hayır,
+O'Sullivan,81,82 72 72 79 80 78,hayır,hayır,
+Frimpong,81,94 62 74 82 72 62,hayır,evet,
+Guendouzi,81,72 73 79 80 77 79,hayır,hayır,
+Perišić,81,74 80 81 79 68 77,hayır,hayır,
+Wood,81,53 82 67 71 40 80,hayır,hayır,
+Sarr,81,87 80 76 80 40 69,hayır,hayır,
+Scott,81,68 71 80 82 76 73,hayır,hayır,
+Niakhaté,81,68 49 65 64 82 81,hayır,hayır,
+Galeno,81,91 77 76 82 45 70,hayır,hayır,
+Toloba,80,80 82 62 82 24 68,evet,hayır,
+Paradela,80,78 73 81 81 62 70,evet,hayır,
+Damiani,80,78 80 70 78 43 87,hayır,hayır,
+Orban,80,82 85 73 82 26 68,hayır,hayır,
+Mastantuono,80,80 78 79 83 53 70,hayır,hayır,
+Yeray,80,64 49 73 66 82 75,evet,hayır,
+Bogaert,80,82 51 71 75 77 69,evet,hayır,
+Lauriente,80,91 75 74 82 36 51,evet,hayır,
+Stach,80,67 72 81 76 78 79,evet,hayır,
+Hatch,80,69 79 73 81 47 70,evet,hayır,
+DiBernardo,80,75 76 79 83 64 56,evet,hayır,
+De Almeida,80,74 34 64 61 81 82,evet,hayır,
+Endemann,80,87 75 74 79 45 70,hayır,hayır,
+Estêvão,80,89 76 75 84 33 57,hayır,hayır,
+Buendía,80,65 78 81 84 66 60,hayır,hayır,
+Al Dawsari,80,86 72 75 83 55 80,hayır,hayır,
+Borja Iglesias,80,62 83 71 74 40 77,hayır,hayır,
+Tomori,80,85 40 63 68 80 80,hayır,hayır,
+Andrezinho,80,76 72 76 75 30 47,hayır,hayır,
+Taison,80,82 75 73 81 44 66,hayır,hayır,
+Gonçalo Inácio,80,76 37 71 73 81 81,hayır,hayır,
+Baku,80,83 72 77 80 75 76,hayır,hayır,
+Aké,80,66 53 71 74 82 71,hayır,hayır,
+Fowler,80,80 77 77 81 60 64,hayır,hayır,
+Milinković-Savić,80,79 80 80 80 43 81,hayır,hayır,
+Kubo,80,85 75 76 83 43 65,hayır,hayır,
+Rațiu,80,94 67 74 81 74 71,hayır,hayır,
+Gabri Veiga,80,76 77 79 80 62 73,hayır,hayır,
+Chalobah,80,65 53 69 69 81 78,hayır,hayır,
+Fofana,80,75 69 76 79 78 74,hayır,hayır,
+Isi,80,80 77 80 82 40 65,hayır,hayır,
+Højbjerg,80,49 71 75 74 76 82,hayır,hayır,
+Balogun,80,84 80 63 78 24 71,hayır,hayır,
+Santi Comesaña,79,59 72 74 75 77 77,evet,hayır,
+Berenguer,79,81 78 77 80 67 68,evet,hayır,
+Elanga,79,94 70 74 80 39 65,evet,hayır,
+Lang,79,80 77 73 84 50 68,hayır,hayır,
+Baku,79,83 72 75 80 75 76,hayır,hayır,
+Sergi Cardona,79,82 56 75 76 75 75,hayır,hayır,
+Diagne,79,69 77 71 75 29 74,hayır,hayır,
+Groß,79,37 74 84 78 71 71,hayır,hayır,
+Hamano,79,76 72 70 81 51 55,hayır,hayır,
+Djimsiti,79,58 39 62 54 81 80,hayır,hayır,
+Provod,79,77 75 79 78 65 83,hayır,hayır,
+Kluivert,79,86 78 77 81 42 60,hayır,hayır,
+Carlos Soler,79,70 76 80 78 71 70,hayır,hayır,
+Christensen,79,72 32 67 69 81 71,hayır,hayır,
+Tanaka,79,73 74 69 77 52 63,hayır,hayır,
+Correa,78,81 79 74 81 50 72,evet,hayır,
+Douglas Luiz,78,62 75 81 79 75 68,evet,hayır,
+Tella,78,90 74 71 80 46 60,evet,hayır,
+Til,78,79 77 74 74 65 76,evet,hayır,
+Kalimuendo,78,79 79 65 79 34 72,evet,hayır,
+Gallagher,78,68 73 77 76 78 79,evet,hayır,
+Fábio Silva,78,76 75 67 81 33 76,hayır,hayır,
+Cook,78,68 63 76 77 75 70,hayır,hayır,
+Rovella,78,73 63 77 79 75 66,hayır,hayır,
+Piljić,78,46 72 77 75 74 73,hayır,hayır,
+Zicai,78,77 76 74 79 51 66,hayır,hayır,
+Almada,78,79 75 78 81 53 58,hayır,hayır,
+Teze,78,76 55 71 73 76 78,hayır,hayır,
+Chukwuemeka,78,74 69 75 83 65 70,hayır,hayır,
+Burger,78,71 68 77 75 76 83,hayır,hayır,
+Millot,77,74 69 75 81 61 55,hayır,hayır,
+Merlin,77,74 59 75 76 72 66,hayır,hayır,
+Fernández,77,85 72 74 78 60 69,hayır,hayır,
+Şimşir,76,82 69 74 78 36 72,evet,hayır,
+Anita Marcos,76,76 77 73 77 51 73,hayır,hayır,
+Fernandez,74,71 46 54 63 71 81,evet,hayır,
+Stephen Eustáquio,74,66 67 73 72 72 73,evet,hayır,
+Önal,74,81 68 68 76 30 69,evet,hayır,
+Meyer,74,72 71 79 75 41 74,hayır,hayır,
+Furlong,73,73 45 61 70 69 78,evet,hayır,
+Zagadou,73,46 34 57 50 73 72,evet,hayır,
+Huescas,72,81 63 68 71 67 65,evet,hayır,
+Hammond,72,67 51 67 67 73 68,hayır,hayır,
+Sahin,71,62 57 68 68 67 64,evet,hayır,
+Rodríguez,71,85 68 58 70 32 71,evet,hayır,
+Henar Muiña,70,46 51 62 65 68 69,evet,hayır,
+Enríquez,70,70 68 67 70 27 68,evet,hayır,
+Marcos Felipe,69,71 64 63 75 44 71,evet,hayır,
+O'Dowda,68,82 60 65 69 60 65,evet,hayır,
+Fetaj,68,72 64 67 69 62 58,evet,hayır,
+Feingold,67,73 54 63 65 61 66,evet,hayır,
+Peña,67,77 51 65 69 60 58,evet,hayır,
+Gavran,67,68 66 66 66 28 66,hayır,hayır,
+Arias,66,49 30 41 47 68 71,evet,hayır,
+Ryan Guilherme,66,68 59 64 63 63 68,evet,hayır,
+Zinga,66,66 67 69 70 24 65,hayır,hayır,
+Jiménez,66,67 67 63 67 35 63,hayır,hayır,
+Peña Zauner,65,74 56 64 67 34 53,evet,hayır,
+Connolly,65,54 56 61 62 63 74,hayır,hayır,
+Shabani,64,57 52 63 65 58 64,evet,hayır,
+Frosinini,64,60 32 49 50 66 63,evet,hayır,
+Isah,63,88 59 53 66 26 52,evet,hayır,
+Maurin,63,73 63 55 66 20 61,evet,hayır,
+Conesa,63,64 43 62 64 54 65,evet,hayır,
+Ashby,63,75 44 56 60 57 61,evet,hayır,
+Bergquist,63,67 43 55 59 58 65,evet,hayır,
+McKenzie,62,67 47 56 55 59 72,evet,hayır,
+Nurse,61,71 53 56 59 59 64,evet,hayır,
+Al Haidari,61,60 58 55 58 31 64,evet,hayır,
+Grandi,60,58 60 59 56 45 61,evet,hayır,
+Matthews,60,65 53 55 60 47 56,evet,hayır,
+Kim Yeon Soo,59,51 23 29 36 60 68,evet,hayır,
+Kumar,57,75 48 49 51 52 62,evet,hayır,
+Onyegbule,56,72 46 51 63 34 58,evet,hayır,
+Yeo Bong Hun,53,51 56 54 58 50 62,evet,hayır,
+Gabriel,89,64 44 64 66 91 84,hayır,hayır,evet
+João Neves,88,72 75 84 87 86 82,hayır,hayır,evet
+Dimarco,86,81 78 85 81 80 74,hayır,hayır,evet
+Katoto,86,84 84 77 82 39 75,hayır,hayır,evet
+Rabiot,85,81 79 81 81 78 85,hayır,hayır,evet
+Zubimendi,84,65 71 82 80 80 75,hayır,hayır,evet
+Foden,84,77 82 82 88 57 53,hayır,hayır,evet
+Reuteler,84,90 82 81 85 64 78,hayır,hayır,evet
+Schick,83,70 83 71 81 38 78,hayır,hayır,evet
+Sørloth,83,75 83 71 74 37 83,hayır,hayır,evet
+Mikel Merino,83,51 79 80 79 81 79,hayır,hayır,evet
+Danilo Pereira,82,52 64 68 71 82 85,hayır,hayır,evet
+Gakpo,82,77 83 80 81 47 74,hayır,hayır,evet
+Zaccagni,82,87 78 77 84 57 62,hayır,hayır,evet
+Janssen,82,76 54 74 73 83 82,hayır,hayır,evet
+Giménez,82,68 46 60 62 83 80,hayır,hayır,evet
+Trossard,82,76 82 79 85 30 59,hayır,hayır,evet
+Giménez,82,68 46 60 62 83 80,hayır,hayır,evet
+Maanum,82,70 80 82 82 72 66,hayır,hayır,evet
+Ndiaye,82,86 77 74 86 44 65,hayır,hayır,evet
+Koulibaly,82,72 48 62 66 82 83,hayır,hayır,evet
+Šeško,82,85 82 67 78 46 77,hayır,hayır,evet
+Tapsoba,82,74 58 73 72 82 80,hayır,hayır,evet
+Bounou,82,80 82 76 86 38 81,hayır,hayır,evet
+Gordon,82,91 78 77 82 50 71,hayır,hayır,evet
+Guendouzi,81,72 73 79 80 77 79,hayır,hayır,evet
+Dudek,81,59 46 62 68 85 75,hayır,hayır,evet
+Samba,81,78 81 81 83 53 80,hayır,hayır,evet
+Can,81,70 76 71 72 81 82,hayır,hayır,evet
+Mainoo,81,66 70 77 83 78 75,hayır,hayır,evet
+Perišić,81,74 80 81 79 68 77,hayır,hayır,evet
+Fornals,81,66 75 83 80 74 72,hayır,hayır,evet
+Sarr,81,87 80 76 80 40 69,hayır,hayır,evet
+Fleming,81,83 74 78 82 69 56,hayır,hayır,evet
+Verbruggen,81,80 77 81 84 50 81,hayır,hayır,evet
+Perišić,81,74 80 81 79 68 77,hayır,hayır,evet
+Galeno,81,91 77 76 82 45 70,hayır,hayır,evet
+Hernández,81,71 52 72 71 82 75,hayır,hayır,evet
+Brown,81,90 60 76 83 73 59,hayır,hayır,evet
+Galeno,81,91 77 76 82 45 70,hayır,hayır,evet
+Buendía,80,65 78 81 84 66 60,hayır,hayır,evet
+Gonçalo Inácio,80,76 37 71 73 81 81,hayır,hayır,evet
+Al Dawsari,80,86 72 75 83 55 80,hayır,hayır,evet
+Højbjerg,80,49 71 75 74 76 82,hayır,hayır,evet
+Arambarri,80,68 79 76 78 80 81,hayır,hayır,evet
+Galli,76,71 72 75 77 66 57,hayır,hayır,evet

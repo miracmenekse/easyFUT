@@ -1,0 +1,21 @@
+{
+  "name": "3x 79+ Upgrade",
+  "formation": "",
+  "size": 10,
+  "requirements": [
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 10
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-19",
+  "source": "fut.gg 27-49-3x-79-upgrade / 86",
+  "requirements_text": [
+    "Quality: Gold only",
+    "Players: 10"
+  ],
+  "notes_repeat": "sınırsız tekrarlanabilir: planda bir kez",
+  "passive": true
+}

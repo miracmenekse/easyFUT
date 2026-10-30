@@ -15,5 +15,6 @@
   "source": "fut.gg 27-34-premier-league-potm-september / 64",
   "requirements_text": [
     "Rating: Min. 45"
-  ]
+  ],
+  "passive": true
 }

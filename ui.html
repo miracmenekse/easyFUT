@@ -86,7 +86,7 @@ label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mu
 .slot .sp.alt{color:#9fd3ff} .slot .sp.farklı{color:var(--bad)} .slot .sp.pazar{color:var(--warn)}
 .slot .ch{font-size:11px;letter-spacing:1px;color:var(--accent);margin-top:2px;text-shadow:0 1px 2px #000}
 .checks{list-style:none;padding:0;margin:10px 0 0;font-size:13px}.checks li{padding:2px 0}.checks .ok{color:var(--accent)}.checks .no{color:var(--bad)}
-.card .lk{position:absolute;top:54px;right:10px;font-size:13px;cursor:pointer;opacity:.6}.card.locked{filter:grayscale(.8) brightness(.8)}.card.locked .lk{opacity:1}
+.ico{height:20px;vertical-align:middle}.ico-t{font-size:12px}.kim{display:inline-flex;gap:6px;align-items:center}.card .lk{position:absolute;top:54px;right:10px;font-size:13px;cursor:pointer;opacity:.6}.card.locked{filter:grayscale(.8) brightness(.8)}.card.locked .lk{opacity:1}
 .stepgrid{display:grid;grid-template-columns:minmax(280px,620px) 1fr;gap:16px;align-items:start}
 .legend{font-size:12px;color:var(--muted);margin-top:8px}
 @media(max-width:1000px){.stepgrid{grid-template-columns:1fr}}
@@ -243,6 +243,12 @@ async function load() {
 }
 
 /* ---------- kart ---------- */
+// FUT.GG simgeleri (data/semboller.json, futgg.py kulup doldurur); yoksa yazı. Fareyle üstüne gelince ad görünür.
+const simge = (k, ad) => { const u = ad && (S.icons || {})[k] && S.icons[k][ad];
+  return !ad ? '' : u ? `<img class="ico" src="${esc(u)}" alt="${esc(ad)}" title="${esc(ad)}" onerror="this.replaceWith(this.alt)">` : `<span class="ico-t">${esc(ad)}</span>`; };
+const yer = c => c.source !== 'kulüp' ? '' : c.duplicate ? '<span class="chip" title="SBC Deposu">📦 Depo</span>' : '<span class="chip" title="Kulüp">🏠 Kulüp</span>';
+const kimlik = c => c.source === 'pazar' || c.source === 'eksik' ? '' :
+  `<span class="kim">${c.gender ? `<span title="${c.gender === 'kadın' ? 'Kadın' : 'Erkek'}">${c.gender === 'kadın' ? '♀' : '♂'}</span>` : ''}${simge('nation', c.nation)}${simge('league', c.league)}${simge('club', c.club)}</span>`;
 function tier(c) {
   if (c.source === 'pazar' || c.source === 'eksik') return 'market';
   if (!['rare', 'common', ''].includes(c.rarity || '')) return 'special';
@@ -339,7 +345,7 @@ async function excludePicked() {
   }
   ids.forEach(i => S.club[i].locked = true);
   PICK.clear(); $('pickbar').style.display = 'none';
-  await saveClub(); runPlan();  // kilitli kart SBC'ye girmez; Kulüp sayfasından kilit açılabilir
+  await saveClub();  // kilitli kart SBC'ye girmez; Kulüp sayfasından kilit açılabilir
 }
 function pitch(d) {
   return `<div class="pitch">${d.slots.map(sl => sl.x == null ? '' : `<div class="slot ${PICK.has(sl.card.id) ? 'sel' : ''}" style="left:${sl.x}%;top:${sl.y}%"${sl.card.source === 'kulüp' ? ` onclick="pickCard(${sl.card.id})" title="Seç: SBC'den çıkarılacaklar"` : ''}>
@@ -370,7 +376,8 @@ function renderPlan() {
     `<option value="${esc(key(d))}">${i + 1}. ${esc(d.sbc.name)}${(d.sbc.repeat || 1) > 1 ? ' #' + d.sbc._copy : ''}</option>`).join('');
   if ([...sel.options].some(o => o.value === cur)) sel.value = cur;
   $('focusBox').style.display = p.done.length ? '' : 'none';
-  let h = `<div class="tiles">
+  let h = (p.uyarilar || []).length ? `<div class="panel" style="color:var(--bad)"><b>Veri uyarıları (plan bunlara göre güvenilmez olabilir)</b><ul>${p.uyarilar.map(u => '<li>' + esc(u) + '</li>').join('')}</ul></div>` : '';
+  h += `<div class="tiles">
     <div class="tile"><b style="color:var(--accent)">${p.done.length} / ${p.total}</b><span>Yapılabilir SBC</span></div>
     <div class="tile"><b>${fmt(p.spent)}</b><span>Harcanacak coin</span></div>
     <div class="tile"><b>${fmt(p.done.reduce((a, d) => a + (d.gallery || 0), 0))}</b><span>Harcanan galeri puanı</span></div>
@@ -390,9 +397,9 @@ function renderPlan() {
         ${d.lines && d.lines.length ? `<h3>Pazardan alman gerekenler</h3><ul class="checks">${d.lines.map(([n, t]) => `<li class="no">➜ ${n > 1 ? `<b>${n} ×</b> ` : ''}${esc(t)}</li>`).join('')}</ul>
           <p class="legend">Sadece yazan özellikler önemli; yazmayan alanlar herhangi olabilir.</p>` : ''}
         <ul class="checks">${d.checks.map(([t, ok]) => `<li class="${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'} ${esc(t)}</li>`).join('')}</ul>
-        <table style="margin-top:12px"><tr><th>Poz.</th><th>Oyuncu</th><th>Rey.</th><th>Kimya</th></tr>
+        <table style="margin-top:12px"><tr><th>Poz.</th><th>Oyuncu</th><th>Rey.</th><th>Yer</th><th>Bilgi</th><th>Kimya</th></tr>
         ${d.slots.map(sl => `<tr${sl.card.source === 'kulüp' ? ` class="${PICK.has(sl.card.id) ? 'sel' : ''}" onclick="pickCard(${sl.card.id})"` : ''}><td><b>${sl.pos}</b></td><td>${esc(sl.card.source === 'pazar' ? 'Pazardan al (' + sl.card.rating + ', ~' + fmt(sl.card.price) + ')' : sl.card.name)}</td>
-          <td>${sl.card.rating}</td><td class="muted">${sl.chem}</td></tr>`).join('')}</table>
+          <td>${sl.card.rating}</td><td>${yer(sl.card)}</td><td class="muted">${kimlik(sl.card)}</td><td class="muted">${sl.chem}</td></tr>`).join('')}</table>
         <p class="legend">Pozisyon etiketi: beyaz kendi pozisyonu, mavi alternatif pozisyonu, kırmızı pozisyon dışı (kimya 0). ◆ = kimya puanı.</p></div></div></div></div>`;
   });
   if (p.skipped.length && !sel.value) h += `<div class="panel"><h2>Yapılamayanlar</h2>${p.skipped.map(s =>
@@ -422,9 +429,9 @@ function renderPlan() {
           <ul class="checks">${d.lines.map(([n, t]) => `<li class="no">➜ ${n > 1 ? `<b>${n} ×</b> ` : ''}${esc(t)}</li>`).join('')}</ul>
           <p class="legend">Sadece yazan özellikler önemli; yazmayan alanlar (ülke, lig, kulüp) herhangi olabilir. Yazan reyting aralığındaki her oyuncu olur.</p>
           <ul class="checks">${d.checks.map(([t, ok]) => `<li class="${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'} ${esc(t)}</li>`).join('')}</ul>
-          <table style="margin-top:12px"><tr><th>Poz.</th><th>Oyuncu</th><th>Rey.</th></tr>
+          <table style="margin-top:12px"><tr><th>Poz.</th><th>Oyuncu</th><th>Rey.</th><th>Yer</th><th>Bilgi</th></tr>
           ${d.slots.map(sl => `<tr${sl.card.source === 'kulüp' ? ` class="${PICK.has(sl.card.id) ? 'sel' : ''}" onclick="pickCard(${sl.card.id})"` : ''}><td><b>${sl.pos}</b></td><td>${esc(sl.card.source === 'eksik' ? '➜ Pazardan al' : sl.card.name)}</td>
-            <td>${sl.card.source === 'eksik' ? '' : sl.card.rating}</td></tr>`).join('')}</table></div></div></div></div>`;
+            <td>${sl.card.source === 'eksik' ? '' : sl.card.rating}</td><td>${yer(sl.card)}</td><td class="muted">${kimlik(sl.card)}</td></tr>`).join('')}</table></div></div></div></div>`;
     });
   }
   $('plan').innerHTML = h;
@@ -557,6 +564,7 @@ function renderClub() {
   $('clubView').querySelectorAll('tr[data-i] input').forEach(inp => inp.onchange = () => {
     const c = S.club[+inp.closest('tr').dataset.i], k = inp.dataset.k;
     c[k] = inp.type === 'checkbox' ? inp.checked : inp.type === 'number' ? +inp.value : inp.value;
+    if (inp.type === 'checkbox') saveClub();  // kilit/kopya/takas hemen kaydedilir (yazı alanları "Kulübü kaydet" ile)
   });
 }
 function toggleEdit() { editing = !editing; $('modeBtn').textContent = editing ? 'Kart görünümü' : 'Tablo ile düzenle'; renderClub(); }
@@ -572,7 +580,7 @@ async function delCard(i) {
   S.club.splice(i, 1); await saveClub();
 }
 async function saveClub() {
-  try { await api('/api/club?v=' + encodeURIComponent(S.v), {method: 'POST', body: JSON.stringify(S.club.filter(c => String(c.name).trim()))}); toast('Kulüp kaydedildi'); load(); }
+  try { await api('/api/club?v=' + encodeURIComponent(S.v), {method: 'POST', body: JSON.stringify(S.club.filter(c => String(c.name).trim()))}); toast('Kulüp kaydedildi'); await load(); runPlan(); }
   catch (e) { toast(e.message, true); load(); }  // reddedildiyse güncel veriyi al
 }
 ['q', 'fl', 'fr'].forEach(i => $(i).oninput = renderClub);
@@ -617,7 +625,7 @@ async function loadFiles() {
 async function loadFile() { try { $('raw').value = await api('/api/file?name=' + encodeURIComponent($('file').value)); } catch (e) { $('raw').value = ''; } }
 $('file').onchange = loadFile;
 async function saveFile() {
-  try { await api('/api/file?name=' + encodeURIComponent($('file').value), {method: 'POST', body: $('raw').value}); toast('Kaydedildi'); load(); }
+  try { await api('/api/file?name=' + encodeURIComponent($('file').value), {method: 'POST', body: $('raw').value}); toast('Kaydedildi'); await load(); runPlan(); }
   catch (e) { toast('Kaydedilmedi: ' + e.message, true); }
 }
 

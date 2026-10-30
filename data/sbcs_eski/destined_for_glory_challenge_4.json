@@ -1,0 +1,45 @@
+{
+  "name": "Destined for Glory Challenge 4",
+  "formation": "4-5-1",
+  "min_chem": 24,
+  "size": 11,
+  "requirements": [
+    {
+      "type": "same",
+      "field": "league",
+      "min": 4
+    },
+    {
+      "type": "same",
+      "field": "club",
+      "max": 3
+    },
+    {
+      "type": "distinct",
+      "field": "club",
+      "min": 4
+    },
+    {
+      "type": "distinct",
+      "field": "nation",
+      "max": 2
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-10",
+  "source": "fut.gg 27-28-destined-for-glory-challenge-4 / 58",
+  "requirements_text": [
+    "Same league: Min. 4 players",
+    "Same club: Max. 3 players",
+    "Clubs: Min. 4",
+    "Nations: Max. 2",
+    "Quality: Min. Silver",
+    "Chemistry: Min. 24"
+  ],
+  "passive": true
+}

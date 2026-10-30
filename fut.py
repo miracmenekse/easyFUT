@@ -39,6 +39,28 @@ def load_json_dir(name):
             for p in sorted((DATA / name).glob("*.json"))]
 
 
+def veri_kontrol(sbcs, club, today=None):
+    """Plan güvenilir mi? Veri eksiklerini önceden söyler (plan ve arayüz her seferinde çağırır)."""
+    today = str(today or __import__("datetime").date.today())
+    w = []
+    for s in sbcs:
+        n, f = s.get("name", s.get("_file")), s.get("formation") or ""
+        if f and f not in FORMATIONS:
+            w.append(f"{n}: diziliş '{f}' tanınmıyor (solver.FORMATIONS)")
+        elif not f and (s.get("min_chem") or s.get("min_player_chem")):
+            w.append(f"{n}: kimya şartı var ama diziliş boş ({DEFAULT_FORMATION} varsayıldı), plan oyundakiyle uyuşmayabilir: "
+                     "dizilişi data/sbc_liste.json'a yaz")
+        if s.get("expires") and s["expires"] < today:
+            w.append(f"{n}: süresi dolmuş ({s['expires']})")
+    for c in club:
+        if not (c["league"] and c["nation"] and c["club"]) and c.get("rarity") not in ("icon", "hero"):
+            w.append(f"club.csv: {c['name']} {c['rating']} ülke/lig/kulüp boş, kimyası yanlış hesaplanır")
+    z = sum(1 for c in club if not c["value"] and not c["price"])
+    if z:
+        w.append(f"club.csv: {z} kartın değeri 0 (futgg.py deger), SBC maliyeti yanlış çıkar")
+    return w
+
+
 # ---------- ortak kurallar ----------
 
 def card_cost(card, fodder):
@@ -222,6 +244,17 @@ def replace_in_sbc(file, keep, drop, used, time_limit=30):
             kept.append(c | {"position": "", "positions": "", "_orig": c})
     ban = set(drop) | set(used) | {c["id"] for c in kept if c.get("source") == "kulüp"}
     pool = [c for c in club if not c.get("locked") and c["id"] not in ban]
+    if sbc.get("min_score"):  # streamlined: diziliş yok, kalan item score kulüpten tamamlanır
+        kept = [c.get("_orig", c) for c in kept]
+        rest = sbc["min_score"] - sum(c.get("value") or 0 for c in kept)
+        pick = [] if rest <= 0 else score_pick(sbc | {"min_score": rest}, pool, fodder, 30 - len(kept))
+        if pick is None:
+            raise ValueError("kalan kulüp kartlarının item score'u bu SBC'ye yetmiyor")
+        chosen = [("?", c) for c in kept + pick]
+        rows, chem = solver.describe(chosen)
+        got = sum(c.get("value") or 0 for _, c in chosen)
+        return {"slots": rows, "missing": [], "checks": [(f"Item score en az {sbc['min_score']} (şu an {got})", True)],
+                "chem": chem, "rating": 0, "proven": True}
     tablo = lambda r: fodder.get(r, max(fodder.values()) if fodder and r > max(fodder) else 0)
     chosen, proven = solver.partial(sbc | {"fixed": kept}, pool, [int(card_cost(c, fodder)) for c in pool],
                                     [(r, tablo(r)) for r in range(45, 100)], wild_profiles(sbc, club), time_limit)
@@ -248,8 +281,10 @@ def complete_sbc(file, cards, today=None):
         fields, rows = r.fieldnames, list(r)
     out = {"silinen": [], "kopyasi_kalan": [], "bulunamayan": []}
     for c in cards:
+        # kilitli (aktif kadro) satır asla silinmez: SBC'ye giden kart aynı adlı kilitsiz kopyadır
         i = next((i for i, row in enumerate(rows) if row["name"] == c["name"] and str(row["rating"]) == str(c["rating"])
-                  and row.get("club", "") == (c.get("club") or row.get("club", ""))), None)
+                  and row.get("club", "") == (c.get("club") or row.get("club", ""))
+                  and row.get("locked", "").strip().lower() not in YES), None)
         if i is None:
             out["bulunamayan"].append(c["name"])
         elif rows[i].get("duplicate", "").strip().lower() in YES:
@@ -355,7 +390,10 @@ def cmd_fiyat(a):
 def cmd_plan(a):
     club, fodder = load_club(), load_fodder_prices()
     print("BUGÜNÜN LİSTESİ (tıklamaları oyunda sen yap)\n")
-    p = plan_max(load_json_dir("sbcs"), club, fodder, a.butce)
+    sbcs = load_json_dir("sbcs")
+    for u in veri_kontrol(sbcs, club):
+        print("UYARI:", u)
+    p = plan_max(sbcs, club, fodder, a.butce)
     print(f"SBC: {len(p['done'])}/{p['total']} yapılabilir ({p['status']}), harcama {p['spent']} coin (bütçe {a.butce})\n")
     n = 1
     for sbc, s in p["done"]:

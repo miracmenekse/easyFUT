@@ -15,5 +15,6 @@
   "source": "fut.gg 27-39-bundesliga-potm-september / 72",
   "requirements_text": [
     "Rating: Min. 45"
-  ]
+  ],
+  "passive": true
 }

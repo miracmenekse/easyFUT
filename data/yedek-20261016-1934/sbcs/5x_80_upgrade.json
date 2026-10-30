@@ -1,0 +1,20 @@
+{
+  "name": "5x 80+ Upgrade",
+  "formation": "",
+  "size": 0,
+  "min_score": 6750,
+  "requirements": [],
+  "card_filter": [
+    {
+      "field": "rating",
+      "gte": 45
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-13",
+  "source": "fut.gg 27-48-5x-80-upgrade / 85",
+  "requirements_text": [
+    "Rating: Min. 45"
+  ],
+  "passive": true
+}

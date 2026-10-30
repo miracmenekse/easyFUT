@@ -1,0 +1,224 @@
+[
+ {
+  "set": "EFL Championship Future Stars Pick",
+  "challenge": "EFL Championship Future Stars Pick",
+  "formation": "",
+  "file": "efl_championship_future_stars_pick.json"
+ },
+ {
+  "set": "Carlos Espí",
+  "challenge": "Carlos Espí",
+  "formation": "",
+  "file": "carlos_espi.json"
+ },
+ {
+  "set": "TOTW Upgrade",
+  "challenge": "TOTW Upgrade",
+  "formation": "",
+  "file": "totw_upgrade.json"
+ },
+ {
+  "set": "Weslley Pinto Batista",
+  "challenge": "Weslley Pinto Batista",
+  "formation": "",
+  "file": "weslley_pinto_batista.json"
+ },
+ {
+  "set": "Marquee Matchups",
+  "challenge": "RB Leipzig v Eintracht Frankfurt",
+  "formation": "",
+  "file": "rb_leipzig_v_eintracht_frankfurt.json"
+ },
+ {
+  "set": "Marquee Matchups",
+  "challenge": "Como 1907 v AS Roma",
+  "formation": "",
+  "file": "como_1907_v_as_roma.json"
+ },
+ {
+  "set": "Marquee Matchups",
+  "challenge": "Real Madrid v Villarreal CF",
+  "formation": "",
+  "file": "real_madrid_v_villarreal_cf.json"
+ },
+ {
+  "set": "Marquee Matchups",
+  "challenge": "Liverpool v Manchester City",
+  "formation": "",
+  "file": "liverpool_v_manchester_city.json"
+ },
+ {
+  "set": "Max. 86 Base Hero Upgrade",
+  "challenge": "Max. 86 Base Hero Upgrade",
+  "formation": "",
+  "file": "max_86_base_hero_upgrade.json"
+ },
+ {
+  "set": "Liga F POTM September",
+  "challenge": "Liga F POTM September",
+  "formation": "",
+  "file": "liga_f_potm_september.json"
+ },
+ {
+  "set": "5x 80+ Upgrade",
+  "challenge": "5x 80+ Upgrade",
+  "formation": "",
+  "file": "5x_80_upgrade.json"
+ },
+ {
+  "set": "3x 79+ Upgrade",
+  "challenge": "3x 79+ Upgrade",
+  "formation": "",
+  "file": "3x_79_upgrade.json"
+ },
+ {
+  "set": "Tarciane",
+  "challenge": "Tarciane",
+  "formation": "",
+  "file": "tarciane.json"
+ },
+ {
+  "set": "LALIGA POTM September",
+  "challenge": "LALIGA POTM September",
+  "formation": "",
+  "file": "laliga_potm_september.json"
+ },
+ {
+  "set": "Premier League POTM September",
+  "challenge": "Premier League POTM September",
+  "formation": "",
+  "file": "premier_league_potm_september.json"
+ },
+ {
+  "set": "Bundesliga POTM September",
+  "challenge": "Bundesliga POTM September",
+  "formation": "",
+  "file": "bundesliga_potm_september.json"
+ },
+ {
+  "set": "Serie A POTM September",
+  "challenge": "Serie A POTM September",
+  "formation": "",
+  "file": "serie_a_potm_september.json"
+ },
+ {
+  "set": "Intro to Player SBCs",
+  "challenge": "Intro to Player SBCs",
+  "formation": "",
+  "file": "intro_to_player_sbcs.json"
+ },
+ {
+  "set": "Gold Upgrade",
+  "challenge": "Gold Upgrade",
+  "formation": "",
+  "file": "gold_upgrade.json"
+ },
+ {
+  "set": "Silver Upgrade",
+  "challenge": "Silver Upgrade",
+  "formation": "",
+  "file": "silver_upgrade.json"
+ },
+ {
+  "set": "Bronze Upgrade",
+  "challenge": "Bronze Upgrade",
+  "formation": "",
+  "file": "bronze_upgrade.json"
+ },
+ {
+  "set": "League & Nation Advanced",
+  "challenge": "3 Leagues & 2 Nations",
+  "formation": "",
+  "file": "3_leagues_2_nations.json"
+ },
+ {
+  "set": "League & Nation Advanced",
+  "challenge": "4 Leagues & 5 Nations",
+  "formation": "4-1-4-1",
+  "file": "4_lig_5_ulke.json"
+ },
+ {
+  "set": "League & Nation Advanced",
+  "challenge": "5 Leagues & 6 Nations",
+  "formation": "3-1-4-2",
+  "file": "5_lig_6_ulke.json"
+ },
+ {
+  "set": "Gold Re-Roll",
+  "challenge": "Gold Re-Roll",
+  "formation": "",
+  "file": "gold_re_roll.json"
+ },
+ {
+  "set": "Bronze and Silver Re-roll",
+  "challenge": "Bronze and Silver Re-roll",
+  "formation": "",
+  "file": "bronze_and_silver_re_roll.json"
+ },
+ {
+  "set": "Intro to Streamlined SBCs",
+  "challenge": "A New Signing",
+  "formation": "",
+  "file": "a_new_signing.json"
+ },
+ {
+  "set": "Intro to Streamlined SBCs",
+  "challenge": "The Bronze and Silver Lining",
+  "formation": "",
+  "file": "the_bronze_and_silver_lining.json"
+ },
+ {
+  "set": "Intro to Streamlined SBCs",
+  "challenge": "The Royal SBC",
+  "formation": "",
+  "file": "the_royal_sbc.json"
+ },
+ {
+  "set": "Intro to Streamlined SBCs",
+  "challenge": "The Multi Submit",
+  "formation": "",
+  "file": "the_multi_submit.json"
+ },
+ {
+  "set": "Intro to Upgrade SBCs",
+  "challenge": "Room To Grow",
+  "formation": "4-2-2-2",
+  "file": "room_to_grow.json"
+ },
+ {
+  "set": "Intro to Upgrade SBCs",
+  "challenge": "Build Up Play",
+  "formation": "",
+  "file": "build_up_play.json"
+ },
+ {
+  "set": "Intro to Upgrade SBCs",
+  "challenge": "Raw Power",
+  "formation": "",
+  "file": "raw_power.json"
+ },
+ {
+  "set": "Intro to SBCs",
+  "challenge": "Break Away",
+  "formation": "",
+  "file": "break_away.json"
+ },
+ {
+  "set": "Intro to SBCs",
+  "challenge": "A Brace",
+  "formation": "",
+  "file": "a_brace.json"
+ },
+ {
+  "set": "Intro to SBCs",
+  "challenge": "Hat-trick",
+  "formation": "",
+  "file": "hat_trick.json"
+ },
+ {
+  "set": "Intro to SBCs",
+  "challenge": "A Pair Of Pairs",
+  "formation": "",
+  "file": "a_pair_of_pairs.json"
+ }
+]

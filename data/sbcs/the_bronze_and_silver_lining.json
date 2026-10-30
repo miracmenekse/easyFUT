@@ -1,0 +1,21 @@
+{
+  "name": "The Bronze and Silver Lining",
+  "formation": "",
+  "size": 0,
+  "min_score": 100,
+  "requirements": [],
+  "card_filter": [
+    {
+      "field": "rating",
+      "gte": 45,
+      "lte": 74
+    }
+  ],
+  "repeat": 1,
+  "expires": "2035-08-20",
+  "source": "fut.gg 27-7-getting-started / 20",
+  "requirements_text": [
+    "Rating: 45 to 74"
+  ],
+  "completed": "2026-10-10"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Weslley Pinto Batista",
+  "formation": "",
+  "size": 0,
+  "min_score": 11800,
+  "requirements": [],
+  "card_filter": [
+    {
+      "field": "rating",
+      "gte": 45
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-15",
+  "source": "fut.gg 27-44-weslley-pinto-batista / 78",
+  "requirements_text": [
+    "Rating: Min. 45"
+  ],
+  "passive": true
+}

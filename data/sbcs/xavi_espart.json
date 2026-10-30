@@ -1,0 +1,19 @@
+{
+  "name": "Xavi Espart",
+  "formation": "",
+  "size": 0,
+  "min_score": 34000,
+  "requirements": [],
+  "card_filter": [
+    {
+      "field": "rating",
+      "gte": 45
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-20",
+  "source": "fut.gg 27-50-xavi-espart / 87",
+  "requirements_text": [
+    "Rating: Min. 45"
+  ]
+}

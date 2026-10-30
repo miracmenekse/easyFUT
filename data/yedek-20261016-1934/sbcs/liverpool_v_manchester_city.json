@@ -1,0 +1,46 @@
+{
+  "name": "Liverpool v Manchester City",
+  "formation": "",
+  "min_rating": 75,
+  "min_chem": 26,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "club",
+      "in": [
+        "Liverpool",
+        "Manchester City"
+      ],
+      "min": 2
+    },
+    {
+      "field": "league",
+      "in": [
+        "Premier League"
+      ],
+      "min": 3
+    },
+    {
+      "type": "distinct",
+      "field": "club",
+      "min": 3
+    },
+    {
+      "type": "same",
+      "field": "nation",
+      "max": 4
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-15",
+  "source": "fut.gg 27-36-marquee-matchups / 69",
+  "requirements_text": [
+    "Club: Min. 2 players from Liverpool or Manchester City",
+    "League: Min. 3 players from Premier League",
+    "Clubs: Min. 3",
+    "Same nation: Max. 4 players",
+    "Team rating: Min. 75",
+    "Chemistry: Min. 26"
+  ],
+  "completed": "2026-10-10"
+}

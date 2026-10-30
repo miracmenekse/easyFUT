@@ -1,0 +1,47 @@
+{
+  "name": "Juventus FC v SS Lazio",
+  "formation": "",
+  "min_chem": 18,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "club",
+      "in": [
+        "Juventus FC",
+        "SS Lazio"
+      ],
+      "min": 1
+    },
+    {
+      "type": "same",
+      "field": "club",
+      "max": 2
+    },
+    {
+      "type": "distinct",
+      "field": "league",
+      "min": 3
+    },
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 2
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-22",
+  "source": "fut.gg 27-45-marquee-matchups / 80",
+  "requirements_text": [
+    "Club: Min. 1 player from Juventus FC or SS Lazio",
+    "Same club: Max. 2 players",
+    "Leagues: Min. 3",
+    "Quality: Min. 2 Gold players",
+    "Quality: Min. Silver",
+    "Chemistry: Min. 18"
+  ]
+}

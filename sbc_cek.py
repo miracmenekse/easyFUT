@@ -1,13 +1,15 @@
 """SBC şartlarını FUT.GG'den (EA'nın kendi şart metinleri) çekip data/sbcs/*.json üretir.
 
-Hangi SBC'lerin açık olduğu ve dizilişler data/sbc_liste.json'dan gelir (FC Companion / Web App'ten):
+FUT.GG'de açık olan bütün SBC'ler alınır; liste data/sbc_liste.json'a yazılır. FUT.GG dizilişi vermez:
+dizilişi orada elle düzelt (boş = varsayılan 4-3-3), sonraki çekimde korunur:
   [{"set": "League & Nation Advanced", "challenge": "4 Leagues & 5 Nations", "formation": "4-1-4-1",
     "file": "4_lig_5_ulke.json"}, ...]
-.venv/bin/python sbc_cek.py            # çek, çevir, yaz (tanınmayan şart metni varsa hiçbir şey yazmadan durur)
+.venv/bin/python sbc_cek.py            # çek, çevir, yaz; şart metni tanınmayan SBC atlanır ve listelenir
 .venv/bin/python sbc_cek.py kontrol    # sadece çevir ve göster, dosya yazma
 Dosyada zaten olan passive / completed / reward_value / notes / fixed alanları korunur.
+FUT.GG'de artık olmayan (süresi dolmuş) SBC dosyaları data/sbcs_eski/'ye taşınır.
 """
-import json, re, sys, time, urllib.request
+import json, re, sys, time, unicodedata, urllib.request
 from pathlib import Path
 
 import solver
@@ -73,7 +75,7 @@ def parse(texts, known):
             reqs.append({"type": "same", "field": SAME[m[1]], lim(m[2]): int(m[3])})
         elif m := re.fullmatch(r"Quality: (Bronze|Silver|Gold) only", s):
             reqs.append({"field": "rating", **QUALITY[m[1].lower()], "min": "SIZE"})
-        elif m := re.fullmatch(r"Quality: (Min\.|Max\.) (\d+) (Bronze|Silver|Gold) players", s):
+        elif m := re.fullmatch(r"Quality: (Min\.|Max\.) (\d+) (Bronze|Silver|Gold) players?", s):
             reqs.append({"field": "rating", **QUALITY[m[3].lower()], lim(m[1]): int(m[2])})
         elif m := re.fullmatch(r"Quality: Min\. (Bronze|Silver|Gold)", s):
             if QMIN[m[1].lower()]:
@@ -84,6 +86,8 @@ def parse(texts, known):
             out["min_chem"] = int(m[1])
         elif m := re.fullmatch(r"(Nation|League|Club): (Min\.|Max\.) (\d+) players? from (.+)", s):
             reqs.append({"field": m[1].lower(), "in": m[4].split(" or "), lim(m[2]): int(m[3])})
+        elif m := re.fullmatch(r"Rating: (Min\.|Max\.) (\d+) players? rated (\d+)(\+| or lower)", s):
+            reqs.append({"field": "rating", ("gte" if m[4] == "+" else "lte"): int(m[3]), lim(m[1]): int(m[2])})
         elif m := re.fullmatch(r"Players: (\d+)", s):
             size = int(m[1])
         elif m := re.fullmatch(r"Number of players: (\d+)", s, re.I):
@@ -105,41 +109,53 @@ def parse_filter(texts):
             out.append({"field": "rating", "gte": int(m[1])})
         elif m := re.fullmatch(r"Quality: (Bronze|Silver|Gold) only", t.strip()):
             out.append({"field": "rating", **QUALITY[m[1].lower()]})
+        elif m := re.fullmatch(r"Rating: (\d+) to (\d+)", t.strip()):
+            out.append({"field": "rating", "gte": int(m[1]), "lte": int(m[2])})
+        elif m := re.fullmatch(r"(Nation|League|Club): (.+)", t.strip()):
+            out.append({"field": m[1].lower(), "in": m[2].split(" or ")})
         else:
             raise ValueError(f"tanınmayan streamlined şartı: '{t}'")
     return out
 
 
+def dosya_adi(ad):
+    ad = "".join(c for c in unicodedata.normalize("NFKD", ad) if not unicodedata.combining(c))
+    return re.sub(r"[^a-z0-9]+", "_", ad.lower()).strip("_") + ".json"
+
+
 def main():
-    liste = json.load(open(DATA / "sbc_liste.json", encoding="utf-8"))
+    eski_liste = {(e["set"], e["challenge"]): e for e in json.load(open(DATA / "sbc_liste.json", encoding="utf-8"))}
     known = known_values()
     sets, page = [], 1
     while page:
         d = get(f"{API}?page={page}")
-        sets += d["data"]
+        sets += [s for s in d["data"] if not s["isExpired"]]
         page = d.get("next")
         time.sleep(0.3)
-    detay, yaz = {}, []
-    for e in liste:
-        s = next((s for s in sets if s["name"] == e["set"]), None)
-        if not s:
-            sys.exit(f"FUT.GG'de set yok: {e['set']}")
-        if s["slug"] not in detay:
-            detay[s["slug"]] = get(f"{API}{s['slug']}/")["data"]
-            time.sleep(0.3)
-        c = next((c for c in detay[s["slug"]]["challenges"] if c["name"] == e["challenge"]), None)
-        if not c:
-            sys.exit(f"{e['set']} içinde görev yok: {e['challenge']}")
-        if e["formation"] and e["formation"] not in solver.FORMATIONS:  # streamlined: diziliş yok
-            sys.exit(f"{e['challenge']}: diziliş {e['formation']} solver.FORMATIONS'ta yok")
-        try:
-            if c.get("scoreRequirement"):  # streamlined: kart sayısı serbest (en çok 30), toplam item score eşiği
-                p = {"size": 0, "min_score": c["scoreRequirement"], "requirements": [],
-                     "card_filter": parse_filter(c["requirementsText"])}
-            else:
-                p = parse(c["requirementsText"], known)
-        except ValueError as err:
-            sys.exit(f"{e['challenge']}: {err}")
+    liste, yaz, atlanan, dizilissiz = [], [], [], []
+    for s in sets:
+        for c in get(f"{API}{s['slug']}/")["data"]["challenges"]:
+            e = eski_liste.get((s["name"], c["name"])) or {"set": s["name"], "challenge": c["name"], "formation": "",
+                                                           "file": dosya_adi(c["name"])}
+            liste.append(e)
+            if e["formation"] and e["formation"] not in solver.FORMATIONS:  # streamlined: diziliş yok
+                atlanan.append(f"{e['challenge']}: diziliş {e['formation']} solver.FORMATIONS'ta yok")
+                continue
+            try:
+                if c.get("scoreRequirement"):  # streamlined: kart sayısı serbest (en çok 30), toplam item score eşiği
+                    p = {"size": 0, "min_score": c["scoreRequirement"], "requirements": [],
+                         "card_filter": parse_filter(c["requirementsText"])}
+                else:
+                    p = parse(c["requirementsText"], known)
+            except ValueError as err:
+                atlanan.append(f"{e['challenge']}: {err}")
+                continue
+            if not e["formation"] and (p.get("min_chem") or p.get("min_player_chem")):
+                dizilissiz.append(e["challenge"])
+            yaz.append((e, s, c, p))
+        time.sleep(0.3)
+    sonuc = []
+    for e, s, c, p in yaz:
         rep = s["numberOfRepeats"] if s["repeatabilityMode"] == "REFRESH" else 1
         sbc = {"name": e["challenge"], "formation": e["formation"], **p, "repeat": rep,
                "expires": s["endTime"][:10], "source": f"fut.gg {s['slug']} / {c['eaId']}",
@@ -148,19 +164,29 @@ def main():
             sbc["notes_repeat"] = "sınırsız tekrarlanabilir: planda bir kez"
         path = DATA / "sbcs" / e["file"]
         old = json.load(open(path, encoding="utf-8")) if path.exists() else {}
-        for k in ("reward_value", "notes", "fixed"):  # açık SBC listesi: pasif/tamamlandı işareti sıfırlanır
+        for k in ("reward_value", "notes", "fixed", "passive", "completed"):
             if k in old:
                 sbc[k] = old[k]
-        yaz.append((path, sbc, old))
-        print(f"{e['challenge']:28s} {e['formation']:11s} tekrar {rep} | " +
+        sonuc.append((path, sbc))
+        print(f"{e['challenge']:28s} {e['formation'] or '-':11s} tekrar {rep} | " +
               " | ".join(c["requirementsText"]))
+    eskiyen = [f for f in (DATA / "sbcs").glob("*.json") if f.name not in {e["file"] for e in liste}]
+    for m in atlanan:
+        print("ATLANDI (şart metni tanınmadı, elle ekle):", m)
+    if dizilissiz:
+        print(f"Kimya şartı var, diziliş bilinmiyor ({solver.DEFAULT_FORMATION} varsayıldı): " + ", ".join(dizilissiz))
     if sys.argv[1:] == ["kontrol"]:
-        for path, sbc, old in yaz:
+        for path, sbc in sonuc:
             print(path.name, json.dumps({k: v for k, v in sbc.items() if k != "requirements_text"}, ensure_ascii=False))
+        print("FUT.GG'de artık yok:", ", ".join(f.name for f in eskiyen) or "-")
         return
-    for path, sbc, old in yaz:
+    for path, sbc in sonuc:
         path.write_text(json.dumps(sbc, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"{len(yaz)} SBC yazıldı.")
+    (DATA / "sbc_liste.json").write_text(json.dumps(liste, ensure_ascii=False, indent=1), encoding="utf-8")
+    for f in eskiyen:
+        f.rename(DATA / "sbcs_eski" / f.name)
+    print(f"{len(sonuc)} SBC yazıldı; süresi dolan {len(eskiyen)} dosya sbcs_eski/'ye taşındı" +
+          (": " + ", ".join(f.name for f in eskiyen) if eskiyen else "."))
 
 
 if __name__ == "__main__":

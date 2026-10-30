@@ -15,5 +15,6 @@
   "source": "fut.gg 27-33-laliga-potm-september / 63",
   "requirements_text": [
     "Rating: Min. 45"
-  ]
+  ],
+  "passive": true
 }

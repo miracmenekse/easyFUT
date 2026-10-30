@@ -8,7 +8,7 @@ import fut
 PORT = 8765
 ROOT = fut.DATA.parent
 CLUB_COLS = ["name", "rating", "position", "positions", "nation", "league", "club", "rarity", "tradeable", "duplicate",
-             "locked", "price", "value"]
+             "locked", "price", "value", "gender"]
 
 
 _fut_mtime = [0]
@@ -47,7 +47,8 @@ def state():
             "fodder": fut.load_fodder_prices(),
             "sbcs": fut.load_json_dir("sbcs"),
             "evos": fut.load_json_dir("evos"),
-            "formations": list(fut.FORMATIONS)}
+            "formations": list(fut.FORMATIONS),
+            "icons": json.loads((fut.DATA / "semboller.json").read_text()) if (fut.DATA / "semboller.json").exists() else {}}
 
 
 _plan_lock, _plan_cache = threading.Lock(), {}
@@ -71,8 +72,9 @@ def plan(budget, time_limit=0):
 
 
 def _plan(budget, time_limit):
-    p = fut.plan_max(fut.load_json_dir("sbcs"), fut.load_club(), fut.load_fodder_prices(), budget, time_limit, 20)
-    return {"total": p["total"], "spent": p["spent"], "status": p["status"],
+    sbcs, club = fut.load_json_dir("sbcs"), fut.load_club()
+    p = fut.plan_max(sbcs, club, fut.load_fodder_prices(), budget, time_limit, 20)
+    return {"uyarilar": fut.veri_kontrol(sbcs, club), "total": p["total"], "spent": p["spent"], "status": p["status"],
             "done": [{"sbc": s, "spend": r["spend"], "used": r["used"], "net": r["net"], "rating": r["rating"],
                       "gallery": r["gallery"],
                       "chem": r["chem"], "checks": r["checks"],

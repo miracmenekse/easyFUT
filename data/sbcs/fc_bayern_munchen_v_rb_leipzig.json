@@ -1,0 +1,37 @@
+{
+  "name": "FC Bayern München v RB Leipzig",
+  "formation": "",
+  "min_chem": 14,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "club",
+      "in": [
+        "FC Bayern München",
+        "RB Leipzig"
+      ],
+      "min": 1
+    },
+    {
+      "type": "distinct",
+      "field": "club",
+      "max": 4
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "lte": 74,
+      "min": 3
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-22",
+  "source": "fut.gg 27-45-marquee-matchups / 79",
+  "requirements_text": [
+    "Club: Min. 1 player from FC Bayern München or RB Leipzig",
+    "Clubs: Max. 4",
+    "Quality: Min. 3 Silver players",
+    "Quality: Min. Bronze",
+    "Chemistry: Min. 14"
+  ]
+}

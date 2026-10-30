@@ -1,8 +1,16 @@
 # FUT Asistanı: Claude için çalışma notları
 
 Kullanıcı (Mirac, Türkçe konuşur) FC 27 ekran görüntülerini bu oturuma atar. Senin işin görüntüyü `data/` altındaki dosyalara çevirmek. EA'ya hiçbir şekilde bağlanma, otomasyon kurma.
-Tek istisna (kullanıcı istedi): Web App kulüp listesini `webapp_ekran.py` ile salt okuma olarak kaydırıp ekran
-görüntüsü almak. Satın alma, satma, SBC gönderme gibi hiçbir işlem yapma; sayfaya kod enjekte etme.
+Tek istisna (kullanıcı istedi): Web App kulüp listesini ve SBC listesini `webapp_ekran.py` ile salt okuma olarak
+kaydırıp ekran görüntüsü almak; aktif kadro ekranında yalnızca Subs/Res panelini açıp kapatmak; yarım SBC setinin
+başlığına tıklayıp içini görüntüleyip geri okuyla dönmek (Squad Builder / Exchange / Submit'e asla).
+SBC şartları FUT.GG'den gelir (`sbc_cek.py`, açık SBC'lerin hepsi). Web App SBC listesi yalnızca hangi SBC'lerin
+tamamlandığını gösterir: biten set listede kalır, sağ üstte yeşil tik ve dolu çubuk ("4/4 SBCs", "1,000/1,000") olur
+(2026-10-10 doğrulandı). O setin bütün görevlerine `completed` yaz. "Repeatable: 0" + sayaç = tekrar hakkı geçici
+bitti, birazdan yenilenir: işaretleme. Çok görevli sette yarım ilerleme ("2/4 SBCs") hangi görevlerin bittiğini
+söylemez: `webapp_ekran.py sbc-ic ekran_sbc/ KK:x:y` (kullanıcı izniyle 2026-10-10: yalnızca set başlığına ve
+geri okuna tıklar, her adımda ekranı kayıtla karşılaştırır) komutunu ver; KK:x:y = sbc_KK.png'de set başlığının
+pikseli (yıldız ikonundan uzak). Sonra yalnızca yeşil tikli görevleri işaretle. Satın alma, satma, SBC gönderme gibi hiçbir işlem yapma; sayfaya kod enjekte etme.
 
 ## Yeniden başlatma gerekmez
 - Arayüz (`ui.py`, http://127.0.0.1:8765) veri dosyalarını her istekte diskten okur. Sayfa 3 saniyede bir değişiklik yoklar, yeni veri gelince planı kendisi yeniden hesaplar.
@@ -72,7 +80,7 @@ Görüntüdeki şartların karşılığı:
 - **Kontrol:** Her dosyayı yazdıktan sonra `python3 -m json.tool dosya.json >/dev/null` ile doğrula. En sonda `.venv/bin/python fut.py plan` ile sonucu kontrol et ve kullanıcıya kısa bir özet ver: kaç SBC eklendi, kaçı yapılabilir.
 
 ## Kulübü Web App'ten okuma → `data/club.csv`
-Kullanıcı "kulübü güncelle" derse (Firefox'ta Web App > Club > Players açık, %67 yakınlaştırma):
+Kullanıcı "kulübü güncelle" derse `kulup-guncelle` becerisini yükle (sıra, ana makine ayarı, kadro kilidi):
 1. `.venv/bin/python webapp_ekran.py ekran/` görüntüleri alır (sadece tekerlek + Next; sayfaya kod enjekte etme,
    konsol kullanma: kullanıcı "güvenlik protokolleri" nedeniyle istemiyor). Başka çözünürlükte önce bir ekran
    görüntüsüne bakıp betikteki KUTU / NEXT / PREV koordinatlarını düzelt.
@@ -111,6 +119,9 @@ kullanıcının ekran görüntüsüyle karşılaştırmadan club.csv'ye ekleme. 
 ## Aktif kadro (SBC'ye girmesin)
 Kullanıcının oyunda kullandığı ilk 11 + yedekler SBC'de harcanmamalı. Bunlar `data/club.csv`'de
 `locked=evet` ile işaretlenir; `solver.py` kilitli kartları havuza hiç almaz.
+  Galeri puanlı (streamlined) SBC'ler de kartları kulüpten siler: kilitliler orada da havuza girmez
+  (`fut.py` `left`), "yapıldı" (`complete_sbc`) kilitli satırı asla silmez. Oyunda Work Area'da
+  **Auto-Select kullanılmamalı**: EA aktif kadro kartlarını da seçebilir; planın gösterdiği kartlar elle konur.
 - Kullanıcı kadro ekran görüntüsü atarsa: görüntüdeki her kartı reyting+pozisyon+ülke ile club.csv'de
   bul ve `locked=evet` yap. Önce eski kilitleri temizle (kadro değişmiş olabilir).
 - Emin olamadığın kartı kilitleme, kullanıcıya sor — yanlış kilit iyi bir kartı plandan çıkarır.

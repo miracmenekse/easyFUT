@@ -1,0 +1,45 @@
+{
+  "name": "3 Leagues & 2 Nations",
+  "formation": "",
+  "min_chem": 30,
+  "size": 11,
+  "requirements": [
+    {
+      "type": "distinct",
+      "field": "league",
+      "exact": 3
+    },
+    {
+      "type": "distinct",
+      "field": "nation",
+      "exact": 2
+    },
+    {
+      "type": "same",
+      "field": "league",
+      "max": 6
+    },
+    {
+      "type": "same",
+      "field": "nation",
+      "max": 6
+    },
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2035-08-31",
+  "source": "fut.gg 27-10-league-nation-advanced / 25",
+  "requirements_text": [
+    "Leagues: Exactly 3",
+    "Nations: Exactly 2",
+    "Same league: Max. 6 players",
+    "Same nation: Max. 6 players",
+    "Quality: Gold only",
+    "Chemistry: Min. 30"
+  ],
+  "completed": "2026-10-10"
+}

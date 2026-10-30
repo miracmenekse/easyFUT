@@ -15,5 +15,6 @@
   "source": "fut.gg 27-32-serie-a-potm-september / 62",
   "requirements_text": [
     "Rating: Min. 45"
-  ]
+  ],
+  "passive": true
 }

@@ -1,0 +1,50 @@
+{
+  "name": "Real Madrid v Villarreal CF",
+  "formation": "",
+  "min_chem": 22,
+  "size": 11,
+  "requirements": [
+    {
+      "field": "club",
+      "in": [
+        "Real Madrid",
+        "Villarreal CF"
+      ],
+      "min": 2
+    },
+    {
+      "field": "league",
+      "in": [
+        "LALIGA EA SPORTS"
+      ],
+      "min": 3
+    },
+    {
+      "type": "same",
+      "field": "league",
+      "max": 4
+    },
+    {
+      "field": "rating",
+      "gte": 75,
+      "min": 1
+    },
+    {
+      "field": "rating",
+      "gte": 65,
+      "min": 11
+    }
+  ],
+  "repeat": 1,
+  "expires": "2026-10-15",
+  "source": "fut.gg 27-36-marquee-matchups / 68",
+  "requirements_text": [
+    "Club: Min. 2 players from Real Madrid or Villarreal CF",
+    "League: Min. 3 players from LALIGA EA SPORTS",
+    "Same league: Max. 4 players",
+    "Quality: Min. 1 Gold player",
+    "Quality: Min. Silver",
+    "Chemistry: Min. 22"
+  ],
+  "completed": "2026-10-10"
+}

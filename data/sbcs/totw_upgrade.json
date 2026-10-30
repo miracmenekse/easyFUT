@@ -11,9 +11,10 @@
     }
   ],
   "repeat": 1,
-  "expires": "2026-10-09",
-  "source": "fut.gg 27-40-totw-upgrade / 74",
+  "expires": "2026-10-16",
+  "source": "fut.gg 27-55-totw-upgrade / 92",
   "requirements_text": [
     "Rating: Min. 45"
-  ]
+  ],
+  "completed": "2026-10-10"
 }
